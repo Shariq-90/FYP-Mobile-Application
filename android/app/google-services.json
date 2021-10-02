@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "112976104701",
+    "project_id": "vaccinationapp-20fa2",
+    "storage_bucket": "vaccinationapp-20fa2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112976104701:android:ea040d5499790ec3594294",
+        "android_client_info": {
+          "package_name": "com.workerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112976104701-mjl74qd5p9vm6mm4rj2lsq9uerebe41q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkCI6WT5h9OWLN3KSOg4ByHOZoqY-6skg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112976104701-mjl74qd5p9vm6mm4rj2lsq9uerebe41q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
