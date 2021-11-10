@@ -1,57 +1,94 @@
 import React, { useState } from 'react'
-import { View, Modal, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Modal, StyleSheet,Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import ChildDetails from '../Parent/ChildrenInformation/ChildDetails';
 import ChildrenInfoModal from '../Parent/ChildrenInformation/ChildrenInfoModal';
-
+import { Avatar, Button, Card, Title, Text } from 'react-native-paper';
+import UpdateVaccinationDetails from './UpdateVaccinationDetails.js';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input } from 'react-native-elements';
 function WorkerDashboard() {
+  const child_details = (name, dob) => {
+    return (
+      <View>
+        <Text style={styles.subtitle}>Parent Name: {name}</Text>
+        {/* <Text style={styles.subtitle}>DOB: {dob}</Text> */}
+      </View>
+    )
+  }
   const [modalVisible, setModalVisible] = useState(false);
   const [childid, setchildid] = useState(0);
   const closeModal = () => {
     setModalVisible(false);
   }
+  const LeftContent = props => <Avatar.Icon {...props} icon={() => (
+    <Image
+      source={require('../../assets/images/baby.png')}
+      style={{ width: 55, height: 55, borderRadius: 20 }}
+    />
+  )} size={40} />
+
   return (
     <ScrollView>
-      <View >
-        <TextInput
-          style={{ backgroundColor: '#f2f9fc', textAlign: 'center', fontWeight: 'bold', fontSize: 20, width: 200, borderRadius: 10, alignSelf: 'flex-end' }}
-          placeholder='Search Child ID' placeholderTextColor="#00000087" />
-        <View >
-          <View style={{ marginTop: 20 }}>
-            <Text style={{ fontSize: 20, alignSelf: 'center', marginBottom: 8 }}>Child Information</Text>
-            {ChildDetails.map(data => {
-              return (
-                <View key={data.id} style={{ flexDirection: 'row', marginTop: 16, alignItems: 'center', paddingHorizontal: 12 }}>
-                  <TextInput
-                    style={{ backgroundColor: '#eee', fontWeight: 'bold', fontSize: 16, width: 200, borderRadius: 10, paddingLeft: 15 }}
-                    placeholder='Children Name' value={data.name} placeholderTextColor="#00000087" />
-                  <TouchableOpacity style={{ backgroundColor: 'white' }}
-                    onPress={() => {
-                      setchildid(data.id);
-                      setModalVisible(true);
-                    }}
-                  >
-                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 10 }}>View Details</Text>
-                  </TouchableOpacity>
-
-                </View>
-              )
-            })}
-            <Modal
-              animationType="slide"
-              visible={modalVisible}
-              transparent={true}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <ChildrenInfoModal closeModal={closeModal}
-                childid={childid}
+      <View style={styles.container}>
+        <View style = {styles.searchIcon}>
+          <Input
+            placeholder='Search Child Id'
+            rightIcon={
+              <Icon
+                name='search'
+                size={20}
+                color='black'
               />
-            </Modal>
-          </View>
+            }
+          />
         </View>
+        <View style={{
+          flex: 1,
+          alignItems: 'center',
+        }}>
+          <Text style={{
+            fontSize: 30,
+            fontWeight: 'bold'
+          }}>Children Information</Text>
+        </View>
+        <View style={{
+          padding: 20
+        }}>
+          {ChildDetails.map((u, i) => {
+            return (
+              <Card key={u.id} id={u.id} onPress={() => {
+                setchildid(u.id);
+                setModalVisible(true);
+              }} style={{
+                marginBottom: 16,
+                borderRadius: 30,
+                borderWidth: 1,
+                borderColor: 'black',
+              }}>
+                <Card.Title title={u.name}
+                  // subtitleStyle={{ marginBottom: 2 }}
+                  subtitle={child_details(u.parentName,
+                    u.dateOfBirth)}
+                  left={LeftContent} />
+              </Card>
+
+            );
+          })}
+        </View>
+        <Modal
+          animationType="slide"
+          visible={modalVisible}
+          // transparent={true}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <UpdateVaccinationDetails childid={childid}
+            closeModal={closeModal}
+          />
+        </Modal>
       </View>
     </ScrollView >
   )
@@ -59,13 +96,37 @@ function WorkerDashboard() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor: 'white',
   },
-  textInput: {
+  searchIcon:{
+      flex: 1,
+      flexDirection:'row',
+      alignSelf:'flex-end'
+  },
+  ChildrensList: {
+    marginTop: 30,
+  },
+  subtitle: {
+    fontSize: 15,
+  },
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  cardstyles: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 30,
+    borderColor: 'black',
+  },
+  displaypicture: {
+    alignItems: 'flex-start'
+  },
+  childid: {
     // marginTop: Platform.OS === 'ios' ? 0 : -12,
     color: 'black',
     fontSize: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   searchFilterTextField: {
     backgroundColor: '#eee',

@@ -7,14 +7,21 @@ import LinearGradient from 'react-native-linear-gradient';
 export default function Splash({ navigation }) {
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View style={[styles.container,{
+        backgroundColor: 'white',
+        flex: 1,
+        height: 800
+      }]}>
         <View style={styles.top_container}>
           <View style={styles.roundButton}>
             <Text style={styles.welcomeSplashScreen}>Welcome Abroad!</Text>
             <Text style={styles.welcomeSubTitleSplashScreen}>In order to start kindly select one of the below.</Text>
           </View>
         </View>
-        <View style={styles.second_container}>
+        <View style={[styles.second_container,{
+          position: 'absolute',
+          top: "30%"
+        }]}>
           <LinearGradient style={styles.home_triangleButtongradient} colors={['#0Cb8B6', '#0df2c9']}>
             <TouchableOpacity
               onPress={() =>

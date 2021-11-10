@@ -43,11 +43,15 @@ export default function SignUp({ navigation, route }) {
     }
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View style={styles.container,{
+                backgroundColor: 'white'
+            }}>
                 <View style={styles.formsFieldsSection}>
                     <View style={styles.inputView}>
                         <TextInput
-                            style={styles.TextInput}
+                            style={[styles.TextInput,
+                            {textAlign: 'left'}]
+                            }
                             placeholder="Name"
                             placeholderTextColor="#00000087"
                             value={name}

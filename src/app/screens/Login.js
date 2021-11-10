@@ -48,11 +48,18 @@ export default function Login({ navigation, route }) {
   }
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View style={[styles.container, {
+        backgroundColor: 'white',
+        flex: 1,
+        height: 800
+      }]}>
         <View style={styles.parentLoginLogoView}>
           <Image style={styles.parentLogoImage} source={require("../assets/logo.png")} />
         </View>
-        <View style={styles.formsFieldsSection}>
+        <View style={[styles.formsFieldsSection,{
+          position: 'absolute',
+          top: "20%"
+        }]}>
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
@@ -82,7 +89,9 @@ export default function Login({ navigation, route }) {
             />
           </View>
         </View>
-        <View style={styles.button_section}>
+        <View style={[styles.button_section,
+        {position:'absolute',
+        top: "45%"}]}>
           <View style={{ marginBottom: 13 }}>
             <TouchableOpacity
               onPress={parentLogin} style={styles.buttonSubmit}>

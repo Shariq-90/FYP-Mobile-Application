@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 75
     },
     button_section: {
         width: '100%',
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
         fontStyle: "normal",
         fontSize: 24,
         width: 160,
-        lineHeight: 24,
+        lineHeight: 30,
         textAlign: "center",
         marginTop: 50,
     },
@@ -58,13 +58,13 @@ export const styles = StyleSheet.create({
         width: 176,
         flex: 1,
         fontFamily: 'Roboto',
-        fontWeight: '900',
+        fontWeight: 'bold',
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
         textAlign: "center",
-        lineHeight: 17,
-        fontSize: 17,
+        lineHeight: 19,
+        fontSize: 18,
         color: '#00000087',
 
     },
@@ -108,10 +108,13 @@ export const styles = StyleSheet.create({
         height: 50,
         flex: 1,
         color: '#001027',
-        textAlign: "center",
+        textAlign: "left",
         width: 320,
         padding: 10,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        borderColor: 'black',
+        borderWidth: 0.5,
+        borderRadius: 3
     },
     buttonSubmit: {
         backgroundColor: '#0Cb8B6',

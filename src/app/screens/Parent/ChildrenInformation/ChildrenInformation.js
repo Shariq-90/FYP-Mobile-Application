@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, Modal, TouchableOpacity, StyleSheet, Alert } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+// import { ListItem, Icon } from 'react-native-elements'
 import ChildDetails from './ChildDetails';
 import ChildrenInfoModal from './ChildrenInfoModal';
-import DietPlanModal from './DietPlanModal';
-
 
 function ChildrenInformation(props, { navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -11,56 +11,59 @@ function ChildrenInformation(props, { navigation }) {
     const closeModal = () => {
         setModalVisible(false);
     }
+    const child_details = (name, dob) => {
+        return (
+            <View>
+                <Text style={styles.subtitle}>Parent Name: {name}</Text>
+                <Text style={styles.subtitle}>DOB: {dob}</Text>
+            </View>
+        )
+    }
+    const LeftContent = props => <Avatar.Icon {...props} icon={() => (
+        <Image
+            source={require('../../../assets/images/baby.png')}
+            style={{ width: 55, height: 55, borderRadius: 20 }}
+        />
+    )} size={40} />
     return (
-
-        <View style={{ flexDirection: 'column', marginTop: 20, alignSelf: 'center' }}>
-            {ChildDetails.map(data => {
+        <View>
+            {ChildDetails.map((u, i) => {
                 return (
-                    <View key={data.id} style={{
-                        flexDirection: 'row', marginTop: 20
+                    <Card key={u.id} id={u.id} onPress={() => {
+                        setchildid(u.id);
+                        setModalVisible(true);
+                    }} style={{
+                        marginBottom: 16,
+                        borderRadius: 30,
+                        borderWidth: 1,
+                        borderColor: 'black'
                     }}>
-                        <View>
-                            <Text style={styles.ChildName}>
-                                {data.name}
-                            </Text>
-                        </View>
-                        <View>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    // navigation.navigate('SignUp');
-                                    // ParentSignup();
-                                    setModalVisible(true);
-                                    setchildid(data.id);
+                        <Card.Title title={u.name}
+                            // subtitleStyle={{ marginBottom: 2 }}
+                            subtitle={child_details(u.parentName,
+                                u.dateOfBirth)}
+                                subtitleStyle = {{
+                                    position: 'relative',
+                                    top: 4
+                                }}
+                                left = {LeftContent}
+                        />
+                    </Card>
 
-                                }} style={styles.ViewDetailsButton}
-                            >
-                                <Text style={{
-                                    color: '#f2f9fc',
-                                    
-                                    textAlign: 'center', fontSize: 15, fontWeight: "500"
-                                }}>{props.buttondescription}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                )
+                );
             })}
             <Modal
                 animationType="slide"
                 visible={modalVisible}
-                transparent={true}
+                // transparent={true}
                 onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                 }}
             >
-                {props.buttondescription === "View Details" ?
-                    <ChildrenInfoModal closeModal={closeModal} 
-                    childid = {childid}
-                    /> :
-                    <ChildrenInfoModal closeModal={closeModal} 
-                    childid = {childid}
-                    />
-                }
+                <ChildrenInfoModal childid={childid}
+                    closeModal={closeModal}
+                />
             </Modal>
         </View>
     )
@@ -72,19 +75,27 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 20,
         width: 100,
-        fontSize: 15,
+        fontSize: 1,
         fontWeight: 'bold'
+    },
+    subtitle: {
+        fontSize: 12,
     },
     ViewDetailsButton: {
         backgroundColor: '#0Cb8B6',
-        width: 80, height: 80,
+        width: 80,
+        height: 80,
         justifyContent: 'center',
         borderRadius: 40,
         marginLeft: 20
     },
-    growthHeading: {
-
+    tinyImage: {
+        width: 100
+    },
+    Card: {
+        borderRadius: 20,
     }
+
 })
 
 export default ChildrenInformation

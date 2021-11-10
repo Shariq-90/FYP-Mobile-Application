@@ -14,13 +14,15 @@ function VaccinationModal(props) {
                             onPress={props.hideModal}
                         >
                             <FontAwesome name="close" size={20} style={{
-                                marginTop: 2
+                                marginTop: 2, alignSelf: 'flex-end'
                             }} onPress={props.hideModal} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ alignItems: 'center',
-                alignSelf: 'center'}}>
-                        <View style={{ marginTop: -50 }}>
+                    <View style={{
+                        alignItems: 'center',
+                        alignSelf: 'center'
+                    }}>
+                        <View >
                             <Image
                                 source={require('../../assets/injection.png')}
                                 style={{
@@ -30,9 +32,10 @@ function VaccinationModal(props) {
                             />
                         </View>
                         <View style={{
-                            flex: 0.5, justifyContent: 'center',
+                            flex: 1, justifyContent: 'center',
                             alignItems: 'center',
-                            marginTop: 80
+                            position:'absolute',
+                            top: "110%"
                         }}>
                             <Text style={{
                                 fontWeight: 'bold',
@@ -40,13 +43,11 @@ function VaccinationModal(props) {
                                 textAlign: 'center'
                             }}>{VaccinationDetails[props.displayid].name
                                 }</Text>
-                            <View style = {{marginTop: 4, alignItems: 'center'}}>
-                                <Text style={styles.displayText}>Manufacturer: {VaccinationDetails[props.displayid].manufacturer
-                                }</Text>
-                                <Text style={styles.displayText}>Dose: {VaccinationDetails[props.displayid].quantity
-                                }</Text>
-                                <Text style={styles.displayText}>Country: {VaccinationDetails[props.displayid].country
-                                }</Text>
+                            <View style={{ marginTop: 10, alignItems: 'center' ,
+                        
+                        }}>
+                                <Text style={styles.displayText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui accumsan sit amet nulla facilisi. Amet tellus cras adipiscing enim eu turpis egestas pretium. Natoque penatibus et magnis dis parturient. Malesuada bibendum arcu vitae elementum curabitur vitae nunc. Sed tempus urna et pharetra pharetra. Lectus vestibulum mattis ullamcorper velit sed. Ipsum nunc aliquet bibendum enim facilisis gravida neque. Morbi tincidunt ornare massa eget. Dolor morbi non arcu risus quis varius quam. Sed pulvinar proin gravida hendrerit lectus a. Vivamus arcu felis bibendum ut tristique et egestas quis ipsum. Tempor orci eu lobortis elementum nibh tellus molestie.</Text>
+
                             </View>
                         </View>
                     </View>
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     modalContainer: {
-        width: '80%',
+        width: '90%',
+        height: "100%",
         backgroundColor: 'white',
         paddingHorizontal: 20,
         paddingVertical: 30,
@@ -73,12 +75,13 @@ const styles = StyleSheet.create({
     },
     header: {
         width: '100%',
-        height: 40,
+        height: 20,
         alignItems: 'flex-end',
         justifyContent: 'center',
     },
     displayText: {
-        fontSize: 20
+        fontSize: 16,
+        textAlign: 'justify'
     }
 })
 export default VaccinationModal

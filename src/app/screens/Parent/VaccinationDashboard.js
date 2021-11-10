@@ -6,9 +6,11 @@ import {
 } from "react-native-paper";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Share from 'react-native-share';
-import { Animated, View, SafeAreaView, StyleSheet, TouchableOpacity, StatusBar, Modal } from 'react-native'
+import { Animated, List, FlatList, View, SafeAreaView, StyleSheet, TouchableOpacity, StatusBar, Modal, ScrollView } from 'react-native'
 import VaccinationDetails from './VaccinationDetails';
 import VaccinationModal from './VaccinationModal';
+import { ListItem, Avatar } from 'react-native-elements';
+import ChildDetails from './ChildrenInformation/ChildDetails';
 // import Animated, { color } from 'react-native-reanimated';
 
 function VaccinationDashboard() {
@@ -20,65 +22,48 @@ function VaccinationDashboard() {
     const scrollY = React.useRef(new Animated.Value(0)).current;
     const SPACING = 20;
     return (
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
-            <Animated.FlatList
-                data={VaccinationDetails}
-                onScroll={Animated.event(
-                    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                    { useNativeDriver: true }
-                )}
-                keyExtractor={item => item.id}
-                contentContainerStyle={{
-                    padding: SPACING,
-                    paddingTop: StatusBar.currentHeight || 42
-                }}
-                renderItem={({ item, index }) => {
-                    return <View
-                        style={{
-                            padding: SPACING,
-                            flexDirection: 'row',
-                            marginBottom: SPACING,
-                            backgroundColor: '#0Cb8B6',
-                            borderRadius: 16,
-                            shadowColor: "#000",
-                            shadowOffset: {
-                                width: 0,
-                                height: 10
-                            },
-                            shadowOpacity: .3,
-                            shadowRadius: 20
-                        }}
-                    >
-                        <View style={{ flex: 0.5 }}>
-                            <Text style={{
-                                fontSize: 20, fontWeight: '700'
-                            }}>{item.name}</Text>
-                        </View>
-                        <View style={{ flex: 0.5 }}>
-                            <TouchableOpacity onPress={() => {
-                                setVisible(true)
-                                setid(index);
-                            }
-                            }>
-                                <Text style={{
-                                    fontSize: 16, fontWeight: '700',
-                                    textAlign: 'right'
-                                }}>Available Vaccines</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                }}
-            />
-            <Modal animationType="slide"
-                visible={visible}
-                transparent={true}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}>
-                <VaccinationModal hideModal={hideModal} displayid = {displayid}/>
-            </Modal>
-        </View>
+        <ScrollView>
+            <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                {
+                    VaccinationDetails.map((l, i) => (
+                        <ListItem key={i} bottomDivider
+                            onPress={() => {
+                                setid(l.id);
+                                setVisible(true);
+                            }}
+                        >
+                            <Avatar rounded source={require('../../assets/injection1.png')} />
+                            <ListItem.Content>
+                                <ListItem.Title
+                                    style={{
+                                        color: "black",
+                                        fontSize: 18,
+                                        fontWeight: '100'
+                                    }}
+                                >{l.name}</ListItem.Title>
+                                <ListItem.Subtitle>Manufacturer: {l.manufacturer}</ListItem.Subtitle>
+
+                            </ListItem.Content>
+                            <ListItem.Chevron color="black"
+                                onPress={() => {
+                                    setid(l.id);
+                                    setVisible(true);
+                                }}
+                            />
+                        </ListItem>
+                    ))
+                }
+                <Modal animationType="slide"
+                    visible={visible}
+                    transparent={true}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                    }}>
+                    <VaccinationModal hideModal={hideModal} displayid={displayid} />
+                </Modal>
+            </View>
+        </ScrollView>
     )
 }
 

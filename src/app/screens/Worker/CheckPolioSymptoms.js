@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Modal } from 'react-native'
 import { Radio, Heading, HStack, Center, Stack, Flex, Button } from 'native-base';
 import PolioSymptomOptions from './PolioSymptomOptions';
+import GraphModal from '../Parent/ChildrenInformation/GraphModal';
 
 function CheckPolioSymptoms() {
+    const [modalVisible, setModalVisible] = useState(false);
+    const closeMenu = () => setModalVisible(false);
     return (
-        <Flex
+        <Flex flex={1}
             direction="column"
+            backgroundColor="white"
         >
-            <Center style = {{
+            <Center style={{
                 marginTop: 60
             }}>
                 <Heading textAlign="center" mb="10" size="xl">
@@ -24,12 +28,29 @@ function CheckPolioSymptoms() {
             <Center >
                 <PolioSymptomOptions symptom="Vomiting" />
             </Center>
-            <Center style = {{marginTop: 40}}>
-                <Button key = "lg" size = "lg"
+            <Center style={{ marginTop: 40 }}>
+                <Button key="lg" size="lg"
+                    onPress={() => {
+                        setModalVisible(true)
+                    }}
                 >
                     Generate Report
                 </Button>
             </Center>
+            <Modal
+                animationType="slide"
+                visible={modalVisible}
+                // transparent={true}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <GraphModal closeMenu={closeMenu} 
+                displayText = "You don't have polio symptoms!"
+                polio = "polio"
+                />
+            </Modal>
         </Flex>
     )
 }
@@ -37,7 +58,8 @@ function CheckPolioSymptoms() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: 'white'
     },
     formArea: {
         flex: 1,
