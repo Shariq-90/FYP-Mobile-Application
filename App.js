@@ -22,56 +22,56 @@ export default function App() {
     <NativeBaseProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen name="Splash" component={Splash} options={{
-          title: 'Child Immunization.', headerStyle: {
-            backgroundColor: '#001027',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          }
-        }} />
-        <Stack.Screen name="SignUp" component={SignUp} options={{
-          title: "Parent's Registration",
-          headerStyle: {
-            backgroundColor: '#001027',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          }
-        }} />
-        <Stack.Screen name="Login" component={Login} options={{
-          title: 'Parent Login',
-          headerStyle: {
-            backgroundColor: '#001027',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          }
-        }} />
-        <Stack.Screen name="WorkerSignIn" component={WorkerSignIn} options={{
-          title: "Worker's Login",
-          headerStyle: {
-            backgroundColor: '#001027',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          }
-        }} />
-        <Stack.Screen name="ParentDrawer" component={DrawerNavigator} options={{
-          headerShown: false,
-          title: 'Parent Dashboard.',
-          headerStyle: {
-            backgroundColor: '#001027',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          }
-        }} />  */}
+          <Stack.Screen name="Splash" component={Splash} options={{
+            title: 'Child Immunization.', headerStyle: {
+              backgroundColor: '#001027',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }} />
+          <Stack.Screen name="SignUp" component={SignUp} options={{
+            title: "Parent's Registration",
+            headerStyle: {
+              backgroundColor: '#001027',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }} />
+          <Stack.Screen name="Login" component={Login} options={{
+            title: 'Parent Login',
+            headerStyle: {
+              backgroundColor: '#001027',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }} />
+          <Stack.Screen name="WorkerSignIn" component={WorkerSignIn} options={{
+            title: "Worker's Login",
+            headerStyle: {
+              backgroundColor: '#001027',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }} />
+          <Stack.Screen name="ParentDrawer" component={DrawerNavigator} options={{
+            headerShown: false,
+            title: 'Parent Dashboard.',
+            headerStyle: {
+              backgroundColor: '#001027',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }} />
           <Stack.Screen name="WorkerDrawer" component={WorkerNavigator} options={{
             headerShown: false,
             title: 'Worker Dashboard.',
@@ -82,7 +82,7 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: 'bold',
             }
-          }} /> 
+          }} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

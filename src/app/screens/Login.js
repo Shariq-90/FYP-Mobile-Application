@@ -33,13 +33,7 @@ export default function Login({ navigation, route }) {
       }).catch(function (error) {
         // handle error
         Alert.alert("Sign In", error);
-      }).then(
-        setLoginDetails({
-          ...parentLogin,
-          email: null,
-          password: null
-        })
-      )
+      })
     }
     else {
       Alert.alert("SignIn", "Please enter a valid email address!")
@@ -63,6 +57,7 @@ export default function Login({ navigation, route }) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
+              value = {email}
               placeholder="Email Address"
               placeholderTextColor="#00000087"
               keyboardType='email-address'
@@ -78,6 +73,7 @@ export default function Login({ navigation, route }) {
             <TextInput
               style={styles.TextInput}
               placeholder="Password"
+              value = {password}
               placeholderTextColor="#00000087"
               secureTextEntry={true}
               onChangeText={(e) => {

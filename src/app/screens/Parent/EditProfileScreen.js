@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     ScrollView,
     Text, View,
@@ -7,9 +7,40 @@ import {
     StyleSheet
 } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { TextInput } from 'react-native';
+import { TextInput, Alert } from 'react-native';
+import axios from 'axios';
+import baseUrl from '../../baseUrl';
+
 
 function EditProfileScreen() {
+    const [parentDetail, setParentDetails] = useState({
+        name: null, email: null, password: null, cnic: null, address: null,
+        phoneNo: null, area: null, city: null
+    });
+    const getParentInfo = () => {
+        axios.get(baseUrl + '/users/current').then(function (response) {
+            console.log("hello");
+            setParentDetails({
+                name: response.data.data.user.name,
+                email: response.data.data.user.email,
+                cnic: response.data.data.user.cnic,
+                phoneNo: response.data.data.user.phoneNo,
+                password: response.data.data.user.password,
+                address: response.data.data.user.address.addr ,
+                area: response.data.data.user.address.area,
+                city: response.data.data.user.address.city
+            })
+        })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+    }
+
+    useEffect(() => {
+        getParentInfo();
+    }, [])
+
     return (
         <ScrollView style={{
             backgroundColor: "#e6f7fc"
@@ -37,7 +68,9 @@ function EditProfileScreen() {
                             marginTop: 10, fontSize: 25,
                             fontWeight: 'bold'
                         }}>
-                            Usama
+                            {parentDetail.name ?
+                                parentDetail.name : "Usama"
+                            }
                         </Text>
                     </View>
                     <View style={styles.action}>
@@ -45,10 +78,12 @@ function EditProfileScreen() {
                             marginTop: 2
                         }} />
                         <TextInput
-                            placeholder="Name"
+                            placeholder={"Name"}
                             placeholderTextColor="#666666"
                             autoCorrect={false}
                             style={styles.textInput}
+                            value={parentDetail.name ?
+                                parentDetail.name : ""}
                         />
                     </View>
                     <View style={styles.action}>
@@ -61,6 +96,8 @@ function EditProfileScreen() {
                             autoCorrect={false}
                             keyboardType='email-address'
                             style={styles.textInput}
+                            value={parentDetail.email ?
+                                parentDetail.email : ""}
                         />
                     </View>
                     <View style={styles.action}>
@@ -73,6 +110,8 @@ function EditProfileScreen() {
                             autoCorrect={false}
                             style={styles.textInput}
                             secureTextEntry={true}
+                            value={parentDetail.password ?
+                                parentDetail.password : ""}
                         />
                     </View>
                     <View style={styles.action}>
@@ -83,8 +122,25 @@ function EditProfileScreen() {
                             placeholder="CNIC"
                             placeholderTextColor="#666666"
                             keyboardType='number-pad'
+                            editable={false} selectTextOnFocus={false} 
                             autoCorrect={false}
                             style={styles.textInput}
+                            value={parentDetail.cnic ?
+                                parentDetail.cnic : ""}
+                        />
+                    </View>
+                    <View style={styles.action}>
+                        <FontAwesome name="phone" size={20} style={{
+                            marginTop: 2
+                        }} />
+                        <TextInput
+                            placeholder="Phone Number"
+                            placeholderTextColor="#666666"
+                            autoCorrect={false}
+                            keyboardType='number-pad'
+                            style={styles.textInput}
+                            value={parentDetail.phoneNo ?
+                                parentDetail.phoneNo : ""}
                         />
                     </View>
                     <View style={styles.action}>
@@ -96,10 +152,39 @@ function EditProfileScreen() {
                             placeholderTextColor="#666666"
                             autoCorrect={false}
                             style={styles.textInput}
+                            value={parentDetail.address ?
+                                parentDetail.address : ""}
                         />
                     </View>
+                    <View style={styles.action}>
+                        <FontAwesome name="location" size={20} style={{
+                            marginTop: 2
+                        }} />
+                        <TextInput
+                            placeholder="Area"
+                            placeholderTextColor="#666666"
+                            autoCorrect={false}
+                            style={styles.textInput}
+                            value={parentDetail.area ?
+                                parentDetail.area : ""}
+                        />
+                    </View>
+                    <View style={styles.action}>
+                        <FontAwesome name="map-pin" size={20} style={{
+                            marginTop: 2
+                        }} />
+                        <TextInput
+                            placeholder="City"
+                            placeholderTextColor="#666666"
+                            autoCorrect={false}
+                            style={styles.textInput}
+                            value={parentDetail.city ?
+                                parentDetail.city : ""}
+                        />
+                    </View>
+
                     <TouchableOpacity style={styles.commandButton}>
-                        <Text style={styles.panelButtonTitle}>Submit</Text>
+                        <Text style={styles.panelButtonTitle}>Update</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -118,6 +203,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#0Cb8B6',
         alignItems: 'center',
         marginTop: 10,
+        marginBottom: 20,
+        color: 'black'
     },
     panel: {
         padding: 20,
@@ -192,7 +279,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
-        color: '#f2f9fc',
+        color: 'black',
     },
 });
 
