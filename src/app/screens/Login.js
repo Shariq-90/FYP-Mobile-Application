@@ -32,7 +32,7 @@ export default function Login({ navigation, route }) {
         ]);
       }).catch(function (error) {
         // handle error
-        Alert.alert("Sign In", error);
+        Alert.alert("Sign In", "Please enter the correct credentials!");
       })
     }
     else {

@@ -14,21 +14,22 @@ import baseUrl from '../../baseUrl';
 
 function EditProfileScreen() {
     const [parentDetail, setParentDetails] = useState({
-        name: null, email: null, password: null, cnic: null, address: null,
-        phoneNo: null, area: null, city: null
+        name: null, email: null, password: null, cnic: null, addr: null,
+        phoneNo: null, area: null, city: null, id: null,
+        permit: "", profilePicture : ""
     });
     const getParentInfo = () => {
         axios.get(baseUrl + '/users/current').then(function (response) {
-            console.log("hello");
             setParentDetails({
                 name: response.data.data.user.name,
                 email: response.data.data.user.email,
                 cnic: response.data.data.user.cnic,
                 phoneNo: response.data.data.user.phoneNo,
                 password: response.data.data.user.password,
-                address: response.data.data.user.address.addr ,
+                addr: response.data.data.user.address.addr,
                 area: response.data.data.user.address.area,
-                city: response.data.data.user.address.city
+                city: response.data.data.user.address.city,
+                id: response.data.data.user._id,
             })
         })
             .catch(function (error) {
@@ -36,7 +37,30 @@ function EditProfileScreen() {
                 console.log(error);
             })
     }
-
+    const updateProfile = () => {
+        if (parentDetail.id) {
+            axios.put(baseUrl + "/users/" + parentDetail.id,{
+                "address": {
+                    "addr": parentDetail.addr,
+                    "area": parentDetail.area,
+                    "city": parentDetail.city
+                },
+                "email": parentDetail.email,
+                "name": parentDetail.name,
+                "cnic": parentDetail.cnic,
+                "phoneNo": parentDetail.phoneNo,
+                "permit": parentDetail.permit,
+                "profilePicture": parentDetail.profilePicture,
+            }).
+                then(function (response) {
+                    console.log("Response: "+ response)
+                }).catch(function (error) {
+                    console.log("Error: "+ error)
+                })
+        }else{
+            Alert.alert("Hello","Profile Not Updated!")
+        }
+    }
     useEffect(() => {
         getParentInfo();
     }, [])
@@ -73,117 +97,148 @@ function EditProfileScreen() {
                             }
                         </Text>
                     </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="user-o" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder={"Name"}
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            style={styles.textInput}
-                            value={parentDetail.name ?
-                                parentDetail.name : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="at" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="Email"
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            keyboardType='email-address'
-                            style={styles.textInput}
-                            value={parentDetail.email ?
-                                parentDetail.email : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="user-secret" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="Password"
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            style={styles.textInput}
-                            secureTextEntry={true}
-                            value={parentDetail.password ?
-                                parentDetail.password : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="id-card" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="CNIC"
-                            placeholderTextColor="#666666"
-                            keyboardType='number-pad'
-                            editable={false} selectTextOnFocus={false} 
-                            autoCorrect={false}
-                            style={styles.textInput}
-                            value={parentDetail.cnic ?
-                                parentDetail.cnic : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="phone" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="Phone Number"
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            keyboardType='number-pad'
-                            style={styles.textInput}
-                            value={parentDetail.phoneNo ?
-                                parentDetail.phoneNo : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="address-book" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="Address"
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            style={styles.textInput}
-                            value={parentDetail.address ?
-                                parentDetail.address : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="location" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="Area"
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            style={styles.textInput}
-                            value={parentDetail.area ?
-                                parentDetail.area : ""}
-                        />
-                    </View>
-                    <View style={styles.action}>
-                        <FontAwesome name="map-pin" size={20} style={{
-                            marginTop: 2
-                        }} />
-                        <TextInput
-                            placeholder="City"
-                            placeholderTextColor="#666666"
-                            autoCorrect={false}
-                            style={styles.textInput}
-                            value={parentDetail.city ?
-                                parentDetail.city : ""}
-                        />
-                    </View>
+                    <View style={styles.UpdateForm}>
+                        <View style={styles.action}>
+                            <FontAwesome name="user-o" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{
+                                marginTop: 2.5, marginLeft: 6,
+                            }}>
+                                <Text>Name: </Text>
+                            </View>
+                            <TextInput
+                                placeholder={"Name"}
+                                placeholderTextColor="#666666"
+                                autoCorrect={false}
+                                style={styles.textInput}
+                                value={parentDetail.name ?
+                                    parentDetail.name : ""}
+                            />
+                        </View>
+                        <View style={styles.action}>
+                            <FontAwesome name="at" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>Email: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="Email"
+                                placeholderTextColor="#666666"
+                                editable={false} selectTextOnFocus={false}
+                                autoCorrect={false}
+                                keyboardType='email-address'
+                                style={styles.textInput}
+                                value={parentDetail.email ?
+                                    parentDetail.email : ""}
+                            />
+                        </View>
+                        {/* <View style={styles.action}>
+                            <FontAwesome name="user-secret" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>Password: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="Password"
+                                placeholderTextColor="#666666"
+                                autoCorrect={false}
+                                style={styles.textInput}
+                                secureTextEntry={true}
+                                value={parentDetail.password ?
+                                    parentDetail.password : ""}
+                            />
+                        </View> */}
+                        <View style={styles.action}>
+                            <FontAwesome name="id-card" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>CNIC: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="CNIC"
+                                placeholderTextColor="#666666"
+                                keyboardType='number-pad'
+                                editable={false} selectTextOnFocus={false}
+                                autoCorrect={false}
+                                style={styles.textInput}
+                                value={parentDetail.cnic ?
+                                    parentDetail.cnic : ""}
+                            />
+                        </View>
+                        <View style={styles.action}>
+                            <FontAwesome name="phone" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>Phone: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="Phone Number"
+                                placeholderTextColor="#666666"
+                                autoCorrect={false}
+                                keyboardType='number-pad'
+                                style={styles.textInput}
+                                value={parentDetail.phoneNo ?
+                                    parentDetail.phoneNo : ""}
+                            />
+                        </View>
+                        <View style={styles.action}>
+                            <FontAwesome name="street-view" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>Street: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="Street"
+                                placeholderTextColor="#666666"
+                                autoCorrect={false}
+                                style={styles.textInput}
+                                value={parentDetail.addr ?
+                                    parentDetail.addr : ""}
+                            />
+                        </View>
+                        <View style={styles.action}>
+                            <FontAwesome name="address-book" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>Area: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="Area"
+                                placeholderTextColor="#666666"
+                                autoCorrect={false}
+                                style={styles.textInput}
+                                value={parentDetail.area ?
+                                    parentDetail.area : ""}
+                            />
+                        </View>
+                        <View style={styles.action}>
+                            <FontAwesome name="map-pin" size={20} style={{
+                                marginTop: 2
+                            }} />
+                            <View style={{ marginTop: 2.5, marginLeft: 6 }}>
+                                <Text>City: </Text>
+                            </View>
+                            <TextInput
+                                placeholder="City"
+                                placeholderTextColor="#666666"
+                                autoCorrect={false}
+                                style={styles.textInput}
+                                value={parentDetail.city ?
+                                    parentDetail.city : ""}
+                            />
+                        </View>
 
-                    <TouchableOpacity style={styles.commandButton}>
+                    </View>
+                    <TouchableOpacity style={styles.commandButton}
+                        onPress={updateProfile}
+                    >
                         <Text style={styles.panelButtonTitle}>Update</Text>
                     </TouchableOpacity>
                 </View>
@@ -196,6 +251,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white"
+    },
+    UpdateForm: {
+        marginTop: 20
     },
     commandButton: {
         padding: 15,
