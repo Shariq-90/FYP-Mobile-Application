@@ -16,7 +16,7 @@ function EditProfileScreen() {
     const [parentDetail, setParentDetails] = useState({
         name: null, email: null, password: null, cnic: null, addr: null,
         phoneNo: null, area: null, city: null, id: null,
-        permit: "", profilePicture : ""
+        permit: "", profilePicture: ""
     });
     const getParentInfo = () => {
         axios.get(baseUrl + '/users/current').then(function (response) {
@@ -25,10 +25,10 @@ function EditProfileScreen() {
                 email: response.data.data.user.email,
                 cnic: response.data.data.user.cnic,
                 phoneNo: response.data.data.user.phoneNo,
-                password: response.data.data.user.password,
                 addr: response.data.data.user.address.addr,
                 area: response.data.data.user.address.area,
                 city: response.data.data.user.address.city,
+                password: "12345",
                 id: response.data.data.user._id,
             })
         })
@@ -39,26 +39,27 @@ function EditProfileScreen() {
     }
     const updateProfile = () => {
         if (parentDetail.id) {
-            axios.put(baseUrl + "/users/" + parentDetail.id,{
-                "address": {
-                    "addr": parentDetail.addr,
-                    "area": parentDetail.area,
-                    "city": parentDetail.city
+            axios.put(baseUrl + "/users/" + parentDetail.id, {
+                address: {
+                    addr: parentDetail.addr,
+                    area: parentDetail.area,
+                    city: parentDetail.city
                 },
-                "email": parentDetail.email,
-                "name": parentDetail.name,
-                "cnic": parentDetail.cnic,
-                "phoneNo": parentDetail.phoneNo,
-                "permit": parentDetail.permit,
-                "profilePicture": parentDetail.profilePicture,
+                email: parentDetail.email,
+                name: parentDetail.name,
+                cnic: parentDetail.cnic,
+                phoneNo: parentDetail.phoneNo,
+                password: parentDetail.password,
+                permit: parentDetail.permit,
+                profilePicture: parentDetail.profilePicture,
             }).
                 then(function (response) {
-                    console.log("Response: "+ response)
+                    Alert.alert("Update Profile", "Your profile has been updated successfully.")
                 }).catch(function (error) {
-                    console.log("Error: "+ error)
+                    Alert.alert("Update Profile", "There was an error updating the profile")
                 })
-        }else{
-            Alert.alert("Hello","Profile Not Updated!")
+        } else {
+            console.log("Profile Not Updated!")
         }
     }
     useEffect(() => {
@@ -93,7 +94,7 @@ function EditProfileScreen() {
                             fontWeight: 'bold'
                         }}>
                             {parentDetail.name ?
-                                parentDetail.name : "Usama"
+                                parentDetail.name : "No Name"
                             }
                         </Text>
                     </View>
@@ -114,6 +115,12 @@ function EditProfileScreen() {
                                 style={styles.textInput}
                                 value={parentDetail.name ?
                                     parentDetail.name : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        name: val
+                                    })
+                                }}
                             />
                         </View>
                         <View style={styles.action}>
@@ -132,9 +139,15 @@ function EditProfileScreen() {
                                 style={styles.textInput}
                                 value={parentDetail.email ?
                                     parentDetail.email : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        email: val
+                                    })
+                                }}
                             />
                         </View>
-                        {/* <View style={styles.action}>
+                        <View style={styles.action}>
                             <FontAwesome name="user-secret" size={20} style={{
                                 marginTop: 2
                             }} />
@@ -146,11 +159,16 @@ function EditProfileScreen() {
                                 placeholderTextColor="#666666"
                                 autoCorrect={false}
                                 style={styles.textInput}
-                                secureTextEntry={true}
                                 value={parentDetail.password ?
                                     parentDetail.password : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        password: val
+                                    })
+                                }}
                             />
-                        </View> */}
+                        </View>
                         <View style={styles.action}>
                             <FontAwesome name="id-card" size={20} style={{
                                 marginTop: 2
@@ -184,6 +202,12 @@ function EditProfileScreen() {
                                 style={styles.textInput}
                                 value={parentDetail.phoneNo ?
                                     parentDetail.phoneNo : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        phoneNo: val
+                                    })
+                                }}
                             />
                         </View>
                         <View style={styles.action}>
@@ -200,6 +224,12 @@ function EditProfileScreen() {
                                 style={styles.textInput}
                                 value={parentDetail.addr ?
                                     parentDetail.addr : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        addr: val
+                                    })
+                                }}
                             />
                         </View>
                         <View style={styles.action}>
@@ -216,6 +246,12 @@ function EditProfileScreen() {
                                 style={styles.textInput}
                                 value={parentDetail.area ?
                                     parentDetail.area : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        area: val
+                                    })
+                                }}
                             />
                         </View>
                         <View style={styles.action}>
@@ -232,6 +268,12 @@ function EditProfileScreen() {
                                 style={styles.textInput}
                                 value={parentDetail.city ?
                                     parentDetail.city : ""}
+                                onChangeText={(val) => {
+                                    setParentDetails({
+                                        ...parentDetail,
+                                        city: val
+                                    })
+                                }}
                             />
                         </View>
 

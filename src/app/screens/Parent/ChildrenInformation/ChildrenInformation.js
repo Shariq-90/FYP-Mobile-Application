@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { View, Text, Modal, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { View, Text, Modal, StyleSheet, Image, Alert } from 'react-native'
+import { Avatar, Card} from 'react-native-paper';
 // import { ListItem, Icon } from 'react-native-elements'
 import ChildDetails from './ChildDetails';
 import ChildrenInfoModal from './ChildrenInfoModal';
