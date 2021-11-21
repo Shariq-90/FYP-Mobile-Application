@@ -4,12 +4,9 @@ import {
     Caption,
     Text
 } from "react-native-paper";
-import ChildDetails from './ChildDetails';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Share from 'react-native-share';
 import { View, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { Button } from 'native-base';
-import LinearGradient from 'react-native-linear-gradient';
 function ChildrenInfoModal(props) {
     const returnBoldText = (value) => {
         return (
@@ -32,39 +29,42 @@ function ChildrenInfoModal(props) {
                     <Text style={styles.text, {
                         fontWeight: 'bold',
                         fontSize: 20
-                    }}>{ChildDetails[props.childid].name}</Text>
-                    <View style = {{alignItems:'flex-start',
-                textAlign: 'left'}}>
+                    }}>{props.childrens.childrens.childID}</Text>
+                    <View style={{
+                        alignItems: 'flex-start',
+                        textAlign: 'left'
+                    }}>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18,
                             marginTop: 20,
                             width: 270
-                        }}>{returnBoldText("Parent Name: ")} {ChildDetails[props.childid].parentName}</Text>
+                        }}>{returnBoldText("Parent Name: ")} {props.childrens.childrens.parentName}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Parent CNIC: ")} {ChildDetails[props.childid].parentCNIC}</Text>
+                        }}>{returnBoldText("Parent CNIC: ")} {props.childrens.childrens.parentCNIC}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Contact No: ")} {ChildDetails[props.childid].contactNo}</Text>
+                        }}>{returnBoldText("Contact No: ")} {props.childrens.childrens.contactNo}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Address: ")}{ChildDetails[props.childid].address}</Text>
+                        }}>{returnBoldText("Address: ")}{props.childrens.childrens.address.addr + ", " 
+                        + props.childrens.childrens.address.area + ", " + props.childrens.childrens.address.city}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("DOB: ")} {ChildDetails[props.childid].dateOfBirth}</Text>
+                        }}>{returnBoldText("DOB: ")} {props.childrens.childrens.dateOfBirth}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Gender: ")}{ChildDetails[props.childid].gender}</Text>
+                        }}>{returnBoldText("Gender: ")}{props.childrens.childrens.gender}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("BirthPlace: ")} {ChildDetails[props.childid].birthPlace}</Text>
+                        }}>{returnBoldText("BirthPlace: ")} {props.childrens.childrens.birthPlace}</Text>
                     </View>
                     <Text style={styles.text, {
                         fontWeight: 'bold',
@@ -80,40 +80,24 @@ function ChildrenInfoModal(props) {
                             fontSize: 18,
                             textAlign: 'left',
                             width: 270
-                        }}>{returnBoldText("Diphteria: ")} {ChildDetails[props.childid].vaccination.Diphteria}</Text>
+                        }}>{returnBoldText("OPV: ")} {props.childrens.childrens.vaccination[0].opv.noOfDoses}</Text>
                         <Text style={[styles.text, {
                             fontWeight: '200',
                             fontSize: 18,
                             textAlign: 'left'
-                        }]}>{returnBoldText("Polio: ")} {ChildDetails[props.childid].vaccination.Polio}</Text>
+                        }]}>{returnBoldText("Measles: ")} {props.childrens.childrens.vaccination[0].measles.noOfDoses}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Homophiles: ")} {ChildDetails[props.childid].vaccination.Homophiles}</Text>
+                        }}>{returnBoldText("BCG: ")} {props.childrens.childrens.vaccination[0].bcg.noOfDoses}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Rota Virus: ")} {ChildDetails[props.childid].vaccination.Rota_Virus}</Text>
+                        }}>{returnBoldText("Pentavalent: ")} {props.childrens.childrens.vaccination[0].pentavalent.noOfDoses}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Measles: ")} {ChildDetails[props.childid].vaccination.Measles}</Text>
-                        <Text style={styles.text, {
-                            fontWeight: '200',
-                            fontSize: 18
-                        }}>{returnBoldText("Hepatitus A: ")} {ChildDetails[props.childid].vaccination.Hepatitus_A}</Text>
-                        <Text style={styles.text, {
-                            fontWeight: '200',
-                            fontSize: 18
-                        }}>{returnBoldText("Hepatitus B: ")} {ChildDetails[props.childid].vaccination.Hepatitus_B}</Text>
-                        <Text style={styles.text, {
-                            fontWeight: '200',
-                            fontSize: 18
-                        }}>{returnBoldText("Papiloma Virus: ")}{ChildDetails[props.childid].vaccination.Papilloma_Virus}</Text>
-                        <Text style={styles.text, {
-                            fontWeight: '200',
-                            fontSize: 18
-                        }}>{returnBoldText("Influenza: ")} {ChildDetails[props.childid].vaccination.Influenze}</Text>
+                        }}>{returnBoldText("PCV: ")} {props.childrens.childrens.vaccination[0].pcv.noOfDoses}</Text>
                     </View>
                     <View style={styles.row, { marginTop: 20, alignSelf: 'center' }}>
                         <TouchableOpacity onPress={props.closeModal}
@@ -125,6 +109,14 @@ function ChildrenInfoModal(props) {
                                     Hide
                                 </Button>
                             </View>
+                            <View style = {styles.schedule}>
+                                <Button
+                                    width={200}
+                                    size="lg" onPress={props.closeModal}
+                                    >
+                                    Show Vaccination Schedule
+                                </Button>
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -134,6 +126,9 @@ function ChildrenInfoModal(props) {
 }
 
 const styles = StyleSheet.create({
+    schedule: {
+        marginTop: 20
+    },
     profileImage: {
         overflow: 'hidden',
     },
