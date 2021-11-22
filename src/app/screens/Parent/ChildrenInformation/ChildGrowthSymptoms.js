@@ -1,12 +1,12 @@
-import React, { useState, useContext,useEffect } from 'react'
-import { TextInput, View } from "react-native";
+import React, { useState, useContext, useEffect } from 'react'
+import { Alert, TextInput, View } from "react-native";
 
 import {
     AddIcon,
     Flex,
     Center,
     ScrollView,
-    VStack,Heading,
+    VStack, Heading,
     Spacer, ChevronDownIcon, CheckIcon, Input, Text, Select
 } from "native-base"
 import { Icon } from 'react-native-elements'
@@ -17,10 +17,54 @@ import ChildGrowthQuestions from '../../../../ChildGrowthQuestions';
 
 
 function ChildGrowthSymptoms(props) {
-    function ratingCompleted(rating) {
-        console.log("Rating is: " + rating)
+    function calculateGrossMotor(rating) {
+        console.log("Gross: " + rating)
     }
-    
+    function calculateFineMotor(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateCommunication(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateEmotionalDevelopment(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateAttention(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateOverActivity(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateInactivity(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculatePlanning(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateDirection(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateVisuals(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateMemory(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateLanguager(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateReadingWriting(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateSocialSkills(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateEmotionalProblems(rating) {
+        console.log("Fine: " + rating)
+    }
+    function calculateProblemSolving(rating) {
+        console.log("Fine: " + rating)
+    }
     const { fillChildGrowthValues } = useContext(PolioContext);
     let [service, setService] = React.useState("")
     let [childgrowthvalues, setchildgrowthvalues] = useState({
@@ -64,98 +108,172 @@ function ChildGrowthSymptoms(props) {
                                         }
                                         placeholder={props.symptom}
                                         placeholderTextColor="#00000087"
-
+                                        value={props.symptom === "Weight" ?
+                                            childgrowthvalues.weight :
+                                            props.symptom === "Height" ?
+                                                childgrowthvalues.height :
+                                                props.symptom === "Age" ?
+                                                    childgrowthvalues.age : "2"}
+                                        onChangeText=
+                                        {(val) => {
+                                            props.symptom === "Weight" ?
+                                                setchildgrowthvalues({
+                                                    ...childgrowthvalues,
+                                                    weight: val
+                                                },
+                                                    fillChildGrowthValues(childgrowthvalues)
+                                                ) :
+                                                props.symptom === "Height" ?
+                                                    setchildgrowthvalues({
+                                                        ...childgrowthvalues,
+                                                        height: val
+                                                    },
+                                                        fillChildGrowthValues(childgrowthvalues)) :
+                                                    props.symptom === "Age" ?
+                                                        setchildgrowthvalues({
+                                                            ...childgrowthvalues,
+                                                            age: val
+                                                        },
+                                                            fillChildGrowthValues(childgrowthvalues)) : ""
+                                        }}
                                     />
                                 </View>
                                 : (props.symptom === "Gross Motor" ||
                                     props.symptom === "Fine Motor"
                                 ) ? <View style={{ padding: 15 }}>
                                     <Heading textAlign="center" size="lg">
-                                {ChildGrowthQuestions.find(o => o.key === props.symptom).key}
+                                        {ChildGrowthQuestions.find(o => o.key === props.symptom).key}
                                     </Heading>
-                                    <Heading textAlign="center" mt="5" size="md">
-                                        {ChildGrowthQuestions.find(o => o.key === props.symptom).question}</Heading>
+                                    <Heading textAlign="left" mt="5" size="md">
+                                        {ChildGrowthQuestions.find(o => o.key ===
+                                            props.symptom).question}</Heading>
                                     {ChildGrowthQuestions.find(o => o.key === props.symptom).
-                                        subquestions.map((data, index) => {
+                                        subquestions.map((data) => {
                                             return (
-                                                <View style={{
-                                                    marginTop: 5,
-                                                    flexDirection: 'row', alignSelf: 'center'
+                                                <View key={data.q_id} style={{
+                                                    marginTop: 10,
+                                                    flexDirection: 'row',
                                                 }}>
-                                                    <Heading key={index} textAlign="center"
-                                                        size="sm">{data}</Heading>
-                                                    <Rating
-                                                        count={5}
-                                                        // reviews={["Terrible", "Bad", "Meh", "OK", "Good", "Hmm...", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
-                                                        defaultRating={1}
-                                                        imageSize={20}
-                                                    />
+                                                    <Heading textAlign="left"
+                                                        size="sm">{data.data}</Heading>
+                                                    {props.symptom ===
+                                                        "Gross Motor" ?
+                                                        <Rating
+                                                            count={5}
+                                                            startingValue={1}
+                                                            imageSize={20}
+                                                            onFinishRating={calculateGrossMotor}
+                                                        /> : props.symptom ===
+                                                            "Fine Motor" ?
+                                                            <Rating
+                                                                count={5}
+                                                                startingValue={1}
+                                                                imageSize={20}
+                                                                onFinishRating={calculateFineMotor}
+                                                            /> : ""
+                                                    }
                                                 </View>
                                             )
                                         })}
 
-                                </View> : props.symptom === "Emotional Problem" ?
-                                    <Select
-                                        label={props.symptom}
-                                        selectedValue={service}
-                                        minWidth="300"
-                                        accessibilityLabel="Choose Service"
-                                        placeholder={props.symptom}
-                                        placeholderTextColor="black"
-                                        _selectedItem={{
-                                            bg: "teal.600",
-                                            endIcon: <CheckIcon size="5" />,
-                                        }}
-                                        style={{
-                                            fontSize: 20,
-                                            // fontWeight: "bold",
-                                            width: 300,
-                                            shadowOffset: { width: 10, height: 10, },
-                                            shadowColor: 'black',
-                                            shadowOpacity: 1.0,
-                                            textAlign: 'center',
-                                            height: 100
-                                        }}
-                                        mt={1}
-                                        // dropdownOpenIcon={require("../../../assets/dropdown.png")}
-                                        onValueChange={(itemValue) => setService(itemValue)}
-                                    >
-                                        <Select.Item label="Yes" value="poor" />
-                                        <Select.Item label="No" value="fair" />
-                                    </Select> :
-                                    <Select
-                                        selectedValue={service}
-                                        minWidth="300"
-                                        accessibilityLabel="Choose Service"
-                                        placeholder={props.symptom}
-                                        placeholderTextColor="black"
-                                        _selectedItem={{
-                                            bg: "teal.600",
-                                            endIcon: <CheckIcon size="5" />,
-                                        }}
-                                        style={{
-                                            fontSize: 20,
-                                            // fontWeight: "bold",
-                                            width: 400,
-                                            shadowOffset: { width: 10, height: 10, },
-                                            shadowColor: 'black',
-                                            shadowOpacity: 1.0,
-                                            textAlign: 'center',
-                                            height: "100%",
-                                            borderWidth: 1,
-                                            borderColor: 'black'
-                                        }}
-                                        mt={1}
-                                        onValueChange={(itemValue) => setService(itemValue)}
-                                    // dropdownIcon={
-                                    //     <ChevronDownIcon size="4" />
-                                    // }
-                                    >
-                                        <Select.Item label="Poor" value="poor" />
-                                        <Select.Item label="Fair" value="fair" />
-                                        <Select.Item label="Good" value="good" />
-                                        <Select.Item label="Excellent" value="excellent" />
-                                    </Select>
+                                </View> :
+                                    <View style={{ padding: 15 }}>
+                                        <Heading textAlign="center" size="lg"
+                                        >
+                                            {ChildGrowthQuestions.find(o => o.key === props.symptom).key}
+                                        </Heading>
+                                        <View>
+                                            <Heading textAlign="left" mt="5" size="md">
+                                                {ChildGrowthQuestions.find(o => o.key ===
+                                                    props.symptom).question}</Heading>
+                                            {props.symptom === "Communication" ?
+                                                <Rating
+                                                    count={5}
+                                                    startingValue={1}
+                                                    imageSize={20}
+                                                    onFinishRating={calculateCommunication}
+                                                /> : props.symptom === "Emotional Development" ?
+                                                    <Rating
+                                                        count={5}
+                                                        startingValue={1}
+                                                        imageSize={20}
+                                                        onFinishRating={calculateEmotionalDevelopment}
+                                                    /> : props.symptom === "Attention and Concentration" ?
+                                                        <Rating
+                                                            count={5}
+                                                            startingValue={1}
+                                                            imageSize={20}
+                                                            onFinishRating={calculateAttention}
+                                                        /> : props.symptom === "Overactivity and Impulsivity" ?
+                                                            <Rating
+                                                                count={5}
+                                                                startingValue={1}
+                                                                imageSize={20}
+                                                                onFinishRating={calculateOverActivity}
+                                                            /> : props.symptom === "Passivity/ Inactivity" ?
+                                                                <Rating
+                                                                    count={5}
+                                                                    startingValue={1}
+                                                                    imageSize={20}
+                                                                    onFinishRating={calculateInactivity}
+                                                                /> : props.symptom === "Planning/ Organising" ?
+                                                                    <Rating
+                                                                        count={5}
+                                                                        startingValue={1}
+                                                                        imageSize={20}
+                                                                        onFinishRating={calculatePlanning}
+                                                                    /> : props.symptom === "Perception of Directions" ?
+                                                                        <Rating
+                                                                            count={5}
+                                                                            startingValue={1}
+                                                                            imageSize={20}
+                                                                            onFinishRating={calculateDirection}
+                                                                        /> : props.symptom === "Perception of Visual Forms and Figures" ?
+                                                                            <Rating
+                                                                                count={5}
+                                                                                startingValue={1}
+                                                                                imageSize={20}
+                                                                                onFinishRating={calculateVisuals}
+                                                                            /> : props.symptom === "Memory" ?
+                                                                                <Rating
+                                                                                    count={5}
+                                                                                    startingValue={1}
+                                                                                    imageSize={20}
+                                                                                    onFinishRating={calculateMemory}
+                                                                                /> : props.symptom === "Spoken Language" ?
+                                                                                    <Rating
+                                                                                        count={5}
+                                                                                        startingValue={1}
+                                                                                        imageSize={20}
+                                                                                        onFinishRating={calculateLanguager}
+                                                                                    /> : props.symptom === "Reading/Writing" ?
+                                                                                        <Rating
+                                                                                            count={5}
+                                                                                            startingValue={1}
+                                                                                            imageSize={20}
+                                                                                            onFinishRating={calculateReadingWriting}
+                                                                                        /> : props.symptom === "Social Skills" ?
+                                                                                            <Rating
+                                                                                                count={5}
+                                                                                                startingValue={1}
+                                                                                                imageSize={20}
+                                                                                                onFinishRating={calculateSocialSkills}
+                                                                                            /> : props.symptom === "Emotional Problems" ?
+                                                                                                <Rating
+                                                                                                    count={5}
+                                                                                                    startingValue={1}
+                                                                                                    imageSize={20}
+                                                                                                    onFinishRating={calculateEmotionalProblems}
+                                                                                                /> : props.symptom === "Problem Solving" ?
+                                                                                                    <Rating
+                                                                                                        count={5}
+                                                                                                        startingValue={1}
+                                                                                                        imageSize={20}
+                                                                                                        onFinishRating={calculateProblemSolving}
+                                                                                                    /> : ""
+                                            }
+                                        </View>
+                                    </View>
                             }
                         </Center>
                     </Flex>
