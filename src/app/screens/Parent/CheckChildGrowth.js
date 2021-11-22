@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { View, Text, StyleSheet, Modal, Alert } from 'react-native'
 import { Radio, Heading, HStack, Center, Button, Stack, Flex, ScrollView } from 'native-base';
 import ChildGrowthSymptoms from './ChildrenInformation/ChildGrowthSymptoms';
 import { TextInput } from 'react-native-paper';
 import GraphModal from './ChildrenInformation/GraphModal';
-import { Rating, AirbnbRating } from 'react-native-elements';
+import { Rating } from 'react-native-elements';
 import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
-
+    // useEffect(()=>{
+    //     console.log("Hello: "+
+    //     JSON.stringify( ChildGrowthQuestions.find(o => o.key === 'Gross Motor').key)
+    //     )
+    // },[])
     const closeMenu = () => setModalVisible(false);
     return (
         <ScrollView>
@@ -25,7 +29,7 @@ function CheckChildGrowth() {
                     {/* <AirbnbRating /> */}
                 </Center>
                 <Center>
-                    <View style={{ marginBottom: 30 , padding: 25}}>
+                    {/* <View style={{ marginBottom: 30 , padding: 25}}>
                         <Heading textAlign="center"  size="lg">{ChildGrowthQuestions[0].key}</Heading>
                         <Heading textAlign="center" mt = "5" size="md">{ChildGrowthQuestions[0].question}</Heading>
                         {ChildGrowthQuestions[0].subquestions.map((data, index) => {
@@ -42,7 +46,7 @@ function CheckChildGrowth() {
                             )
                         })}
 
-                    </View>
+                    </View> */}
                 </Center>
                 <Center style={{
                     marginTop: -30

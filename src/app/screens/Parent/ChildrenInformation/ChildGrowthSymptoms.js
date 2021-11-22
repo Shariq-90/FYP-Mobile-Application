@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext,useEffect } from 'react'
 import { TextInput, View } from "react-native";
 
 import {
@@ -6,17 +6,21 @@ import {
     Flex,
     Center,
     ScrollView,
-    VStack,
+    VStack,Heading,
     Spacer, ChevronDownIcon, CheckIcon, Input, Text, Select
 } from "native-base"
 import { Icon } from 'react-native-elements'
+import { Rating } from 'react-native-elements';
 import { PolioContext } from '../../../../../Provider';
+import ChildGrowthQuestions from '../../../../ChildGrowthQuestions';
 // import { TextInput } from 'react-native-paper';
+
 
 function ChildGrowthSymptoms(props) {
     function ratingCompleted(rating) {
         console.log("Rating is: " + rating)
     }
+    
     const { fillChildGrowthValues } = useContext(PolioContext);
     let [service, setService] = React.useState("")
     let [childgrowthvalues, setchildgrowthvalues] = useState({
@@ -63,7 +67,34 @@ function ChildGrowthSymptoms(props) {
 
                                     />
                                 </View>
-                                : props.symptom === "Emotional Problem" ?
+                                : (props.symptom === "Gross Motor" ||
+                                    props.symptom === "Fine Motor"
+                                ) ? <View style={{ padding: 15 }}>
+                                    <Heading textAlign="center" size="lg">
+                                {ChildGrowthQuestions.find(o => o.key === props.symptom).key}
+                                    </Heading>
+                                    <Heading textAlign="center" mt="5" size="md">
+                                        {ChildGrowthQuestions.find(o => o.key === props.symptom).question}</Heading>
+                                    {ChildGrowthQuestions.find(o => o.key === props.symptom).
+                                        subquestions.map((data, index) => {
+                                            return (
+                                                <View style={{
+                                                    marginTop: 5,
+                                                    flexDirection: 'row', alignSelf: 'center'
+                                                }}>
+                                                    <Heading key={index} textAlign="center"
+                                                        size="sm">{data}</Heading>
+                                                    <Rating
+                                                        count={5}
+                                                        // reviews={["Terrible", "Bad", "Meh", "OK", "Good", "Hmm...", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
+                                                        defaultRating={1}
+                                                        imageSize={20}
+                                                    />
+                                                </View>
+                                            )
+                                        })}
+
+                                </View> : props.symptom === "Emotional Problem" ?
                                     <Select
                                         label={props.symptom}
                                         selectedValue={service}

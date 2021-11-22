@@ -10,7 +10,7 @@ const ChildGrowthQuestions = [
         id: 1,
         key: "Fine Motor",
         question: "How do you rate these traits of your child:",
-        subquestions: ["1. Social Expressions" ,"2. Gestures", "3. Body Language"]
+        subquestions: ["1. Social Expressions:    " ,"2. Gestures:     ", "3. Body Language:     "]
     },
     {
         id: 2,
