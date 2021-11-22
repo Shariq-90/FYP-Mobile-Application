@@ -3,55 +3,89 @@ import { View, Text, StyleSheet, Modal } from 'react-native'
 import { Radio, Heading, HStack, Center, Stack, Flex, Button } from 'native-base';
 import PolioSymptomOptions from './PolioSymptomOptions';
 import GraphModal from '../Parent/ChildrenInformation/GraphModal';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function CheckPolioSymptoms() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
+
+    const checkPolio = ()=>{
+
+    }
+
     return (
-        <Flex flex={1}
-            direction="column"
-            backgroundColor="white"
-        >
-            <Center style={{
-                marginTop: 60
-            }}>
-                <Heading textAlign="center" mb="10" size="xl">
-                    Polio Symptoms
-                </Heading>
-            </Center>
-            <Center >
-                <PolioSymptomOptions symptom="Fever" />
-            </Center>
-            <Center >
-                <PolioSymptomOptions symptom="HeadAche" />
-            </Center>
-            <Center >
-                <PolioSymptomOptions symptom="Vomiting" />
-            </Center>
-            <Center style={{ marginTop: 40 }}>
-                <Button key="lg" size="lg"
-                    onPress={() => {
-                        setModalVisible(true)
+        <ScrollView>
+            <Flex flex={1}
+                direction="column"
+                backgroundColor="white"
+            >
+                <Center style={{
+                    marginTop: 60
+                }}>
+                    <Heading textAlign="center" mb="10" size="xl">
+                        Polio Symptoms
+                    </Heading>
+                </Center>
+                <Center style={{ marginTop: -30 }}>
+                    <PolioSymptomOptions symptom="Age" textField="true"
+                    />
+                </Center>
+                <Center style={{ marginTop: -30 }}>
+                    <PolioSymptomOptions symptom="No of Doses" textField="true"
+                    />
+                </Center>
+                <Center style={{ marginTop: -20 }}>
+                    <PolioSymptomOptions symptom="Fever" />
+                </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="HeadAche" />
+                </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="Vomiting" />
+                </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="Fatigue" />
+                </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="Neck Stiffness" />
+                </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="Pain in Arms or Legs?" />
+                </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="Limping" />
+                </Center>
+                {/* <Center style={{ marginTop: -30 }}>
+                    <PolioSymptomOptions 
+                    experience = "true"
+                    symptom="Since how many days are you experiencing these symptoms?" textField="true"
+                    />
+                </Center> */}
+                <Center style={{ marginTop: 40 }}>
+                    <Button key="lg" size="lg"
+                        onPress={() => {
+                            setModalVisible(true)
+                        }}
+                    >
+                        Generate Report
+                    </Button>
+                </Center>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    // transparent={true}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
                     }}
                 >
-                    Generate Report
-                </Button>
-            </Center>
-            <Modal
-                animationType="slide"
-                visible={modalVisible}
-                // transparent={true}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <GraphModal closeMenu={closeMenu} 
-                displayText = "You don't have polio symptoms!"
-                polio = "polio"
-                />
-            </Modal>
-        </Flex>
+                    <GraphModal closeMenu={closeMenu}
+                        displayText="You don't have polio symptoms!"
+                        polio="polio"
+                    />
+                </Modal>
+            </Flex>
+        </ScrollView>
     )
 }
 

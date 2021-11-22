@@ -9,6 +9,7 @@ import DrawerNavigator from './src/app/navigation/DrawerNavigator';
 import WorkerDashboard from './src/app/screens/Worker/WorkerDashboard';
 import WorkerNavigator from './src/app/navigation/WorkerNavigator';
 import { NativeBaseProvider, Box } from 'native-base';
+import Provider from "./Provider";
 const Stack = createNativeStackNavigator();
 export default function App() {
   const MyTheme = {
@@ -19,10 +20,11 @@ export default function App() {
     },
   };
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {/* <Stack.Screen name="Splash" component={Splash} options={{
+    <Provider>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {/* <Stack.Screen name="Splash" component={Splash} options={{
             title: 'Child Immunization.', headerStyle: {
               backgroundColor: '#001027',
             },
@@ -60,7 +62,7 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: 'bold',
             }
-          }} /> */}
+          }} /> 
           <Stack.Screen name="ParentDrawer" component={DrawerNavigator} options={{
             headerShown: false,
             title: 'Parent Dashboard.',
@@ -71,20 +73,21 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: 'bold',
             }
-          }} />
-          {/* <Stack.Screen name="WorkerDrawer" component={WorkerNavigator} options={{
-            headerShown: false,
-            title: 'Worker Dashboard.',
-            headerStyle: {
-              backgroundColor: '#001027',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            }
           }} /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+            <Stack.Screen name="WorkerDrawer" component={WorkerNavigator} options={{
+              headerShown: false,
+              title: 'Worker Dashboard.',
+              headerStyle: {
+                backgroundColor: '#001027',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              }
+            }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
   );
 }
