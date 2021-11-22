@@ -1,16 +1,83 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Modal } from 'react-native'
+import React, { useState, useContext } from 'react'
+import { View, Text, StyleSheet, Modal, Alert } from 'react-native'
 import { Radio, Heading, HStack, Center, Stack, Flex, Button } from 'native-base';
 import PolioSymptomOptions from './PolioSymptomOptions';
 import GraphModal from '../Parent/ChildrenInformation/GraphModal';
 import { ScrollView } from 'react-native-gesture-handler';
+import { PolioContext } from '../../../../Provider';
 
 function CheckPolioSymptoms() {
     const [modalVisible, setModalVisible] = useState(false);
-    const closeMenu = () => setModalVisible(false);
+    const [confirmPolio, setPolio] = useState(false);
 
-    const checkPolio = ()=>{
-
+    const {
+        age,
+        noOfDoses,
+        fatigue,
+        fever,
+        headache,
+        stiffness,
+        vomiting,
+        daysofsymptom,
+        limping,
+        pain, getDoses,
+        getFatigue,
+        getFever,
+        getHeadache,
+        getStiffness,
+        getVomiting,
+        getDaysofSymptoms,
+        getLimping, getPain,
+    } = useContext(PolioContext)
+    const closeMenu = () => {
+        setModalVisible(false);
+    };
+    const checkPolio = () => {
+        if (
+            // age && 
+            noOfDoses
+            && daysofsymptom
+            && fatigue
+            && fever 
+            && headache
+             && stiffness 
+            && vomiting  
+            && limping
+            && pain
+        ) {
+            if (parseInt(noOfDoses) == 0 && parseInt(daysofsymptom) > 0 && limping === "yes") {
+                setPolio(true);
+            }if (
+                parseInt(noOfDoses) > 0 && parseInt(daysofsymptom) == 0 && limping === "yes"
+                && ((fever === "yes" && headache === "yes" && vomiting === "yes"
+                && fatigue === "yes" &&
+               stiffness === "yes") || 
+               (headache === "yes" && vomiting === "yes"
+                && fatigue === "yes" &&
+               stiffness === "yes" && pain === "yes") ||
+                (fever === "yes" && vomiting === "yes"
+               && fatigue === "yes" &&
+              stiffness === "yes" && pain === "yes") || 
+              (headache === "yes" && fever === "yes"
+                && fatigue === "yes" &&
+               stiffness === "yes" && pain === "yes") || 
+               (headache === "yes" && vomiting === "yes"
+                && fever === "yes" &&
+               stiffness === "yes" && pain === "yes") || 
+               (headache === "yes" && vomiting === "yes"
+                && fatigue === "yes" &&
+               fever === "yes" && pain === "yes"))
+            ){
+                setPolio(true);
+            }
+            if (parseInt(daysofsymptom) > 20){
+                setPolio(true);
+            }
+            setModalVisible(true)
+        }
+        else {
+            Alert.alert("Polio Symptoms", "Please fill all the values!");
+        }
     }
 
     return (
@@ -23,11 +90,15 @@ function CheckPolioSymptoms() {
                     marginTop: 60
                 }}>
                     <Heading textAlign="center" mb="10" size="xl">
-                        Polio Symptoms
+                        Check Polio Symptoms
                     </Heading>
                 </Center>
                 <Center style={{ marginTop: -30 }}>
-                    <PolioSymptomOptions symptom="Age" textField="true"
+                    <PolioSymptomOptions symptom="Age (in years)" textField="true"
+                    />
+                </Center>
+                <Center style={{ marginTop: -30 }}>
+                    <PolioSymptomOptions symptom="Days of Symptom" textField="true"
                     />
                 </Center>
                 <Center style={{ marginTop: -30 }}>
@@ -40,6 +111,9 @@ function CheckPolioSymptoms() {
                 <Center >
                     <PolioSymptomOptions symptom="HeadAche" />
                 </Center>
+                {/* <Center >
+                    <PolioSymptomOptions symptom="Parent Have Symptoms?" />
+                </Center> */}
                 <Center >
                     <PolioSymptomOptions symptom="Vomiting" />
                 </Center>
@@ -61,10 +135,10 @@ function CheckPolioSymptoms() {
                     symptom="Since how many days are you experiencing these symptoms?" textField="true"
                     />
                 </Center> */}
-                <Center style={{ marginTop: 40 }}>
+                <Center style={{ marginTop: 40, marginBottom : 20 }}>
                     <Button key="lg" size="lg"
                         onPress={() => {
-                            setModalVisible(true)
+                            checkPolio();
                         }}
                     >
                         Generate Report
@@ -80,7 +154,8 @@ function CheckPolioSymptoms() {
                     }}
                 >
                     <GraphModal closeMenu={closeMenu}
-                        displayText="You don't have polio symptoms!"
+                        displayText={confirmPolio ? "You have polio symptoms!" :
+                            "You don't have polio symptoms!"}
                         polio="polio"
                     />
                 </Modal>

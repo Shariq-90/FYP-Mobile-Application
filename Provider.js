@@ -1,15 +1,15 @@
 import React, { useReducer } from 'react'
 const initialState = {
-    age: "",
-    noOfDoses: "",
-    fatigue: "",
-    fever: "",
-    headache: "",
-    stiffness: "",
-    vomiting: "",
-    daysofsymptom: "",
-    limping: "",
-    pain: "",
+    age: null,
+    noOfDoses: null,
+    fatigue: null,
+    fever: null,
+    headache: null,
+    stiffness: null,
+    vomiting: null,
+    daysofsymptom: null,
+    limping: null,
+    pain: null,
     symptomoptions: null
 
 }
@@ -35,6 +35,11 @@ function reducer(state, action) {
             return {
                 ...state,
                 age: action.value
+            }
+        case actions.SETFEVER:
+            return {
+                ...state,
+                fever: action.value
             }
         case actions.SETDAYSOFSYMPTOMS:
             return {
@@ -113,7 +118,7 @@ function Provider({ children }) {
         getHeadache: (value) => { dispatch({ type: actions.SETHEADACHE, value }) },
         getStiffness: (value) => { dispatch({ type: actions.SETSTIFFNESS, value }) },
         getVomiting: (value) => { dispatch({ type: actions.SETVOMITING, value }) },
-        getDaysofSymptms: (value) => { dispatch({ type: actions.SETDAYSOFSYMPTOMS, value }) },
+        getDaysofSymptoms: (value) => { dispatch({ type: actions.SETDAYSOFSYMPTOMS, value }) },
         getLimping: (value) => { dispatch({ type: actions.SETLIMPING, value }) },
         getPain: (value) => { dispatch({ type: actions.SETPAIN, value }) },
         fillSymptoms: (value) => { dispatch({ type: actions.SETSYMPTOMOPTIONS, value }) },

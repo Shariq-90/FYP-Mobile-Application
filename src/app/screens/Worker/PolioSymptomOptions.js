@@ -12,11 +12,22 @@ import { PolioContext } from '../../../../Provider';
 
 
 function PolioSymptomOptions(props) {
-    let [value, setValue] = useState("")
+    let [dosevalue, setValue] = useState(null)
     let [polioSymptoms, setPolioSymptoms] = useState({
         age: "", noOfDoses: "", fatigue: "", fever: "", headache: "", stiffness: "",
         vomiting: "", daysofsymptom: "", limping: "", pain: ""
     })
+    const setNoofDoses = (dose) => {
+        if (parseFloat(dose) <= 0.5) {
+            setValue("2");
+        }
+        else if (parseFloat(dose) > 0.5 && parseFloat(dose) <= 1.5) {
+            setValue("4");
+        } else {
+            setValue("6");
+        }
+        console.log("Value: "+ dosevalue)
+    }
     const { getAge,
         getDoses,
         getFatigue,
@@ -33,8 +44,8 @@ function PolioSymptomOptions(props) {
                     <Flex
                         direction="row"
                     >
-                        <Center width="110">
-                            <Text style={{ fontSize: 19 }}>
+                        <Center width="120">
+                            <Text style={{ fontSize: 17 }}>
                                 {props.textField && !props.experience ? "" : props.symptom}
                             </Text>
                         </Center>
@@ -55,7 +66,6 @@ function PolioSymptomOptions(props) {
                                     props.symptom === "Fever" ? setPolioSymptoms({
                                         ...polioSymptoms,
                                         fever: nextValue,
-
                                     },
                                         getFever(nextValue)) :
                                         props.symptom === "HeadAche" ? setPolioSymptoms({
@@ -104,25 +114,40 @@ function PolioSymptomOptions(props) {
                             </Radio.Group>
                         </Center> : <View style={styles.textBox}>
                             <TextInput
-                                value={props.symptom === "Age" ? polioSymptoms.age :
-                                    polioSymptoms.noOfDoses}
+                                keyboardType='numeric'
+                                value={props.symptom === "Age (in years)" ? polioSymptoms.age :
+                                    props.symptom === "No of Doses" ? (dosevalue ?
+                                        dosevalue : polioSymptoms.noOfDoses
+                                        ) :
+                                        polioSymptoms.daysofsymptom
+                                }
                                 onChangeText={(val) => {
-                                    props.symptom === "Age" ? setPolioSymptoms({
+                                    props.symptom === "Age (in years)" ? setPolioSymptoms({
                                         ...polioSymptoms,
                                         age: val
-                                    }, getAge(val)) :
-                                        setPolioSymptoms({
+                                    }, getAge(val),
+                                        setNoofDoses(val)
+                                    ) :
+                                        props.symptom === "Days of Symptom" ? setPolioSymptoms({
                                             ...polioSymptoms,
-                                            noOfDoses: val
-                                        }, getDoses(val))
+                                            daysofsymptom: val
+                                        }, getDaysofSymptoms(val)) :
+                                            setPolioSymptoms({
+                                                ...polioSymptoms,
+                                                noOfDoses: dosevalue
+                                            }, getDoses(dosevalue))
                                 }}
+                                editable={props.symptom === "No of Doses" ? false :
+                                    true
+                                } selectTextOnFocus={props.symptom === "No of Doses" ? false :
+                                    true}
                                 style={{
                                     color: '#001027',
                                     textAlign: "center",
                                     // width: 200,
                                     padding: 10,
                                     borderColor: 'black',
-                                    borderWidth: 1,
+                                    borderWidth: 0.5,
                                     fontSize: 15
                                 }
                                 }
