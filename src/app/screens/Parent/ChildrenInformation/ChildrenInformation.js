@@ -8,6 +8,7 @@ import axios from 'axios';
 import baseUrl from '../../../baseUrl';
 
 function ChildrenInformation(props, { navigation }) {
+    
     const [childrens, setChildrens] = useState(null);
     const getChildrensList = () => {
         axios.get(baseUrl + "/parent/children").then(function (response) {
@@ -45,32 +46,6 @@ function ChildrenInformation(props, { navigation }) {
     )} size={40} />
     return (
         <View>
-            {/* {ChildDetails.map((u, i) => {
-                return (
-                    <Card key={u.id} id={u.id} onPress={() => {
-                        setchildid(u.id);
-                        setModalVisible(true);
-                        // Alert.alert("Osama", "sasa")
-                    }} style={{
-                        marginBottom: 16,
-                        borderRadius: 30,
-                        borderWidth: 1,
-                        borderColor: 'black'
-                    }}>
-                        <Card.Title title={u.name}
-                            // subtitleStyle={{ marginBottom: 2 }}
-                            subtitle={child_details(u.parentName,
-                                u.dateOfBirth)}
-                            subtitleStyle={{
-                                position: 'relative',
-                                top: 4
-                            }}
-                            left={LeftContent}
-                        />
-                    </Card>
-
-                );
-            })} */}
             {childrens ?
                 <Card key={childrens ? childrens.childrens.childID : ""}
                     id={childrens ? childrens.childrens.childID : ""}

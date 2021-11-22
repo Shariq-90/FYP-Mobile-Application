@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Title,
     Caption,
     Text
 } from "react-native-paper";
+
 // import Share from 'react-native-share';
-import { View, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, ScrollView, Modal, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { Button } from 'native-base';
+import ShowVaccinationSchedule from '../ShowVaccinationSchedule';
+import axios from 'axios';
 function ChildrenInfoModal(props) {
+    const [modalVisible, setModalVisible] = useState(false);
     const returnBoldText = (value) => {
         return (
             <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{value}</Text>
         )
     }
+    const closeMenu = () => setModalVisible(false);
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
@@ -51,8 +56,8 @@ function ChildrenInfoModal(props) {
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Address: ")}{props.childrens.childrens.address.addr + ", " 
-                        + props.childrens.childrens.address.area + ", " + props.childrens.childrens.address.city}</Text>
+                        }}>{returnBoldText("Address: ")}{props.childrens.childrens.address.addr + ", "
+                            + props.childrens.childrens.address.area + ", " + props.childrens.childrens.address.city}</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
@@ -109,17 +114,36 @@ function ChildrenInfoModal(props) {
                                     Hide
                                 </Button>
                             </View>
-                            <View style = {styles.schedule}>
+                            <View style={styles.schedule}>
                                 <Button
-                                    width={200}
-                                    size="lg" onPress={props.closeModal}
-                                    >
+                                    width={220}
+                                    size="lg" onPress={() => {
+                                        setModalVisible(true)
+                                    }}
+                                    style={{
+                                        textAlign: 'center'
+                                    }}
+                                >
                                     Show Vaccination Schedule
                                 </Button>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    // transparent={true}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <ShowVaccinationSchedule 
+                        closeMenu={closeMenu}
+                        child_id = {props.childrens.childrens._id}
+                    />
+                </Modal>
             </SafeAreaView>
         </ScrollView>
     )
