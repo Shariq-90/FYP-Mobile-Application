@@ -4,7 +4,8 @@ import { Radio, Heading, HStack, Center, Button, Stack, Flex, ScrollView } from 
 import ChildGrowthSymptoms from './ChildrenInformation/ChildGrowthSymptoms';
 import { TextInput } from 'react-native-paper';
 import GraphModal from './ChildrenInformation/GraphModal';
-
+import { Rating, AirbnbRating } from 'react-native-elements';
+import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -13,7 +14,7 @@ function CheckChildGrowth() {
         <ScrollView>
             <Flex
                 direction="column"
-                backgroundColor = "white"
+                backgroundColor="white"
             >
                 <Center style={{
                     marginTop: 30
@@ -21,6 +22,27 @@ function CheckChildGrowth() {
                     <Heading textAlign="center" mb="10" size="xl">
                         Check Child Growth
                     </Heading>
+                    {/* <AirbnbRating /> */}
+                </Center>
+                <Center>
+                    <View style={{ marginBottom: 30 , padding: 25}}>
+                        <Heading textAlign="center"  size="lg">{ChildGrowthQuestions[0].key}</Heading>
+                        <Heading textAlign="center" mt = "5" size="md">{ChildGrowthQuestions[0].question}</Heading>
+                        {ChildGrowthQuestions[0].subquestions.map((data, index) => {
+                            return (
+                                <View style = {{marginTop: 5, flexDirection: 'row', alignSelf :'center'}}>
+                                    <Heading key={index} textAlign="center" size="sm">{data}</Heading>
+                                    <Rating
+                                        count={5}
+                                        // reviews={["Terrible", "Bad", "Meh", "OK", "Good", "Hmm...", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
+                                        defaultRating={1}
+                                        imageSize={20}
+                                    />
+                                </View>
+                            )
+                        })}
+
+                    </View>
                 </Center>
                 <Center style={{
                     marginTop: -30
@@ -80,6 +102,9 @@ function CheckChildGrowth() {
                 <Center >
                     <ChildGrowthSymptoms symptom="Emotional Problems" />
                 </Center>
+                <Center >
+                    <ChildGrowthSymptoms symptom="Problem Solving" />
+                </Center>
                 <Center style={{ marginTop: 40, marginBottom: 40 }}>
                     <Button key="lg" size="lg" onPress={() => {
                         setModalVisible(true);
@@ -96,8 +121,8 @@ function CheckChildGrowth() {
                         setModalVisible(!modalVisible);
                     }}
                 >
-                    <GraphModal closeMenu={closeMenu} 
-                    displayText = "Your Child Growth is Normal!"
+                    <GraphModal closeMenu={closeMenu}
+                        displayText="Your Child Growth is Normal!"
                     />
                 </Modal>
             </Flex>

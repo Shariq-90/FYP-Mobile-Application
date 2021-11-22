@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { TextInput, View } from "react-native";
+
 import {
     AddIcon,
     Flex,
@@ -9,10 +10,27 @@ import {
     Spacer, ChevronDownIcon, CheckIcon, Input, Text, Select
 } from "native-base"
 import { Icon } from 'react-native-elements'
+import { PolioContext } from '../../../../../Provider';
 // import { TextInput } from 'react-native-paper';
 
 function ChildGrowthSymptoms(props) {
+    function ratingCompleted(rating) {
+        console.log("Rating is: " + rating)
+    }
+    const { fillChildGrowthValues } = useContext(PolioContext);
     let [service, setService] = React.useState("")
+    let [childgrowthvalues, setchildgrowthvalues] = useState({
+        "age": null,
+        "height": null,
+        "weight": null, "grossMotor": null, "fineMotor": null,
+        "overActivity": null, "inActivity": null, "communicationSkill": null,
+        "problemSolving": null, "memory": null,
+        "socialSkill": null, "attentionConcentration": null, "direction": null,
+        "visual": null, "spokenSkill": null, "readingWriting": null,
+        "emotionalLevel": null,
+        "planningOrganization": null,
+        "emotionalProblem": null
+    })
     return (
         <ScrollView>
             <Center mt="4">
@@ -25,7 +43,7 @@ function ChildGrowthSymptoms(props) {
                             {props.symptom === "Weight" ||
                                 props.symptom === "Height" ||
                                 props.symptom === "Age" ?
-                                <View style = {{marginBottom: 10}}>
+                                <View style={{ marginBottom: 10 }}>
                                     <TextInput
                                         style={{
                                             top: 1,
