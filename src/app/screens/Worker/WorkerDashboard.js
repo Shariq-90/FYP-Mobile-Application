@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Modal, StyleSheet,Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import ChildDetails from '../Parent/ChildrenInformation/ChildDetails';
@@ -7,6 +7,8 @@ import { Avatar, Button, Card, Title, Text } from 'react-native-paper';
 import UpdateVaccinationDetails from './UpdateVaccinationDetails.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
+import axios from 'axios';
+import baseUrl from '../../baseUrl';
 function WorkerDashboard() {
   const child_details = (name, dob) => {
     return (
@@ -16,10 +18,23 @@ function WorkerDashboard() {
       </View>
     )
   }
+  const [childrens, setchildrens] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [childid, setchildid] = useState(0);
   const closeModal = () => {
     setModalVisible(false);
+  }
+  const getChildList = ()=>{
+    axios.put(baseUrl + "/polioworker/children").
+    then(function(response){
+      console.log("Response: "+ JSON.stringify(response.data.data[3].childID))
+      console.log("Response: "+ JSON.stringify(response.data.data[3].parentName))
+      let temp_arr = [];
+      temp_arr.push(response.data.data);
+      setchildrens(temp_arr)
+    }).catch(function(error){
+      console.log("Error: "+ JSON.stringify(error))
+    })
   }
   const LeftContent = props => <Avatar.Icon {...props} icon={() => (
     <Image
@@ -28,6 +43,9 @@ function WorkerDashboard() {
     />
   )} size={40} />
 
+  useEffect(()=>{
+    getChildList();
+  },[])
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -55,7 +73,7 @@ function WorkerDashboard() {
         <View style={{
           padding: 20
         }}>
-          {ChildDetails.map((u, i) => {
+          {/* {ChildDetails.map((u, i) => {
             return (
               <Card key={u.id} id={u.id} onPress={() => {
                 setchildid(u.id);
@@ -74,7 +92,29 @@ function WorkerDashboard() {
               </Card>
 
             );
-          })}
+          })} */}
+          {childrens ? 
+          childrens[0].map((u, i) => {
+            return (
+              <Card key={i} id={i} onPress={() => {
+                setchildid(u.childID);
+                // setModalVisible(true);
+              }} style={{
+                marginBottom: 16,
+                borderRadius: 30,
+                borderWidth: 1,
+                borderColor: 'black',
+              }}>
+                <Card.Title title={u.childID}
+                  // subtitleStyle={{ marginBottom: 2 }}
+                  subtitle={child_details(u.parentName,
+                    u.dateOfBirth)}
+                  left={LeftContent} />
+              </Card>
+
+            );
+          })
+          : <Text>Loading</Text>}
         </View>
         <Modal
           animationType="slide"

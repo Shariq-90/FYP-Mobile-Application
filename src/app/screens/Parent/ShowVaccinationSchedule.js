@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, ScrollView, Image, View, Modal, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, Image, View, Modal, TouchableOpacity, Alert } from 'react-native'
 import {
     CheckIcon,
     HStack,
     Text,
     Center,
-    NativeBaseProvider,
+    NativeBaseProvider, ScrollView,
     Heading, Button
 } from "native-base"
 import { Avatar } from 'react-native-paper';
@@ -45,151 +45,142 @@ function ShowVaccinationSchedule(props) {
             alignSelf="center"
             position="absolute"
             top={20}>
-            <HStack flexDir="column">
-                <View style={{ marginBottom: 80 }}>
-                    <Avatar.Icon {...props} icon={() => (
-                        <Image
-                            source={require('../../assets/childgrowth.jpg')}
-                            style={{ width: 90, height: 90, borderRadius: 20 }}
-                        />
-                    )} size={40} />
-                </View>
-            </HStack>
-            <HStack flexDir="column" alignItems="flex-start">
-                <Heading>
-                    Vaccination Schedule
-                </Heading>
-            </HStack>
-            <HStack space={2} top={10}>
-                <Text color="emerald.500" fontSize="25" fontWeight="bold">
-                    {props.displayText}
-                </Text>
-            </HStack>
-            {vaccinationdetails ?
-                // <Text>{JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                // [0].vaccines.opv0.done)}
-                // </Text>
-                <HStack>
-                    <DataTable>
-                        <DataTable.Header>
-                            <DataTable.Title>Vaccine</DataTable.Title>
-                            <DataTable.Title >Done</DataTable.Title>
-                            <DataTable.Title >Scheduled Date</DataTable.Title>
-                        </DataTable.Header>
+            <ScrollView>
+                <HStack flexDir="column">
+                    <View style={{ marginBottom: 20,alignSelf: 'center'
+                }}>
+                        <Avatar.Icon {...props} icon={() => (
+                            <Image
+                                source={require('../../assets/childgrowth.jpg')}
+                                style={{ width: 40, height: 40, borderRadius: 20 }}
+                            />
+                        )} size={40} />
+                    </View>
+                </HStack>
+                <HStack marginBottom="5" flexDir="column" alignItems="center">
+                    <Heading>
+                        Vaccination Schedule
+                    </Heading>
+                </HStack>
 
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV1" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv1.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv1.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV2" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv2.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv2.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV3" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv3.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv3.date)
-                        } />
-                        {/* <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.done)
-                        } date={
-                            JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                            [0].vaccines.opv0.date)
-                        } />
-                        <VaccineScheduleOptions title="OPV0" done={
+                {vaccinationdetails ?
+                    // <Text>{JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                    // [0].vaccines.opv0.done)}
+                    // </Text>
+
+                    <HStack>
+                        <DataTable>
+                            <DataTable.Header>
+                                <DataTable.Title>Vaccine</DataTable.Title>
+                                <DataTable.Title >Done</DataTable.Title>
+                                <DataTable.Title >Scheduled Date</DataTable.Title>
+                            </DataTable.Header>
+
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV1" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv1.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv1.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV2" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv2.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv2.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV3" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv3.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv3.date)
+                            } />
+                           {/* <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                              <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                            <VaccineScheduleOptions title="OPV0" done={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.done)
+                            } date={
+                                JSON.stringify(vaccinationdetails.vaccinationdetails.data
+                                [0].vaccines.opv0.date)
+                            } />
+                             <VaccineScheduleOptions title="OPV0" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv0.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv0.date)
                         } /> */}
+                        </DataTable>
+                    </HStack>
+                    : <Text>...Loading</Text>}
 
-                        <DataTable.Pagination
-                            page={page}
-                            numberOfPages={3}
-                            onPageChange={(page) => setPage(page)}
-                            label="1-2 of 6"
-                            optionsPerPage={optionsPerPage}
-                            itemsPerPage={itemsPerPage}
-                            setItemsPerPage={setItemsPerPage}
-                            showFastPagination
-                            optionsLabel={'Rows per page'}
-                        />
-                    </DataTable>
-                </HStack>
-                : <Text>...Loading</Text>}
-            <HStack style={{ marginTop: 50 }}>
-                <Button size="lg" backgroundColor="#0Cb8B6"
-                    onPress={props.closeMenu}
+                <HStack style={{ marginTop: 50 }}
+                justifyContent = "center"
                 >
-                    Hide
-                </Button>
-            </HStack>
+                    <Button size="lg" backgroundColor="#0Cb8B6"
+                        onPress={props.closeMenu}
+                    >
+                        Hide
+                    </Button>
+                </HStack>
+            </ScrollView>
         </Center>
     )
 }

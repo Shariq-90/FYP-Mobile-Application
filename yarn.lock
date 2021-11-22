@@ -7230,6 +7230,13 @@
   "resolved" "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
   "version" "1.2.1"
 
+"react-data-table-component@^7.4.5":
+  "integrity" "sha512-CnEbnnBuOj1twqbzZfdztIwgUMzt4k3MkikVWiTe1O6uf93sOoYAkKABJYYg1sWwcA3fI2Tuo6aq3XYE9Hscog=="
+  "resolved" "https://registry.npmjs.org/react-data-table-component/-/react-data-table-component-7.4.5.tgz"
+  "version" "7.4.5"
+  dependencies:
+    "deepmerge" "^4.2.2"
+
 "react-devtools-core@^4.6.0":
   "integrity" "sha512-fqyVbp+wVVey6O4uVBk5s3J/vTiPludp7lulr6a8asTBm7DIA0vLBbjmAOLCnOlkWcgdy4mjsqOgNCbu8uICWw=="
   "resolved" "https://registry.npmjs.org/react-devtools-core/-/react-devtools-core-4.16.0.tgz"
@@ -7476,7 +7483,7 @@
     "react-shallow-renderer" "^16.13.1"
     "scheduler" "^0.20.1"
 
-"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.3.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@>= 16.8.0", "react@17.0.1", "react@17.0.2":
+"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.3.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@>= 16.8.0", "react@>= 16.8.3", "react@17.0.1", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -8295,7 +8302,7 @@
   "resolved" "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   "version" "3.1.1"
 
-"styled-components@*", "styled-components@^5.3.1", "styled-components@>= 2":
+"styled-components@*", "styled-components@^5.3.1", "styled-components@>= 2", "styled-components@>= 4":
   "integrity" "sha512-JThv2JRzyH0NOIURrk9iskdxMSAAtCfj/b2Sf1WJaCUsloQkblepy1jaCLX/bYE+mhYo3unmwVSI9I5d9ncSiQ=="
   "resolved" "https://registry.npmjs.org/styled-components/-/styled-components-5.3.1.tgz"
   "version" "5.3.1"
