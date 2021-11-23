@@ -17,68 +17,213 @@ import ChildGrowthQuestions from '../../../../ChildGrowthQuestions';
 
 
 function ChildGrowthSymptoms(props) {
-    function calculateGrossMotor(rating) {
-        console.log("Gross: " + rating)
+    let [extraSkills, setExtraSkills] = useState({
+        walking: 1.0,
+        jumping: 1.0, running: 1.0, expressions: 1.0, gesture: 1.0,
+        body_language: 1.0
+    })
+    let [childgrowthvalues, setchildgrowthvalues] = useState({
+        "age": 1.0,
+        "height": 1.0,
+        "weight": 1.0, "grossMotor": 1.0, "fineMotor": 1.0,
+        "overActivity": 1.0, "inActivity": 1.0, "communicationSkill": 1.0,
+        "problemSolving": 1.0, "memory": 1.0,
+        "socialSkill": 1.0, "attentionConcentration": 1.0, "direction": 1.0,
+        "visual": 1.0, "spokenSkill": 1.0, "readingWriting": 1.0,
+        "emotionalLevel": 1.0,
+        "planningOrganization": 1.0,
+        "emotionalProblem": 1.0
+    })
+    const { fillChildGrowthValues } = useContext(PolioContext);
+    function calculateWalking(rating) {
+        setExtraSkills({
+            ...extraSkills,
+            walking: rating
+        })
+        calculateGrossMotor(extraSkills)
     }
-    function calculateFineMotor(rating) {
-        console.log("Fine: " + rating)
+    function calculateJumping(rating) {
+        setExtraSkills({
+            ...extraSkills,
+            jumping: rating
+        })
+        calculateGrossMotor(extraSkills)
+    }
+    function calculateRunning(rating) {
+        setExtraSkills({
+            ...extraSkills,
+            running: rating
+        })
+        calculateGrossMotor(extraSkills)
+    }
+    function calculateSocialExpressions(rating) {
+        setExtraSkills({
+            ...extraSkills,
+            expressions: rating
+        })
+        calculateFineMotor(extraSkills)
+    }
+    function calculateGestures(rating) {
+        setExtraSkills({
+            ...extraSkills,
+            gesture: rating
+        })
+        calculateFineMotor(extraSkills)
+    }
+    function calculateBodyLanguage(rating) {
+        setExtraSkills({
+            ...extraSkills,
+            body_language: rating
+        })
+        calculateFineMotor(extraSkills)
+    }
+    function calculateGrossMotor(physicalskills) {
+        if (physicalskills.walking && physicalskills.jumping
+            && physicalskills.running
+        ) {
+            let gross = parseFloat(
+                (parseFloat(physicalskills.walking) +
+                    parseFloat(physicalskills.jumping) + parseFloat(physicalskills.running)
+                ) / 3
+            );
+            setchildgrowthvalues({
+                ...childgrowthvalues,
+                grossMotor: gross
+            })
+            fillChildGrowthValues(childgrowthvalues)
+        }
+    }
+    function calculateFineMotor(physicalskills) {
+        if (physicalskills.expressions && physicalskills.gesture
+            && physicalskills.body_language
+        ) {
+            let gross = parseFloat(
+                (parseFloat(physicalskills.expressions) +
+                    parseFloat(physicalskills.gesture) + parseFloat(physicalskills.body_language)
+                ) / 3
+            );
+            setchildgrowthvalues({
+                ...childgrowthvalues,
+                fineMotor: gross
+            })
+            fillChildGrowthValues(childgrowthvalues)
+        }
     }
     function calculateCommunication(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            communicationSkill: rating
+        });
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalDevelopment(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            emotionalLevel: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateAttention(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            attentionConcentration: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateOverActivity(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            overActivity: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateInactivity(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            inActivity: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculatePlanning(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            planningOrganization: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateDirection(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            direction: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateVisuals(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            visual: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateMemory(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            memory: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateLanguager(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            spokenSkill: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateReadingWriting(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            readingWriting: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateSocialSkills(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            socialSkill: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalProblems(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            emotionalProblem: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateProblemSolving(rating) {
-        console.log("Fine: " + rating)
+
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            problemSolving: rating
+        })
+        fillChildGrowthValues(childgrowthvalues)
     }
-    const { fillChildGrowthValues } = useContext(PolioContext);
-    let [service, setService] = React.useState("")
-    let [childgrowthvalues, setchildgrowthvalues] = useState({
-        "age": null,
-        "height": null,
-        "weight": null, "grossMotor": null, "fineMotor": null,
-        "overActivity": null, "inActivity": null, "communicationSkill": null,
-        "problemSolving": null, "memory": null,
-        "socialSkill": null, "attentionConcentration": null, "direction": null,
-        "visual": null, "spokenSkill": null, "readingWriting": null,
-        "emotionalLevel": null,
-        "planningOrganization": null,
-        "emotionalProblem": null
-    })
+    useEffect(()=>{
+        fillChildGrowthValues(childgrowthvalues);
+    },[])
     return (
         <ScrollView>
             <Center mt="4">
@@ -148,7 +293,7 @@ function ChildGrowthSymptoms(props) {
                                         {ChildGrowthQuestions.find(o => o.key ===
                                             props.symptom).question}</Heading>
                                     {ChildGrowthQuestions.find(o => o.key === props.symptom).
-                                        subquestions.map((data) => {
+                                        subquestions.map((data, index) => {
                                             return (
                                                 <View key={data.q_id} style={{
                                                     marginTop: 10,
@@ -162,14 +307,26 @@ function ChildGrowthSymptoms(props) {
                                                             count={5}
                                                             startingValue={1}
                                                             imageSize={20}
-                                                            onFinishRating={calculateGrossMotor}
+                                                            onFinishRating={
+                                                                data.q_id == 0 ?
+                                                                    calculateWalking :
+                                                                    data.q_id == 1 ?
+                                                                        calculateJumping :
+                                                                        calculateRunning
+                                                            }
                                                         /> : props.symptom ===
                                                             "Fine Motor" ?
                                                             <Rating
                                                                 count={5}
                                                                 startingValue={1}
                                                                 imageSize={20}
-                                                                onFinishRating={calculateFineMotor}
+                                                                onFinishRating={
+                                                                    data.q_id == 0 ?
+                                                                        calculateSocialExpressions :
+                                                                        data.q_id == 1 ?
+                                                                            calculateGestures :
+                                                                            calculateBodyLanguage
+                                                                }
                                                             /> : ""
                                                     }
                                                 </View>

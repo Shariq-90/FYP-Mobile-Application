@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Modal, StyleSheet,Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View, Modal, StyleSheet, Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import ChildDetails from '../Parent/ChildrenInformation/ChildDetails';
 import ChildrenInfoModal from '../Parent/ChildrenInformation/ChildrenInfoModal';
@@ -24,17 +24,15 @@ function WorkerDashboard() {
   const closeModal = () => {
     setModalVisible(false);
   }
-  const getChildList = ()=>{
+  const getChildList = () => {
     axios.put(baseUrl + "/polioworker/children").
-    then(function(response){
-      console.log("Response: "+ JSON.stringify(response.data.data[3].childID))
-      console.log("Response: "+ JSON.stringify(response.data.data[3].parentName))
-      let temp_arr = [];
-      temp_arr.push(response.data.data);
-      setchildrens(temp_arr)
-    }).catch(function(error){
-      console.log("Error: "+ JSON.stringify(error))
-    })
+      then(function (response) {
+        let temp_arr = [];
+        temp_arr.push(response.data.data);
+        setchildrens(temp_arr)
+      }).catch(function (error) {
+        console.log("Error: " + JSON.stringify(error))
+      })
   }
   const LeftContent = props => <Avatar.Icon {...props} icon={() => (
     <Image
@@ -43,13 +41,13 @@ function WorkerDashboard() {
     />
   )} size={40} />
 
-  useEffect(()=>{
+  useEffect(() => {
     getChildList();
-  },[])
+  }, [])
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style = {styles.searchIcon}>
+        <View style={styles.searchIcon}>
           <Input
             placeholder='Search Child Id'
             rightIcon={
@@ -93,28 +91,28 @@ function WorkerDashboard() {
 
             );
           })} */}
-          {childrens ? 
-          childrens[0].map((u, i) => {
-            return (
-              <Card key={i} id={i} onPress={() => {
-                setchildid(u.childID);
-                // setModalVisible(true);
-              }} style={{
-                marginBottom: 16,
-                borderRadius: 30,
-                borderWidth: 1,
-                borderColor: 'black',
-              }}>
-                <Card.Title title={u.childID}
-                  // subtitleStyle={{ marginBottom: 2 }}
-                  subtitle={child_details(u.parentName,
-                    u.dateOfBirth)}
-                  left={LeftContent} />
-              </Card>
+          {childrens ?
+            childrens[0].map((u, i) => {
+              return (
+                <Card key={i} id={i} onPress={() => {
+                  setchildid(u.childID);
+                  // setModalVisible(true);
+                }} style={{
+                  marginBottom: 16,
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  borderColor: 'black',
+                }}>
+                  <Card.Title title={u.childID}
+                    // subtitleStyle={{ marginBottom: 2 }}
+                    subtitle={child_details(u.parentName,
+                      u.dateOfBirth)}
+                    left={LeftContent} />
+                </Card>
 
-            );
-          })
-          : <Text>Loading</Text>}
+              );
+            })
+            : <Text>Loading</Text>}
         </View>
         <Modal
           animationType="slide"
@@ -138,10 +136,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
   },
-  searchIcon:{
-      flex: 1,
-      flexDirection:'row',
-      alignSelf:'flex-end'
+  searchIcon: {
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'flex-end'
   },
   ChildrensList: {
     marginTop: 30,

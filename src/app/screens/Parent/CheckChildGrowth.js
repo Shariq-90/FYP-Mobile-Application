@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, Modal, Alert } from 'react-native'
 import { Radio, Heading, HStack, Center, Button, Stack, Flex, ScrollView } from 'native-base';
 import ChildGrowthSymptoms from './ChildrenInformation/ChildGrowthSymptoms';
@@ -6,9 +6,37 @@ import { TextInput } from 'react-native-paper';
 import GraphModal from './ChildrenInformation/GraphModal';
 import { Rating } from 'react-native-elements';
 import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
+import { PolioContext } from '../../../../Provider';
+import axios from 'axios';
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
+    const { childgrowthval,fillChildGrowthValues } = useContext(PolioContext);
+    let [childgrowthvalues, setchildgrowthvalues] = useState({
+        "age": 3.0,
+        "height": 5.0,
+        "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
+        "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
+        "emotionalLevel": 1.1,
+        "planningOrganization": 1.1,
+        "emotionalProblem": 1.1
+    })
+    const calculateChildGrowth = () => {
+        fillChildGrowthValues(childgrowthvalues)
+        if (childgrowthval) {
+            axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+                then(function (response) {
+                    console.log("Response: " + JSON.stringify(response.data.Message))
+                }).catch(function (error) {
+                    console.log("Error: " + JSON.stringify(error))
+                })
+        }else{
+            console.log("Sorry")
+        }
+    }
+    useEffect(() => {
+        calculateChildGrowth()
+    }, [childgrowthval])
     return (
         <ScrollView>
             <Flex
