@@ -12,6 +12,7 @@ import {
 import { Rating } from 'react-native-elements';
 import { PolioContext } from '../../../../../Provider';
 import ChildGrowthQuestions from '../../../../ChildGrowthQuestions';
+import PhysicalTraits from './PhysicalTraits';
 // import { TextInput } from 'react-native-paper';
 
 
@@ -34,14 +35,32 @@ function ChildGrowthSymptoms(props) {
         "emotionalProblem": null
     })
     const { fillChildGrowthValues } = useContext(PolioContext);
+    function setAge(val) {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            age: val
+        })
+    }
+    function setWeight(val) {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            weight: val
+        })
+    }
+    function setHeight(val) {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            height: val
+        })
+    }
     function calculateWalking(rating) {
         setExtraSkills({
             ...extraSkills,
             walking: parseFloat(rating)
         })
-        if (extraSkills.walking){
-            console.log("Walking: "+ extraSkills.walking)
-        }
+        // if (extraSkills.walking){
+        //     console.log("Walking: "+ extraSkills.walking)
+        // }
         calculateGrossMotor(extraSkills)
     }
     function calculateJumping(rating) {
@@ -92,7 +111,7 @@ function ChildGrowthSymptoms(props) {
                 ...childgrowthvalues,
                 grossMotor: parseFloat(gross)
             })
-            fillChildGrowthValues(childgrowthvalues)
+            //fillChildGrowthValues(childgrowthvalues)
         }
     }
     function calculateFineMotor(physicalskills) {
@@ -108,7 +127,7 @@ function ChildGrowthSymptoms(props) {
                 ...childgrowthvalues,
                 fineMotor: parseFloat(fine)
             })
-            fillChildGrowthValues(childgrowthvalues)
+            //fillChildGrowthValues(childgrowthvalues)
         }
     }
     function calculateCommunication(rating) {
@@ -117,7 +136,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             communicationSkill: parseFloat(rating)
         });
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalDevelopment(rating) {
 
@@ -125,7 +144,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             emotionalLevel: parseFloat(parseFloat(rating))
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateAttention(rating) {
 
@@ -133,7 +152,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             attentionConcentration: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateOverActivity(rating) {
 
@@ -141,7 +160,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             overActivity: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateInactivity(rating) {
 
@@ -149,7 +168,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             inActivity: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculatePlanning(rating) {
 
@@ -157,7 +176,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             planningOrganization: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateDirection(rating) {
 
@@ -165,7 +184,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             direction: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateVisuals(rating) {
 
@@ -173,7 +192,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             visual: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateMemory(rating) {
 
@@ -181,7 +200,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             memory: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateLanguager(rating) {
 
@@ -189,7 +208,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             spokenSkill: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateReadingWriting(rating) {
 
@@ -197,7 +216,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             readingWriting: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateSocialSkills(rating) {
 
@@ -205,7 +224,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             socialSkill: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalProblems(rating) {
 
@@ -213,7 +232,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             emotionalProblem: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateProblemSolving(rating) {
 
@@ -221,11 +240,12 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             problemSolving: parseFloat(rating)
         })
-        fillChildGrowthValues(childgrowthvalues)
+        //fillChildGrowthValues(childgrowthvalues)
     }
     useEffect(() => {
+        console.log("Yellow bro!")
         fillChildGrowthValues(childgrowthvalues);
-    }, [])
+    }, [childgrowthvalues])
     return (
         <ScrollView>
             <Center mt="4">
@@ -239,57 +259,28 @@ function ChildGrowthSymptoms(props) {
                                 props.symptom === "Height" ||
                                 props.symptom === "Age" ?
                                 <View style={{ marginBottom: 10 }}>
-                                    <TextInput
-                                        keyboardType='numeric'
-                                        style={{
-                                            top: 1,
-                                            height: 50,
-                                            flex: 1,
-                                            color: '#001027',
-                                            textAlign: "left",
-                                            width: 300,
-                                            padding: 10,
-                                            fontWeight: "bold",
-                                            borderColor: 'black',
-                                            borderWidth: 0.5
-                                        }
-                                        }
-                                        placeholder={props.symptom}
-                                        placeholderTextColor="#00000087"
-                                        value={props.symptom === "Weight" ?
-                                            childgrowthvalues.weight
-                                                ? childgrowthvalues.weight : ""
-                                            :
-                                            props.symptom === "Height" ?
-                                                childgrowthvalues.height
-                                                    ? childgrowthvalues.height : ""
-                                                :
-                                                props.symptom === "Age" ?
-                                                    childgrowthvalues.age ?
-                                                        childgrowthvalues.age : "" : ""}
-                                        onChangeText=
-                                        {(val) => {
-                                            props.symptom === "Weight" ?
-                                                setchildgrowthvalues({
-                                                    ...childgrowthvalues,
-                                                    weight: val
-                                                },
-                                                    fillChildGrowthValues(childgrowthvalues)
-                                                ) :
-                                                props.symptom === "Height" ?
-                                                    setchildgrowthvalues({
-                                                        ...childgrowthvalues,
-                                                        height: val
-                                                    },
-                                                        fillChildGrowthValues(childgrowthvalues)) :
-                                                    props.symptom === "Age" ?
-                                                        setchildgrowthvalues({
-                                                            ...childgrowthvalues,
-                                                            age: val
-                                                        },
-                                                            fillChildGrowthValues(childgrowthvalues)) : ""
-                                        }}
-                                    />
+                                    {props.symptom === "Age" ?
+                                        <PhysicalTraits symptom="Age"
+                                            trait={childgrowthvalues.age ?
+                                                childgrowthvalues.age : ""
+                                            }
+                                            setTrait={setAge}
+                                        />
+                                        : props.symptom === "Weight" ?
+                                            <PhysicalTraits symptom="Weight"
+                                                trait={childgrowthvalues.weight ?
+                                                    childgrowthvalues.weight : ""
+                                                }
+                                                setTrait={setWeight}
+                                            />
+                                            : props.symptom === "Height" ?
+                                                <PhysicalTraits symptom="Height"
+                                                    trait={childgrowthvalues.height ?
+                                                        childgrowthvalues.height : ""
+                                                    }
+                                                    setTrait={setHeight}
+                                                /> : ""
+                                    }
                                 </View>
                                 : (props.symptom === "Gross Motor" ||
                                     props.symptom === "Fine Motor"

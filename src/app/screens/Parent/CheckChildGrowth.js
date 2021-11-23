@@ -8,24 +8,56 @@ import { Rating } from 'react-native-elements';
 import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
 import { PolioContext } from '../../../../Provider';
 import axios from 'axios';
+import PhysicalTraits from './ChildrenInformation/PhysicalTraits';
+
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
     const { childgrowthval, fillChildGrowthValues } = useContext(PolioContext);
+    // let [childgrowthvalues, setchildgrowthvalues] = useState({
+    //     "age": 3.0,
+    //     "height": 5.0,
+    //     "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
+    //     "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
+    //     "emotionalLevel": 1.1,
+    //     "planningOrganization": 1.1,
+    //     "emotionalProblem": 1.1
+    // })
     let [childgrowthvalues, setchildgrowthvalues] = useState({
-        "age": 3.0,
-        "height": 5.0,
-        "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
-        "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
-        "emotionalLevel": 1.1,
-        "planningOrganization": 1.1,
-        "emotionalProblem": 1.1
+        "age": null,
+        "height": null,
+        "weight": null, "grossMotor": null, "fineMotor": null,
+        "overActivity": null, "inActivity": null, "communicationSkill": null,
+        "problemSolving": null, "memory": null,
+        "socialSkill": null, "attentionConcentration": null, "direction": null,
+        "visual": null, "spokenSkill": null, "readingWriting": null,
+        "emotionalLevel": null,
+        "planningOrganization": null,
+        "emotionalProblem": null
     })
+    function setAge(val) {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            age: val
+        })
+    }
+    function setWeight(val) {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            weight: val
+        })
+    }
+    function setHeight(val) {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            height: val
+        })
+    }
     const calculateChildGrowth = () => {
         // fillChildGrowthValues(childgrowthvalues)
-        if (childgrowthval.age) {
+        if (childgrowthval) {
             console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
-            // axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+            // axios.post("http://10.0.2.2:5000/getPredictions", childgrowthvalues).
             //     then(function (response) {
             //         console.log("Response: " + JSON.stringify(response.data.Message))
             //     }).catch(function (error) {
@@ -35,9 +67,9 @@ function CheckChildGrowth() {
             console.log("NNot parsed")
         }
     }
-    // useEffect(() => {
-    //     calculateChildGrowth()
-    // }, [childgrowthval])
+    useEffect(() => {
+        fillChildGrowthValues(childgrowthvalues)
+    }, [childgrowthvalues])
     return (
         <ScrollView>
             <Flex
@@ -53,15 +85,34 @@ function CheckChildGrowth() {
                     {/* <AirbnbRating /> */}
                 </Center>
                 <Center style={{
-                    marginTop: -30
+                    marginTop: 0
                 }}>
-                    <ChildGrowthSymptoms symptom="Weight" />
+                    {/* <ChildGrowthSymptoms symptom="Weight" /> */}
+                    <PhysicalTraits symptom="Weight"
+                        trait={childgrowthvalues.weight ?
+                            childgrowthvalues.weight : ""}
+                        setTrait={setWeight}
+                    />
                 </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Height" />
+                <Center style={{
+                    marginTop: 30
+                }}>
+                    {/* <ChildGrowthSymptoms symptom="Height" /> */}
+                    <PhysicalTraits symptom="Height"
+                        trait={childgrowthvalues.height ?
+                            childgrowthvalues.height : ""}
+                        setTrait={setHeight}
+                    />
                 </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Age" />
+                <Center style={{
+                    marginTop: 30
+                }}>
+                    {/* <ChildGrowthSymptoms symptom="Age" /> */}
+                    <PhysicalTraits symptom="Age"
+                        trait={childgrowthvalues.age ?
+                            childgrowthvalues.age : ""}
+                        setTrait={setAge}
+                    />
                 </Center>
                 <Center >
                     <ChildGrowthSymptoms symptom="Gross Motor" />
