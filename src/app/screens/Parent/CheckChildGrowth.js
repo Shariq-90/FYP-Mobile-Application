@@ -11,7 +11,7 @@ import axios from 'axios';
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
-    const { childgrowthval,fillChildGrowthValues } = useContext(PolioContext);
+    const { childgrowthval, fillChildGrowthValues } = useContext(PolioContext);
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": 3.0,
         "height": 5.0,
@@ -22,21 +22,22 @@ function CheckChildGrowth() {
         "emotionalProblem": 1.1
     })
     const calculateChildGrowth = () => {
-        fillChildGrowthValues(childgrowthvalues)
-        if (childgrowthval) {
-            axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
-                then(function (response) {
-                    console.log("Response: " + JSON.stringify(response.data.Message))
-                }).catch(function (error) {
-                    console.log("Error: " + JSON.stringify(error))
-                })
-        }else{
-            console.log("Sorry")
+        // fillChildGrowthValues(childgrowthvalues)
+        if (childgrowthval.age) {
+            console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
+            // axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+            //     then(function (response) {
+            //         console.log("Response: " + JSON.stringify(response.data.Message))
+            //     }).catch(function (error) {
+            //         console.log("Error: " + JSON.stringify(error))
+            //     })
+        } else {
+            console.log("NNot parsed")
         }
     }
-    useEffect(() => {
-        calculateChildGrowth()
-    }, [childgrowthval])
+    // useEffect(() => {
+    //     calculateChildGrowth()
+    // }, [childgrowthval])
     return (
         <ScrollView>
             <Flex
@@ -112,7 +113,8 @@ function CheckChildGrowth() {
                 </Center>
                 <Center style={{ marginTop: 40, marginBottom: 40 }}>
                     <Button key="lg" size="lg" onPress={() => {
-                        setModalVisible(true);
+                        // setModalVisible(true);
+                        calculateChildGrowth();
                     }}>
                         Generate Report
                     </Button>
