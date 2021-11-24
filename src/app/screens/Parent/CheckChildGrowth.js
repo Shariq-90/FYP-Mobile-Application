@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, Modal, Alert } from 'react-native'
 import { Radio, Heading, HStack, Center, Button, Stack, Flex, ScrollView } from 'native-base';
-import ChildGrowthSymptoms from './ChildrenInformation/ChildGrowthSymptoms';
 import { TextInput } from 'react-native-paper';
 import GraphModal from './ChildrenInformation/GraphModal';
-import { Rating } from 'react-native-elements';
+import { Rating } from 'react-native-ratings';
 import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
 import { PolioContext } from '../../../../Provider';
 import axios from 'axios';
@@ -17,67 +16,26 @@ function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
     const { childgrowthval, fillChildGrowthValues } = useContext(PolioContext);
-    // let [childgrowthvalues, setchildgrowthvalues] = useState({
-    //     "age": null,
-    //     "height": null,
-    //     "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
-    //     "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
-    //     "emotionalLevel": 1.1,
-    //     "planningOrganization": 1.1,
-    //     "emotionalProblem": 1.1
-    // })
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": null,
         "height": null,
-        "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": null, "inActivity": null, "communicationSkill": null, "problemSolving": null, "memory": null,
-        "socialSkill": null, "attentionConcentration": null, "direction": null, "visual": null, "spokenSkill": null, "readingWriting": null,
-        "emotionalLevel": null,
-        "planningOrganization": null,
-        "emotionalProblem": null
+        "weight": null, "grossMotor": 0.0, "fineMotor": 0.0,
+        "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5,
+        "problemSolving": 5, "memory": 2.5,
+        "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
+        "emotionalLevel": 1.1,
+        "planningOrganization": 1.1,
+        "emotionalProblem": 1.1
     })
-    let [extraSkills, setExtraSkills] = useState({
-        expressions: 1, gesture: 1,
-        body_language: 1
-    })
-    let [physicalskills, setPhysicalSkills] = useState({
-        walking: 1,
-        jumping: 1, running: 1
-    })
-    function calculateSocialExpressions(rating) {
-        setExtraSkills({
-            ...extraSkills,
-            expressions: rating
-        })
-    }
-    function calculateGestures(rating) {
-        setExtraSkills({
-            ...extraSkills,
-            gesture: rating
-        })
-    }
-    function calculateBodyLanguage(rating) {
-        setExtraSkills({
-            ...extraSkills,
-            body_language: rating
-        })
-    }
-    function calculateFineMotor() {
-        if (extraSkills.expressions && extraSkills.gesture
-            && extraSkills.body_language
-        ) {
-            let fine =
-                parseFloat((extraSkills.expressions +
-                    extraSkills.gesture + extraSkills.body_language
-                )) / 3.0;
-            setchildgrowthvalues({
-                ...childgrowthvalues,
-                fineMotor: parseFloat(fine)
-            })
-            fillChildGrowthValues(childgrowthvalues)
-        } else {
-            console.log("FineMotor n.p")
-        }
-    }
+    // let [childgrowthvalues, setchildgrowthvalues] = useState({
+    //     "age": null,
+    //     "height": null,
+    //     "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": null, "inActivity": null, "communicationSkill": null, "problemSolving": null, "memory": null,
+    //     "socialSkill": null, "attentionConcentration": null, "direction": null, "visual": null, "spokenSkill": null, "readingWriting": null,
+    //     "emotionalLevel": null,
+    //     "planningOrganization": null,
+    //     "emotionalProblem": null
+    // })
     function setAge(val) {
         setchildgrowthvalues({
             ...childgrowthvalues,
@@ -96,58 +54,146 @@ function CheckChildGrowth() {
             height: parseFloat(val)
         })
     }
-    function calculateWalking(rating) {
-        setPhysicalSkills({
-            ...physicalskills,
-            walking: rating
-        })
-    }
-    function calculateJumping(rating) {
-        setPhysicalSkills({
-            ...physicalskills,
-            jumping: rating
-        })
-    }
-    function calculateRunning(rating) {
-        setPhysicalSkills({
-            ...physicalskills,
-            running: rating
-        })
-    }
-    function calculateGrossMotor() {
-        if (physicalskills.walking &&
-            physicalskills.running && physicalskills.jumping
+
+    const [walking, setWalking] = useState(1);
+    const [jumping, setJumping] = useState(1);
+    const [running, setRunning] = useState(1);
+
+    let [physicalskills, setPhysicalSkills] = useState({
+        walking: 1,
+        jumping: 1, running: 1
+    })
+    const calculateGrossMotor = () => {
+        console.log("Physical: " + JSON.stringify(walking)
+            + JSON.stringify(jumping)
+            + JSON.stringify(running))
+        // if (physicalskills.walking > 1 &&
+        //     physicalskills.running > 1 && physicalskills.jumping > 1
+        // ) {
+        //     let gross =
+        //         parseFloat((physicalskills.walking +
+        //             physicalskills.running + physicalskills.jumping
+        //         ) / 3);
+        //     console.log("Gross: " + gross)
+        //     // setchildgrowthvalues({
+        //     //     ...childgrowthvalues,
+        //     //     grossMotor: gross
+        //     // })
+        //     // fillChildGrowthValues(childgrowthvalues)
+        // }
+        // else {
+        //     console.log("Values are not filled!")
+        // }
+        if (walking > 1 &&
+            running > 1 && jumping > 1
         ) {
-            console.log("PhysicalSkills: " + JSON.stringify(physicalskills))
             let gross =
-                (physicalskills.walking +
-                    physicalskills.jumping + physicalskills.running
-                ) / 3;
-            setchildgrowthvalues({
-                ...childgrowthvalues,
-                grossMotor: parseFloat(gross)
-            })
-            fillChildGrowthValues(childgrowthvalues)
+                parseFloat((walking +
+                    running + jumping
+                ) / 3);
+            console.log("Gross: " + gross)
+            // setchildgrowthvalues({
+            //     ...childgrowthvalues,
+            //     grossMotor: gross
+            // })
+            // fillChildGrowthValues(childgrowthvalues)
         }
         else {
             console.log("Values are not filled!")
         }
     }
+    const calculateWalking = (rating) => {
+        console.log("1: " + rating)
+        // setPhysicalSkills({
+        //     ...physicalskills,
+        //     walking: rating
+        // })
+        setWalking(rating)
+        calculateGrossMotor()
+    }
+    const calculateJumping = (rating) => {
+        console.log("2: " + rating)
+        
+        // setPhysicalSkills({
+        //     ...physicalskills,
+        //     jumping: rating
+        // })
+        setJumping(rating)
+        calculateGrossMotor()
+    }
+    const calculateRunning = (rating) => {
+        console.log("3: " + rating)
+       
+        // setPhysicalSkills({
+        //     ...physicalskills,
+        //     running: rating
+        // })
+        setRunning(rating);
+        calculateGrossMotor()
+    }
+
+    let [extraSkills, setExtraSkills] = useState({
+        expressions: 1.0, gesture: 1.0,
+        body_language: 1.0
+    })
+    function calculateSocialExpressions(rating) {
+        console.log("4: " + rating)
+        // let temp_expression = parseFloat(rating) 
+        // setExtraSkills({
+        //     ...extraSkills,
+        //     expressions: temp_expression
+        // })
+    }
+    function calculateGestures(rating) {
+        console.log("5: " + rating)
+        let temp_gesture = parseFloat(rating)
+        setExtraSkills({
+            ...extraSkills,
+            gesture: temp_gesture
+        })
+    }
+    function calculateBodyLanguage(rating) {
+        console.log("6: " + rating)
+        let temp_body = parseFloat(rating)
+        setExtraSkills({
+            ...extraSkills,
+            body_language: temp_body
+        })
+    }
+    function calculateFineMotor() {
+        // console.log("Extra: " + JSON.stringify(extraSkills))
+        // if (extraSkills.expressions && extraSkills.gesture
+        //     && extraSkills.body_language
+        // ) {
+        //     let fine =
+        //         parseFloat((extraSkills.expressions +
+        //             extraSkills.gesture + extraSkills.body_language
+        //         )) / 3.0;
+        //     setchildgrowthvalues({
+        //         ...childgrowthvalues,
+        //         fineMotor: parseFloat(fine)
+        //     })
+        //     fillChildGrowthValues(childgrowthvalues)
+        // } else {
+        //     console.log("FineMotor n.p")
+        // }
+    }
+
     function calculateCommunication(rating) {
 
         setchildgrowthvalues({
             ...childgrowthvalues,
             communicationSkill: parseFloat(rating)
         });
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalDevelopment(rating) {
 
         setchildgrowthvalues({
             ...childgrowthvalues,
-            emotionalLevel: parseFloat(parseFloat(rating))
+            emotionalLevel: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateAttention(rating) {
 
@@ -155,7 +201,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             attentionConcentration: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateOverActivity(rating) {
 
@@ -163,7 +209,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             overActivity: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateInactivity(rating) {
 
@@ -171,7 +217,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             inActivity: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculatePlanning(rating) {
 
@@ -179,7 +225,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             planningOrganization: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateDirection(rating) {
 
@@ -187,7 +233,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             direction: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateVisuals(rating) {
 
@@ -195,7 +241,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             visual: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateMemory(rating) {
 
@@ -203,7 +249,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             memory: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateLanguager(rating) {
 
@@ -211,7 +257,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             spokenSkill: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateReadingWriting(rating) {
 
@@ -219,7 +265,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             readingWriting: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateSocialSkills(rating) {
 
@@ -227,7 +273,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             socialSkill: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalProblems(rating) {
 
@@ -235,7 +281,7 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             emotionalProblem: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     function calculateProblemSolving(rating) {
 
@@ -243,29 +289,46 @@ function CheckChildGrowth() {
             ...childgrowthvalues,
             problemSolving: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
+        fillChildGrowthValues(childgrowthvalues)
     }
     const calculateChildGrowth = () => {
-        // fillChildGrowthValues(childgrowthvalues)
         calculateGrossMotor();
-        calculateFineMotor();
-        if (childgrowthval.fineMotor &&
-            childgrowthval.grossMotor
-        ) {
-            console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
-            axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
-                then(function (response) {
-                    console.log("Response: " + JSON.stringify(response.data.Message))
-                }).catch(function (error) {
-                    console.log("Error: " + JSON.stringify(error))
-                })
-        } else {
-            console.log("NNot parsed")
-        }
+        // calculateFineMotor();
+        // fillChildGrowthValues(childgrowthvalues);
+        // console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
+        // if (childgrowthval.fineMotor &&
+        //     childgrowthval.grossMotor &&
+        //     childgrowthval.age &&
+        //     childgrowthval.weight &&
+        //     childgrowthval.height &&
+        //     childgrowthval.communicationSkill &&
+        //     childgrowthval.emotionalLevel &&
+        //     childgrowthval.attentionConcentration &&
+        //     childgrowthval.planningOrganization &&
+        //     childgrowthval.direction &&
+        //     childgrowthval.visual &&
+        //     childgrowthval.memory &&
+        //     childgrowthval.spokenSkill &&
+        //     childgrowthval.readingWriting &&
+        //     childgrowthval.socialSkill &&
+        //     childgrowthval.emotionalProblem &&
+        //     childgrowthval.fineMotor &&
+        //     childgrowthval.problemSolving
+        // ) {
+        //     console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
+        //     axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+        //         then(function (response) {
+        //             console.log("Response: " + JSON.stringify(response.data.Message))
+        //         }).catch(function (error) {
+        //             console.log("Error: " + JSON.stringify(error))
+        //         })
+        // } else {
+        //     console.log("NNot parsed")
+        // }
     }
-    useEffect(() => {
-        fillChildGrowthValues(childgrowthvalues)
-    }, [childgrowthvalues])
+    // useEffect(() => {
+    //     fillChildGrowthValues(childgrowthvalues)
+    // }, [childgrowthvalues])
     return (
         <ScrollView>
             <Flex
@@ -283,7 +346,6 @@ function CheckChildGrowth() {
                 <Center style={{
                     marginTop: 0
                 }}>
-                    {/* <ChildGrowthSymptoms symptom="Weight" /> */}
                     <PhysicalTraits symptom="Weight"
                         trait={childgrowthvalues.weight ?
                             JSON.stringify(childgrowthvalues.weight) : ""}
@@ -293,7 +355,6 @@ function CheckChildGrowth() {
                 <Center style={{
                     marginTop: 30
                 }}>
-                    {/* <ChildGrowthSymptoms symptom="Height" /> */}
                     <PhysicalTraits symptom="Height"
                         trait={childgrowthvalues.height ?
                             JSON.stringify(childgrowthvalues.height) : ""}
@@ -303,7 +364,6 @@ function CheckChildGrowth() {
                 <Center style={{
                     marginTop: 30
                 }}>
-                    {/* <ChildGrowthSymptoms symptom="Age" /> */}
                     <PhysicalTraits symptom="Age"
                         trait={childgrowthvalues.age ?
                             JSON.stringify(childgrowthvalues.age) : ""}
@@ -311,12 +371,8 @@ function CheckChildGrowth() {
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Gross Motor" /> */}
                     <GrossAndFineMotor i={0} j={1} k={2}
                         symptom="Gross Motor"
-                    // calculateFirst={calculateWalking}
-                    // calculatesecond={calculateJumping}
-                    // calculateThird={calculateRunning}
                     />
                     <View style={{
                         marginTop: 10,
@@ -327,10 +383,10 @@ function CheckChildGrowth() {
                                 find(o => o.key === "Gross Motor").
                                 subquestions[0].data}</Heading>
                         <Rating
-                            count={5}
+                            ratingCount={5}
                             startingValue={1}
                             imageSize={20}
-                            onStartRating={calculateWalking}
+                            //onStartRating={calculateWalking}
                             onFinishRating={calculateWalking}
                         />
                     </View>
@@ -343,10 +399,10 @@ function CheckChildGrowth() {
                                 find(o => o.key === "Gross Motor").
                                 subquestions[1].data}</Heading>
                         <Rating
-                            count={5}
+                            ratingCount={5}
                             startingValue={1}
                             imageSize={20}
-                            onStartRating={calculateJumping}
+                            //onStartRating={calculateJumping}
                             onFinishRating={calculateJumping}
                         />
                     </View>
@@ -359,21 +415,17 @@ function CheckChildGrowth() {
                                 find(o => o.key === "Gross Motor").
                                 subquestions[2].data}</Heading>
                         <Rating
-                            count={5}
+                            ratingCount={5}
                             startingValue={1}
                             imageSize={20}
-                            onStartRating={calculateRunning}
+                            //onStartRating={calculateRunning}
                             onFinishRating={calculateRunning}
                         />
                     </View>
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Fine Motor" /> */}
                     <GrossAndFineMotor i={0} j={1} k={2}
                         symptom="Fine Motor"
-                    // calculateFirst={calculateWalking}
-                    // calculatesecond={calculateJumping}
-                    // calculateThird={calculateRunning}
                     />
                     <View style={{
                         marginTop: 10,
@@ -384,10 +436,10 @@ function CheckChildGrowth() {
                                 find(o => o.key === "Fine Motor").
                                 subquestions[0].data}</Heading>
                         <Rating
-                            count={5}
+                            ratingCount={5}
                             startingValue={1}
                             imageSize={20}
-                            onStartRating={calculateSocialExpressions}
+                            //onStartRating={calculateSocialExpressions}
                             onFinishRating={calculateSocialExpressions}
                         />
                     </View>
@@ -400,10 +452,10 @@ function CheckChildGrowth() {
                                 find(o => o.key === "Fine Motor").
                                 subquestions[1].data}</Heading>
                         <Rating
-                            count={5}
+                            ratingCount={5}
                             startingValue={1}
                             imageSize={20}
-                            onStartRating={calculateGestures}
+                            //onStartRating={calculateGestures}
                             onFinishRating={calculateGestures}
                         />
                     </View>
@@ -416,137 +468,84 @@ function CheckChildGrowth() {
                                 find(o => o.key === "Fine Motor").
                                 subquestions[2].data}</Heading>
                         <Rating
-                            count={5}
+                            ratingCount={5}
                             startingValue={1}
                             imageSize={20}
-                            onStartRating={calculateBodyLanguage}
+                            //onStartRating={calculateBodyLanguage}
                             onFinishRating={calculateBodyLanguage}
                         />
                     </View>
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Communication"
                         calculateMethod={calculateCommunication}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Emotional Development"
                         calculateMethod={calculateEmotionalDevelopment}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Attention and Concentration"
                         calculateMethod={calculateAttention}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Overactivity and Impulsivity"
                         calculateMethod={calculateOverActivity}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Passivity/ Inactivity"
                         calculateMethod={calculateInactivity}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Planning/ Organising"
                         calculateMethod={calculatePlanning}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Perception of Directions"
                         calculateMethod={calculateDirection}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Perception of Visual Forms and Figures"
                         calculateMethod={calculateVisuals}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Memory"
                         calculateMethod={calculateMemory}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Spoken Language"
                         calculateMethod={calculateLanguager}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Reading/Writing"
                         calculateMethod={calculateReadingWriting}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Social Skills"
                         calculateMethod={calculateSocialSkills}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Emotional Problems"
                         calculateMethod={calculateEmotionalProblems}
                     />
                 </Center>
                 <Center >
-                    {/* <ChildGrowthSymptoms symptom="Communication" /> */}
                     <ChildGrowthOp symptom="Problem Solving"
                         calculateMethod={calculateProblemSolving}
                     />
                 </Center>
-                {/* <Center >
-                    <ChildGrowthSymptoms symptom="Emotional Development" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Attention and Concentration" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Overactivity and Impulsivity" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Passivity/ Inactivity" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Planning/ Organising" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Perception of Directions" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Perception of Visual Forms and Figures" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Memory" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Spoken Language" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Reading/Writing" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Social Skills" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Emotional Problems" />
-                </Center>
-                <Center >
-                    <ChildGrowthSymptoms symptom="Problem Solving" />
-                </Center> */}
                 <Center style={{ marginTop: 40, marginBottom: 40 }}>
                     <Button key="lg" size="lg" onPress={() => {
                         // setModalVisible(true);
