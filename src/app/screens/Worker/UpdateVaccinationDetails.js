@@ -40,7 +40,10 @@ function UpdateVaccinationDetails(props) {
                 pcv.noOfDoses)
 
     })
-
+    const { measles, opv,
+        bcg, pentavalent,
+        pcv
+    } = vacc_details;
     const getOTP = () => {
         axios.get(baseUrl + '/polioworker/otp/' + props.id).then(
             function (response) {
@@ -53,46 +56,57 @@ function UpdateVaccinationDetails(props) {
         })
     }
     const updateChildInfo = () => {
-        if (otp === confirmOTP) {
-            axios.put(baseUrl + "/polioworker/children/" + props.id,
-                {
-                    "vaccination": [
-                        {
-                            "opv": {
-                                "noOfDoses": parseInt(vacc_details.opv)
-                            },
-                            "measles": {
-                                "noOfDoses": parseInt(vacc_details.measles)
-                            },
-                            "bcg": {
-                                "noOfDoses": parseInt(vacc_details.bcg)
-                            },
-                            "pentavalent": {
-                                "noOfDoses": parseInt(vacc_details.pentavalent)
-                            },
-                            "pcv": {
-                                "noOfDoses": parseInt(vacc_details.pcv)
+        if (otp !== "" && confirmOTP !== "") {
+            if (otp === JSON.stringify(confirmOTP)) {
+                axios.put(baseUrl + "/polioworker/children/" + props.id,
+                    {
+                        "vaccination": [
+                            {
+                                "opv": {
+                                    "noOfDoses": parseInt(opv != ""
+                                        ? opv : "0"
+                                    )
+                                },
+                                "measles": {
+                                    "noOfDoses": parseInt(measles != ""
+                                        ? measles : "0"
+                                    )
+                                },
+                                "bcg": {
+                                    "noOfDoses": parseInt(bcg != ""
+                                        ? bcg : "0"
+                                    )
+                                },
+                                "pentavalent": {
+                                    "noOfDoses": parseInt(pentavalent != ""
+                                        ? pentavalent : "0"
+                                    )
+                                },
+                                "pcv": {
+                                    "noOfDoses": parseInt(pcv != ""
+                                        ? pcv : "0"
+                                    )
+                                }
                             }
+                        ]
+                    }).then(
+                        function (response) {
+                            Alert.alert("Update Children", JSON.stringify(response.data.message))
+                            setconfirmOTP("");
+                            setModalVisible(false);
                         }
-                    ]
-                }).then(
-                    function (response) {
-                        // console.log("Response: " + JSON.stringify(response.data.data.otp))
-                        Alert.alert("Update Children", "Child Updated Successfully!")
-                        setModalVisible(false);
-                    }
-                ).catch(function (error) {
-                    console.log("Error: " + JSON.stringify(error))
-                })
-        }
-        else {
-            Alert.alert("OTP", "Please enter the correct OTP!")
+                    ).catch(function (error) {
+                        console.log("Error: " + JSON.stringify(error))
+                    })
+            }
+            else {
+                Alert.alert("OTP", "Please enter the correct OTP!")
+            }
+        } else {
+            console.log("Please re-enter the values!");
         }
     }
-    const { measles, opv,
-        bcg, pentavalent,
-        pcv
-    } = vacc_details;
+
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
@@ -106,7 +120,11 @@ function UpdateVaccinationDetails(props) {
                     </View>
                 </View>
                 <View style={styles.infoContainer}>
-
+                    <Text style={styles.text, {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        marginTop: 20
+                    }}>{props.childID}</Text>
                     <Text style={styles.text, {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -121,10 +139,11 @@ function UpdateVaccinationDetails(props) {
                                 color: 'green',
                                 fontSize: 18
                             }}
+                            keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
                             // placeholder='OPV'
-                            value={opv != "" ? opv : "0"}
+                            value={opv}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
@@ -140,9 +159,10 @@ function UpdateVaccinationDetails(props) {
                                 color: 'green',
                                 fontSize: 18
                             }}
+                            keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={measles != "" ? measles : "0"}
+                            value={measles}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
@@ -158,9 +178,10 @@ function UpdateVaccinationDetails(props) {
                                 color: 'green',
                                 fontSize: 18
                             }}
+                            keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={bcg != "" ? bcg : "0"}
+                            value={bcg}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
@@ -176,9 +197,10 @@ function UpdateVaccinationDetails(props) {
                                 color: 'green',
                                 fontSize: 18
                             }}
+                            keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={pentavalent != "" ? pentavalent : "0"}
+                            value={pentavalent}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
@@ -194,9 +216,10 @@ function UpdateVaccinationDetails(props) {
                                 color: 'green',
                                 fontSize: 18
                             }}
+                            keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={pcv != "" ? pcv : "0"}
+                            value={pcv}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
@@ -237,6 +260,7 @@ function UpdateVaccinationDetails(props) {
                         <View style={{ marginTop: 20 }}>
                             <TextInput
                                 value={confirmOTP}
+                                keyboardType = 'numeric'
                                 onChangeText={(val) => {
                                     setconfirmOTP(val);
                                 }}
@@ -247,9 +271,7 @@ function UpdateVaccinationDetails(props) {
                         </View>
                         <View style={{ width: 200 }}>
                             <View style={styles.buttons}>
-                                <Button onPress={() => {
-                                    closeModal()
-                                }}
+                                <Button onPress={updateChildInfo}
                                 >
                                     Confirm OTP
                                 </Button>

@@ -49,7 +49,7 @@ function WorkerDashboard() {
 
   useEffect(() => {
     getChildList();
-  }, [])
+  }, [childrens])
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -77,26 +77,6 @@ function WorkerDashboard() {
         <View style={{
           padding: 20
         }}>
-          {/* {ChildDetails.map((u, i) => {
-            return (
-              <Card key={u.id} id={u.id} onPress={() => {
-                setchildid(u.id);
-                setModalVisible(true);
-              }} style={{
-                marginBottom: 16,
-                borderRadius: 30,
-                borderWidth: 1,
-                borderColor: 'black',
-              }}>
-                <Card.Title title={u.name}
-                  // subtitleStyle={{ marginBottom: 2 }}
-                  subtitle={child_details(u.parentName,
-                    u.dateOfBirth)}
-                  left={LeftContent} />
-              </Card>
-
-            );
-          })} */}
           {childrens ?
             childrens[0].map((u, i) => {
               return (
