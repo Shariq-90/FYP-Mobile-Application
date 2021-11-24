@@ -4,7 +4,6 @@ import { View, Image, SafeAreaView, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function RatingComponent(props) {
-    const [defaultRating, setdefaultRating] = useState(2);
     const [maxRating, setmaxRating] = useState([1, 2, 3, 4, 5]);
     return (<View style={styles.customRatingBarStyle}>
         {maxRating.map((item, index) => {
@@ -12,11 +11,11 @@ function RatingComponent(props) {
                 <TouchableOpacity
                     activeOpacity={0.7}
                     key={item}
-                    onPress={() => props.sWalking(item)}
+                    onPress={() => props.setRating(item)}
                 >
                     <Image style={styles.starImgStyle}
                         source={
-                            item <= props.walking ?
+                            item <= props.rating ?
                                 require('./assets/star_filled.png') :
                                 require('./assets/star_corner.png')
                         }

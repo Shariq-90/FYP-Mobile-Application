@@ -20,9 +20,7 @@ function CheckChildGrowth() {
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": null,
         "height": null,
-        "weight": null, "grossMotor": 0.0, "fineMotor": 0.0,
-        "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5,
-        "problemSolving": 5, "memory": 2.5,
+        "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
         "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
         "emotionalLevel": 1.1,
         "planningOrganization": 1.1,
@@ -56,82 +54,40 @@ function CheckChildGrowth() {
         })
     }
 
-    const [walking, setWalking] = useState(2);
-    const sWalking = (val) => { setWalking(val);
-    console.log(walking) };
-    const [jumping, setJumping] = useState(1);
-    const [running, setRunning] = useState(1);
 
     let [physicalskills, setPhysicalSkills] = useState({
         walking: 1,
         jumping: 1, running: 1
     })
     const calculateGrossMotor = () => {
-        console.log("Physical: " + JSON.stringify(walking)
-            + JSON.stringify(jumping)
-            + JSON.stringify(running))
-        // if (physicalskills.walking > 1 &&
-        //     physicalskills.running > 1 && physicalskills.jumping > 1
-        // ) {
-        //     let gross =
-        //         parseFloat((physicalskills.walking +
-        //             physicalskills.running + physicalskills.jumping
-        //         ) / 3);
-        //     console.log("Gross: " + gross)
-        //     // setchildgrowthvalues({
-        //     //     ...childgrowthvalues,
-        //     //     grossMotor: gross
-        //     // })
-        //     // fillChildGrowthValues(childgrowthvalues)
-        // }
-        // else {
-        //     console.log("Values are not filled!")
-        // }
-        if (walking > 1 &&
-            running > 1 && jumping > 1
-        ) {
-            let gross =
-                parseFloat((walking +
-                    running + jumping
-                ) / 3);
-            console.log("Gross: " + gross)
-            // setchildgrowthvalues({
-            //     ...childgrowthvalues,
-            //     grossMotor: gross
-            // })
-            // fillChildGrowthValues(childgrowthvalues)
-        }
-        else {
-            console.log("Values are not filled!")
-        }
+        let gross =
+            parseFloat((physicalskills.walking +
+                physicalskills.running + physicalskills.jumping
+            ) / 3);
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            grossMotor: parseInt(gross).toFixed()
+        })
     }
     const calculateWalking = (rating) => {
-        console.log("1: " + rating)
-        // setPhysicalSkills({
-        //     ...physicalskills,
-        //     walking: rating
-        // })
-        setWalking(rating)
+        setPhysicalSkills({
+            ...physicalskills,
+            walking: parseFloat(rating)
+        })
         calculateGrossMotor()
     }
     const calculateJumping = (rating) => {
-        console.log("2: " + rating)
-
-        // setPhysicalSkills({
-        //     ...physicalskills,
-        //     jumping: rating
-        // })
-        setJumping(rating)
+        setPhysicalSkills({
+            ...physicalskills,
+            jumping: parseFloat(rating)
+        })
         calculateGrossMotor()
     }
     const calculateRunning = (rating) => {
-        console.log("3: " + rating)
-
-        // setPhysicalSkills({
-        //     ...physicalskills,
-        //     running: rating
-        // })
-        setRunning(rating);
+        setPhysicalSkills({
+            ...physicalskills,
+            running: parseFloat(rating)
+        })
         calculateGrossMotor()
     }
 
@@ -139,49 +95,37 @@ function CheckChildGrowth() {
         expressions: 1.0, gesture: 1.0,
         body_language: 1.0
     })
+    function calculateFineMotor() {
+        let fine =
+            parseFloat((extraSkills.expressions +
+                extraSkills.gesture + extraSkills.body_language
+            )) / 3.0;
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            fineMotor: parseInt(fine).toFixed()
+        })
+    }
     function calculateSocialExpressions(rating) {
-        console.log("4: " + rating)
-        // let temp_expression = parseFloat(rating) 
-        // setExtraSkills({
-        //     ...extraSkills,
-        //     expressions: temp_expression
-        // })
+        setExtraSkills({
+            ...extraSkills,
+            expressions: parseFloat(rating)
+        })
+        calculateFineMotor()
     }
     function calculateGestures(rating) {
-        console.log("5: " + rating)
-        let temp_gesture = parseFloat(rating)
         setExtraSkills({
             ...extraSkills,
-            gesture: temp_gesture
+            gesture: parseFloat(rating)
         })
+        calculateFineMotor()
     }
     function calculateBodyLanguage(rating) {
-        console.log("6: " + rating)
-        let temp_body = parseFloat(rating)
         setExtraSkills({
             ...extraSkills,
-            body_language: temp_body
+            body_language: parseFloat(rating)
         })
+        calculateFineMotor()
     }
-    function calculateFineMotor() {
-        // console.log("Extra: " + JSON.stringify(extraSkills))
-        // if (extraSkills.expressions && extraSkills.gesture
-        //     && extraSkills.body_language
-        // ) {
-        //     let fine =
-        //         parseFloat((extraSkills.expressions +
-        //             extraSkills.gesture + extraSkills.body_language
-        //         )) / 3.0;
-        //     setchildgrowthvalues({
-        //         ...childgrowthvalues,
-        //         fineMotor: parseFloat(fine)
-        //     })
-        //     fillChildGrowthValues(childgrowthvalues)
-        // } else {
-        //     console.log("FineMotor n.p")
-        // }
-    }
-
     function calculateCommunication(rating) {
 
         setchildgrowthvalues({
@@ -296,42 +240,24 @@ function CheckChildGrowth() {
     }
     const calculateChildGrowth = () => {
         calculateGrossMotor();
-        // calculateFineMotor();
-        // fillChildGrowthValues(childgrowthvalues);
+        calculateFineMotor();
+        fillChildGrowthValues(childgrowthvalues);
         // console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
-        // if (childgrowthval.fineMotor &&
-        //     childgrowthval.grossMotor &&
-        //     childgrowthval.age &&
-        //     childgrowthval.weight &&
-        //     childgrowthval.height &&
-        //     childgrowthval.communicationSkill &&
-        //     childgrowthval.emotionalLevel &&
-        //     childgrowthval.attentionConcentration &&
-        //     childgrowthval.planningOrganization &&
-        //     childgrowthval.direction &&
-        //     childgrowthval.visual &&
-        //     childgrowthval.memory &&
-        //     childgrowthval.spokenSkill &&
-        //     childgrowthval.readingWriting &&
-        //     childgrowthval.socialSkill &&
-        //     childgrowthval.emotionalProblem &&
-        //     childgrowthval.fineMotor &&
-        //     childgrowthval.problemSolving
-        // ) {
-        //     console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
-        //     axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
-        //         then(function (response) {
-        //             console.log("Response: " + JSON.stringify(response.data.Message))
-        //         }).catch(function (error) {
-        //             console.log("Error: " + JSON.stringify(error))
-        //         })
-        // } else {
-        //     console.log("NNot parsed")
-        // }
+        if (childgrowthval) {
+            console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
+            axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+                then(function (response) {
+                    console.log("Response: " + JSON.stringify(response.data.Message))
+                }).catch(function (error) {
+                    console.log("Error: " + JSON.stringify(error))
+                })
+        } else {
+            console.log("NNot parsed")
+        }
     }
-    // useEffect(() => {
-    //     fillChildGrowthValues(childgrowthvalues)
-    // }, [childgrowthvalues])
+    useEffect(() => {
+        fillChildGrowthValues(childgrowthvalues)
+    }, [childgrowthvalues])
     return (
         <ScrollView>
             <Flex
@@ -385,15 +311,8 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Gross Motor").
                                 subquestions[0].data}</Heading>
-                        {/* <Rating
-                            ratingCount={5}
-                            startingValue={1}
-                            imageSize={20}
-                            //onStartRating={calculateWalking}
-                            onFinishRating={calculateWalking}
-                        /> */}
-                        <RatingComponent walking = {walking}
-                        sWalking = {sWalking}
+                        <RatingComponent rating={physicalskills.walking}
+                            setRating={calculateWalking}
                         />
                     </View>
                     <View style={{
@@ -404,12 +323,8 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Gross Motor").
                                 subquestions[1].data}</Heading>
-                        <Rating
-                            ratingCount={5}
-                            startingValue={1}
-                            imageSize={20}
-                            //onStartRating={calculateJumping}
-                            onFinishRating={calculateJumping}
+                        <RatingComponent rating={physicalskills.jumping}
+                            setRating={calculateJumping}
                         />
                     </View>
                     <View style={{
@@ -420,12 +335,8 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Gross Motor").
                                 subquestions[2].data}</Heading>
-                        <Rating
-                            ratingCount={5}
-                            startingValue={1}
-                            imageSize={20}
-                            //onStartRating={calculateRunning}
-                            onFinishRating={calculateRunning}
+                        <RatingComponent rating={physicalskills.running}
+                            setRating={calculateRunning}
                         />
                     </View>
                 </Center>
@@ -441,12 +352,8 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Fine Motor").
                                 subquestions[0].data}</Heading>
-                        <Rating
-                            ratingCount={5}
-                            startingValue={1}
-                            imageSize={20}
-                            //onStartRating={calculateSocialExpressions}
-                            onFinishRating={calculateSocialExpressions}
+                        <RatingComponent rating={extraSkills.expressions}
+                            setRating={calculateSocialExpressions}
                         />
                     </View>
                     <View style={{
@@ -457,12 +364,8 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Fine Motor").
                                 subquestions[1].data}</Heading>
-                        <Rating
-                            ratingCount={5}
-                            startingValue={1}
-                            imageSize={20}
-                            //onStartRating={calculateGestures}
-                            onFinishRating={calculateGestures}
+                        <RatingComponent rating={extraSkills.gesture}
+                            setRating={calculateGestures}
                         />
                     </View>
                     <View style={{
@@ -473,12 +376,8 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Fine Motor").
                                 subquestions[2].data}</Heading>
-                        <Rating
-                            ratingCount={5}
-                            startingValue={1}
-                            imageSize={20}
-                            //onStartRating={calculateBodyLanguage}
-                            onFinishRating={calculateBodyLanguage}
+                        <RatingComponent rating={extraSkills.body_language}
+                            setRating={calculateBodyLanguage}
                         />
                     </View>
                 </Center>
