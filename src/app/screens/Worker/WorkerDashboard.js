@@ -21,9 +21,14 @@ function WorkerDashboard() {
   const [childrens, setchildrens] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [childid, setchildid] = useState(0);
+  const [vaccination, setvaccination] = useState({
+    measles: null, opv: null, bcg: null,
+    pentavalent: null, pcv: null
+  });
   const closeModal = () => {
     setModalVisible(false);
   }
+  const [index, setindex] = useState(0);
   const getChildList = () => {
     axios.put(baseUrl + "/polioworker/children").
       then(function (response) {
@@ -95,14 +100,24 @@ function WorkerDashboard() {
             childrens[0].map((u, i) => {
               return (
                 <Card key={i} id={i} onPress={() => {
-                  setchildid(u.childID);
-                  // setModalVisible(true);
+                  setchildid(u._id);
+                  setindex(i);
+                  setvaccination({
+                    ...vaccination,
+                    opv: u.vaccination[0].opv.noOfDoses,
+                    measles: u.vaccination[0].measles.noOfDoses,
+                    pentavalent: u.vaccination[0].pentavalent.noOfDoses,
+                    pcv: u.vaccination[0].pcv.noOfDoses,
+                    bcg: u.vaccination[0].bcg.noOfDoses,
+                  })
+                  setModalVisible(true);
                 }} style={{
                   marginBottom: 16,
                   borderRadius: 30,
                   borderWidth: 1,
                   borderColor: 'black',
                 }}>
+                  {/* vaccination[0].measles.noOfDoses */}
                   <Card.Title title={u.childID}
                     // subtitleStyle={{ marginBottom: 2 }}
                     subtitle={child_details(u.parentName,
@@ -125,6 +140,13 @@ function WorkerDashboard() {
         >
           <UpdateVaccinationDetails childid={childid}
             closeModal={closeModal}
+            vaccination={vaccination}
+            index={index}
+            opv={vaccination.opv}
+            measles={vaccination.measles}
+            bcg={vaccination.bcg}
+            pentavalent={vaccination.pentavalent}
+            pcv={vaccination.pcv}
           />
         </Modal>
       </View>

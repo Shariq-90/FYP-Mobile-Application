@@ -14,27 +14,32 @@ import { Button } from 'native-base';
 function UpdateVaccinationDetails(props) {
     const [vacc_details, setVaccDetails] = useState({
         Diphteria:
-            ChildDetails[props.childid].vaccination.Diphteria,
+            // ChildDetails[props.childid].vaccination.Diphteria,
+            props.opv,
         Polio:
-            ChildDetails[props.childid].vaccination.Polio,
+            // ChildDetails[props.childid].vaccination.Polio,
+            props.measles,
         Homophiles:
-            ChildDetails[props.childid].vaccination.Homophiles,
+            // ChildDetails[props.childid].vaccination.Homophiles,
+            props.bcg,
         Rota_Virus:
-            ChildDetails[props.childid].vaccination.Rota_Virus,
+            // ChildDetails[props.childid].vaccination.Rota_Virus,
+            props.pcv,
         Measles:
-            ChildDetails[props.childid].vaccination.Measles,
+            // ChildDetails[props.childid].vaccination.Measles,
+            props.pentavalent,
         Hepatitus_A:
-            ChildDetails[props.childid].vaccination.Hepatitus_A,
+            ChildDetails[5].vaccination.Hepatitus_A,
         Hepatitus_B:
-            ChildDetails[props.childid].vaccination.Hepatitus_B,
+            ChildDetails[0].vaccination.Hepatitus_B,
         Papilloma_Virus:
-            ChildDetails[props.childid].vaccination.Papilloma_Virus,
+            ChildDetails[0].vaccination.Papilloma_Virus,
         Influenze:
-            ChildDetails[props.childid].vaccination.Influenze,
+            ChildDetails[0].vaccination.Influenze,
 
     })
 
-    
+
     const { Diphteria, Polio,
         Homophiles, Rota_Virus,
         Measles, Hepatitus_A,
@@ -42,17 +47,6 @@ function UpdateVaccinationDetails(props) {
         Papilloma_Virus,
         Influenze
     } = vacc_details;
-    // const updateValues = () => {
-    //     ChildDetails[props.childid].vaccination.Diphteria = Diphteria;
-    //     ChildDetails[props.childid].vaccination.Polio = Polio;
-    //     ChildDetails[props.childid].vaccination.Measles = Measles;
-    //     ChildDetails[props.childid].vaccination.Hepatitus_A = Hepatitus_A;
-    //     ChildDetails[props.childid].vaccination.Hepatitus_B = Hepatitus_B;
-    //     ChildDetails[props.childid].vaccination.Papilloma_Virus = Papilloma_Virus;
-    //     ChildDetails[props.childid].vaccination.Influenze = Influenze;
-    //     ChildDetails[props.childid].vaccination.Rota_Virus =Rota_Virus;
-    //     ChildDetails[props.childid].vaccination.Homophiles =Homophiles;
-    // }
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
@@ -74,7 +68,7 @@ function UpdateVaccinationDetails(props) {
                     }}>Vaccination Information (Doses)</Text>
                     <View style={styles.updateform}>
                         <Input
-                            label="Diaphteria"
+                            label="OPV"
                             labelStyle={{
                                 textAlign: 'center',
                                 fontWeight: 'bold',
@@ -83,7 +77,7 @@ function UpdateVaccinationDetails(props) {
                             }}
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            placeholder='Diphteria'
+                            // placeholder='OPV'
                             value={Diphteria}
                             onChangeText={(text) => {
                                 setVaccDetails({
@@ -93,7 +87,7 @@ function UpdateVaccinationDetails(props) {
                             }}
                         />
                         <Input
-                            label='Polio'
+                            label='Measles'
                             labelStyle={{
                                 textAlign: 'center',
                                 fontWeight: 'bold',
@@ -111,7 +105,7 @@ function UpdateVaccinationDetails(props) {
                             }}
                         />
                         <Input
-                            label='Rota Virus'
+                            label='BCG'
                             labelStyle={{
                                 textAlign: 'center',
                                 fontWeight: 'bold',
@@ -129,7 +123,7 @@ function UpdateVaccinationDetails(props) {
                             }}
                         />
                         <Input
-                            label='Measles'
+                            label='Pentavalent'
                             labelStyle={{
                                 textAlign: 'center',
                                 fontWeight: 'bold',
@@ -147,7 +141,7 @@ function UpdateVaccinationDetails(props) {
                             }}
                         />
                         <Input
-                            label='Hepatitis A'
+                            label='PCV'
                             labelStyle={{
                                 textAlign: 'center',
                                 fontWeight: 'bold',
@@ -161,60 +155,6 @@ function UpdateVaccinationDetails(props) {
                                 setVaccDetails({
                                     ...vacc_details,
                                     Hepatitus_A: text
-                                })
-                            }}
-                        />
-                        <Input
-                            label='Hepatitis B'
-                            labelStyle={{
-                                textAlign: 'center',
-                                fontWeight: 'bold',
-                                color: 'green',
-                                fontSize: 18
-                            }}
-                            style={{ textAlign: 'center' }}
-                            placeholderTextColor="black"
-                            value={Hepatitus_B}
-                            onChangeText={(text) => {
-                                setVaccDetails({
-                                    ...vacc_details,
-                                    Hepatitus_B: text
-                                })
-                            }}
-                        />
-                        <Input
-                            label='Papilloma Virus'
-                            value={Papilloma_Virus}
-                            labelStyle={{
-                                textAlign: 'center',
-                                fontWeight: 'bold',
-                                color: 'green',
-                                fontSize: 18
-                            }}
-                            style={{ textAlign: 'center' }}
-                            placeholderTextColor="black"
-                            onChangeText={(text) => {
-                                setVaccDetails({
-                                    ...vacc_details,
-                                    Papilloma_Virus: text
-                                })
-                            }}
-                        />
-                        <Input
-                            label='Influenza'
-                            value={Influenze}
-                            labelStyle={{
-                                textAlign: 'center',
-                                fontWeight: 'bold',
-                                color: 'green',
-                                fontSize: 18
-                            }}
-                            style={{ textAlign: 'center' }}
-                            placeholderTextColor="black"
-                            onChangeText={(text) => {
-                                setVaccDetails({
-                                    ...vacc_details,
-                                    Influenze: text
                                 })
                             }}
                         />

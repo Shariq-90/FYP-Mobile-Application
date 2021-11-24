@@ -154,7 +154,7 @@ function CheckPolioSymptoms() {
                     }}
                 >
                     <GraphModal closeMenu={closeMenu}
-                        displayText={confirmPolio ? "You have polio symptoms!" :
+                        displayText={confirmPolio ? "You may have polio symptoms!" :
                             "You don't have polio symptoms!"}
                         polio="polio"
                     />
