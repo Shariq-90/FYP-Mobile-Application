@@ -242,10 +242,10 @@ function ChildGrowthSymptoms(props) {
         })
         //fillChildGrowthValues(childgrowthvalues)
     }
-    useEffect(() => {
-        console.log("Yellow bro!")
-        fillChildGrowthValues(childgrowthvalues);
-    }, [childgrowthvalues])
+    // useEffect(() => {
+    //     console.log("Yellow bro!")
+    //     fillChildGrowthValues(childgrowthvalues);
+    // }, [childgrowthvalues])
     return (
         <ScrollView>
             <Center mt="4">

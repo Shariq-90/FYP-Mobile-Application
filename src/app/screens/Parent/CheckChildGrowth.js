@@ -9,6 +9,7 @@ import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
 import { PolioContext } from '../../../../Provider';
 import axios from 'axios';
 import PhysicalTraits from './ChildrenInformation/PhysicalTraits';
+import GrossAndFineMotor from './GrossAndFineMotor';
 
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -17,52 +18,91 @@ function CheckChildGrowth() {
     // let [childgrowthvalues, setchildgrowthvalues] = useState({
     //     "age": 3.0,
     //     "height": 5.0,
-    //     "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
-    //     "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
-    //     "emotionalLevel": 1.1,
-    //     "planningOrganization": 1.1,
-    //     "emotionalProblem": 1.1
+    // "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
+    // "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
+    // "emotionalLevel": 1.1,
+    // "planningOrganization": 1.1,
+    // "emotionalProblem": 1.1
     // })
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": null,
         "height": null,
-        "weight": null, "grossMotor": null, "fineMotor": null,
-        "overActivity": null, "inActivity": null, "communicationSkill": null,
-        "problemSolving": null, "memory": null,
-        "socialSkill": null, "attentionConcentration": null, "direction": null,
-        "visual": null, "spokenSkill": null, "readingWriting": null,
-        "emotionalLevel": null,
-        "planningOrganization": null,
-        "emotionalProblem": null
+        "weight": null, "grossMotor": null, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
+        "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
+        "emotionalLevel": 1.1,
+        "planningOrganization": 1.1,
+        "emotionalProblem": 1.1
+    })
+    let [physicalskills, setPhysicalSkills] = useState({
+        walking: 1.0,
+        jumping: 1.0, running: 1.0
     })
     function setAge(val) {
         setchildgrowthvalues({
             ...childgrowthvalues,
-            age: val
+            age: parseFloat(val)
         })
     }
     function setWeight(val) {
         setchildgrowthvalues({
             ...childgrowthvalues,
-            weight: val
+            weight: parseFloat(val)
         })
     }
     function setHeight(val) {
         setchildgrowthvalues({
             ...childgrowthvalues,
-            height: val
+            height: parseFloat(val)
         })
+    }
+    function calculateWalking(rating) {
+        setPhysicalSkills({
+            ...physicalskills,
+            walking: rating
+        })
+    }
+    function calculateJumping(rating) {
+        setPhysicalSkills({
+            ...physicalskills,
+            jumping: rating
+        })
+    }
+    function calculateRunning(rating) {
+        setPhysicalSkills({
+            ...physicalskills,
+            running: rating
+        })
+    }
+    function calculateGrossMotor() {
+        if (physicalskills.walking &&
+            physicalskills.running && physicalskills.jumping
+        ) {
+            console.log("PhysicalSkills: " + JSON.stringify(physicalskills))
+            let gross =
+                (physicalskills.walking +
+                    physicalskills.jumping + physicalskills.running
+                ) / 3;
+            setchildgrowthvalues({
+                ...childgrowthvalues,
+                grossMotor: parseFloat(gross)
+            })
+            fillChildGrowthValues(childgrowthvalues)
+        }
+        else {
+            console.log("Values are not filled!")
+        }
     }
     const calculateChildGrowth = () => {
         // fillChildGrowthValues(childgrowthvalues)
-        if (childgrowthval) {
+        calculateGrossMotor();
+        if (childgrowthval.grossMotor) {
             console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
-            // axios.post("http://10.0.2.2:5000/getPredictions", childgrowthvalues).
-            //     then(function (response) {
-            //         console.log("Response: " + JSON.stringify(response.data.Message))
-            //     }).catch(function (error) {
-            //         console.log("Error: " + JSON.stringify(error))
-            //     })
+            axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+                then(function (response) {
+                    console.log("Response: " + JSON.stringify(response.data.Message))
+                }).catch(function (error) {
+                    console.log("Error: " + JSON.stringify(error))
+                })
         } else {
             console.log("NNot parsed")
         }
@@ -90,7 +130,7 @@ function CheckChildGrowth() {
                     {/* <ChildGrowthSymptoms symptom="Weight" /> */}
                     <PhysicalTraits symptom="Weight"
                         trait={childgrowthvalues.weight ?
-                            childgrowthvalues.weight : ""}
+                            JSON.stringify(childgrowthvalues.weight) : ""}
                         setTrait={setWeight}
                     />
                 </Center>
@@ -100,7 +140,7 @@ function CheckChildGrowth() {
                     {/* <ChildGrowthSymptoms symptom="Height" /> */}
                     <PhysicalTraits symptom="Height"
                         trait={childgrowthvalues.height ?
-                            childgrowthvalues.height : ""}
+                            JSON.stringify(childgrowthvalues.height) : ""}
                         setTrait={setHeight}
                     />
                 </Center>
@@ -110,12 +150,66 @@ function CheckChildGrowth() {
                     {/* <ChildGrowthSymptoms symptom="Age" /> */}
                     <PhysicalTraits symptom="Age"
                         trait={childgrowthvalues.age ?
-                            childgrowthvalues.age : ""}
+                            JSON.stringify(childgrowthvalues.age) : ""}
                         setTrait={setAge}
                     />
                 </Center>
                 <Center >
-                    <ChildGrowthSymptoms symptom="Gross Motor" />
+                    {/* <ChildGrowthSymptoms symptom="Gross Motor" /> */}
+                    <GrossAndFineMotor i={0} j={1} k={2}
+                        symptom="Gross Motor"
+                    // calculateFirst={calculateWalking}
+                    // calculatesecond={calculateJumping}
+                    // calculateThird={calculateRunning}
+                    />
+                    <View style={{
+                        marginTop: 10,
+                        flexDirection: 'row',
+                    }}>
+                        <Heading textAlign="left"
+                            size="sm">{ChildGrowthQuestions.
+                                find(o => o.key === "Gross Motor").
+                                subquestions[0].data}</Heading>
+                        <Rating
+                            count={5}
+                            startingValue={1}
+                            imageSize={20}
+                            onStartRating={calculateWalking}
+                            onFinishRating={calculateWalking}
+                        />
+                    </View>
+                    <View style={{
+                        marginTop: 10,
+                        flexDirection: 'row',
+                    }}>
+                        <Heading textAlign="left"
+                            size="sm">{ChildGrowthQuestions.
+                                find(o => o.key === "Gross Motor").
+                                subquestions[1].data}</Heading>
+                        <Rating
+                            count={5}
+                            startingValue={1}
+                            imageSize={20}
+                            onStartRating={calculateJumping}
+                            onFinishRating={calculateJumping}
+                        />
+                    </View>
+                    <View style={{
+                        marginTop: 10,
+                        flexDirection: 'row',
+                    }}>
+                        <Heading textAlign="left"
+                            size="sm">{ChildGrowthQuestions.
+                                find(o => o.key === "Gross Motor").
+                                subquestions[2].data}</Heading>
+                        <Rating
+                            count={5}
+                            startingValue={1}
+                            imageSize={20}
+                            onStartRating={calculateRunning}
+                            onFinishRating={calculateRunning}
+                        />
+                    </View>
                 </Center>
                 <Center >
                     <ChildGrowthSymptoms symptom="Fine Motor" />
