@@ -5,14 +5,20 @@ import {
     Text
 } from "react-native-paper";
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-// import Share from 'react-native-share';
-import { View, SafeAreaView, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient';
-import ChildDetails from '../Parent/ChildrenInformation/ChildDetails';
+import {
+    View, SafeAreaView, Modal, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput,
+    Alert
+} from 'react-native'
+import baseUrl from '../../baseUrl';
 import { Input } from 'react-native-elements';
 import { Button } from 'native-base';
 function UpdateVaccinationDetails(props) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+    const [otp, setOTP] = useState("");
+    const [confirmOTP, setconfirmOTP] = useState("")
     const [vacc_details, setVaccDetails] = useState({
         measles:
             JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
@@ -35,10 +41,54 @@ function UpdateVaccinationDetails(props) {
 
     })
 
-// const updateChildInfo = ()=>{
-//     axios.get(baseUrl)
-// }
-
+    const getOTP = () => {
+        axios.get(baseUrl + '/polioworker/otp/' + props.id).then(
+            function (response) {
+                console.log("Response: " + JSON.stringify(response.data.data.otp))
+                setOTP(JSON.stringify(response.data.data.otp));
+                setModalVisible(true);
+            }
+        ).catch(function (error) {
+            console.log("Error: " + JSON.stringify(error))
+        })
+    }
+    const updateChildInfo = () => {
+        if (otp === confirmOTP) {
+            axios.put(baseUrl + "/polioworker/children/" + props.id,
+                {
+                    "vaccination": [
+                        {
+                            "opv": {
+                                "noOfDoses": parseInt(vacc_details.opv)
+                            },
+                            "measles": {
+                                "noOfDoses": parseInt(vacc_details.measles)
+                            },
+                            "bcg": {
+                                "noOfDoses": parseInt(vacc_details.bcg)
+                            },
+                            "pentavalent": {
+                                "noOfDoses": parseInt(vacc_details.pentavalent)
+                            },
+                            "pcv": {
+                                "noOfDoses": parseInt(vacc_details.pcv)
+                            }
+                        }
+                    ]
+                }).then(
+                    function (response) {
+                        // console.log("Response: " + JSON.stringify(response.data.data.otp))
+                        Alert.alert("Update Children", "Child Updated Successfully!")
+                        setModalVisible(false);
+                    }
+                ).catch(function (error) {
+                    console.log("Error: " + JSON.stringify(error))
+                })
+        }
+        else {
+            Alert.alert("OTP", "Please enter the correct OTP!")
+        }
+    }
     const { measles, opv,
         bcg, pentavalent,
         pcv
@@ -161,7 +211,7 @@ function UpdateVaccinationDetails(props) {
                             <Button size="lg"
                                 width={200}
                                 onPress={() => {
-                                    // updateValues();
+                                    getOTP();
                                 }}>
                                 Update
                             </Button>
@@ -173,6 +223,54 @@ function UpdateVaccinationDetails(props) {
                         </View>
                     </View>
                 </View>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    // transparent={true}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.otpmodal}>
+                        <Text style={styles.OTPText}>Enter the OTP you received: </Text>
+                        <View style={{ marginTop: 20 }}>
+                            <TextInput
+                                value={confirmOTP}
+                                onChangeText={(val) => {
+                                    setconfirmOTP(val);
+                                }}
+                                placeholder="Enter OTP"
+                                borderWidth={1}
+                                width={200}
+                            />
+                        </View>
+                        <View style={{ width: 200 }}>
+                            <View style={styles.buttons}>
+                                <Button onPress={() => {
+                                    closeModal()
+                                }}
+                                >
+                                    Confirm OTP
+                                </Button>
+                            </View>
+                            <View style={styles.buttons}>
+                                <Button onPress={() => {
+                                    getOTP();
+                                }}>
+                                    Resend OTP
+                                </Button>
+                            </View>
+                            <View style={styles.buttons}>
+                                <Button onPress={() => {
+                                    closeModal()
+                                }}>
+                                    Hide
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         </ScrollView>
     )
@@ -181,6 +279,18 @@ function UpdateVaccinationDetails(props) {
 const styles = StyleSheet.create({
     profileImage: {
         overflow: 'hidden',
+    },
+    OTPText: { fontSize: 20 },
+    buttons: { marginTop: 20 },
+    otpmodal: {
+        flex: 0.5,
+        top: '25%',
+        justifyContent: 'center',
+        width: "80%",
+        height: '50%',
+        alignItems: 'center',
+        // backgroundColor: 'red',
+        alignSelf: 'center'
     },
     container: {
         flex: 1,
