@@ -10,6 +10,7 @@ import axios from 'axios';
 import PhysicalTraits from './ChildrenInformation/PhysicalTraits';
 import GrossAndFineMotor from './GrossAndFineMotor';
 import ChildGrowthOp from './ChildGrowthOp';
+import RatingComponent from '../../RatingComponent';
 
 
 function CheckChildGrowth() {
@@ -55,7 +56,9 @@ function CheckChildGrowth() {
         })
     }
 
-    const [walking, setWalking] = useState(1);
+    const [walking, setWalking] = useState(2);
+    const sWalking = (val) => { setWalking(val);
+    console.log(walking) };
     const [jumping, setJumping] = useState(1);
     const [running, setRunning] = useState(1);
 
@@ -113,7 +116,7 @@ function CheckChildGrowth() {
     }
     const calculateJumping = (rating) => {
         console.log("2: " + rating)
-        
+
         // setPhysicalSkills({
         //     ...physicalskills,
         //     jumping: rating
@@ -123,7 +126,7 @@ function CheckChildGrowth() {
     }
     const calculateRunning = (rating) => {
         console.log("3: " + rating)
-       
+
         // setPhysicalSkills({
         //     ...physicalskills,
         //     running: rating
@@ -382,12 +385,15 @@ function CheckChildGrowth() {
                             size="sm">{ChildGrowthQuestions.
                                 find(o => o.key === "Gross Motor").
                                 subquestions[0].data}</Heading>
-                        <Rating
+                        {/* <Rating
                             ratingCount={5}
                             startingValue={1}
                             imageSize={20}
                             //onStartRating={calculateWalking}
                             onFinishRating={calculateWalking}
+                        /> */}
+                        <RatingComponent walking = {walking}
+                        sWalking = {sWalking}
                         />
                     </View>
                     <View style={{
