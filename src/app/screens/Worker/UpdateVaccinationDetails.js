@@ -4,6 +4,7 @@ import {
     Caption,
     Text
 } from "react-native-paper";
+import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Share from 'react-native-share';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native'
@@ -13,39 +14,34 @@ import { Input } from 'react-native-elements';
 import { Button } from 'native-base';
 function UpdateVaccinationDetails(props) {
     const [vacc_details, setVaccDetails] = useState({
-        Diphteria:
-            // ChildDetails[props.childid].vaccination.Diphteria,
-            props.opv,
-        Polio:
-            // ChildDetails[props.childid].vaccination.Polio,
-            props.measles,
-        Homophiles:
+        measles:
+            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+                measles.noOfDoses),
+        opv:
+            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+                opv.noOfDoses),
+        bcg:
             // ChildDetails[props.childid].vaccination.Homophiles,
-            props.bcg,
-        Rota_Virus:
+            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+                bcg.noOfDoses),
+        pentavalent:
             // ChildDetails[props.childid].vaccination.Rota_Virus,
-            props.pcv,
-        Measles:
+            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+                pentavalent.noOfDoses),
+        pcv:
             // ChildDetails[props.childid].vaccination.Measles,
-            props.pentavalent,
-        Hepatitus_A:
-            ChildDetails[5].vaccination.Hepatitus_A,
-        Hepatitus_B:
-            ChildDetails[0].vaccination.Hepatitus_B,
-        Papilloma_Virus:
-            ChildDetails[0].vaccination.Papilloma_Virus,
-        Influenze:
-            ChildDetails[0].vaccination.Influenze,
+            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+                pcv.noOfDoses)
 
     })
 
+// const updateChildInfo = ()=>{
+//     axios.get(baseUrl)
+// }
 
-    const { Diphteria, Polio,
-        Homophiles, Rota_Virus,
-        Measles, Hepatitus_A,
-        Hepatitus_B,
-        Papilloma_Virus,
-        Influenze
+    const { measles, opv,
+        bcg, pentavalent,
+        pcv
     } = vacc_details;
     return (
         <ScrollView>
@@ -78,11 +74,11 @@ function UpdateVaccinationDetails(props) {
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
                             // placeholder='OPV'
-                            value={Diphteria}
+                            value={opv != "" ? opv : "0"}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
-                                    Diphteria: text
+                                    opv: text
                                 })
                             }}
                         />
@@ -96,11 +92,11 @@ function UpdateVaccinationDetails(props) {
                             }}
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={Polio}
+                            value={measles != "" ? measles : "0"}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
-                                    Polio: text
+                                    measles: text
                                 })
                             }}
                         />
@@ -114,11 +110,11 @@ function UpdateVaccinationDetails(props) {
                             }}
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={Rota_Virus}
+                            value={bcg != "" ? bcg : "0"}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
-                                    Rota_Virus: text
+                                    bcg: text
                                 })
                             }}
                         />
@@ -132,11 +128,11 @@ function UpdateVaccinationDetails(props) {
                             }}
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={Measles}
+                            value={pentavalent != "" ? pentavalent : "0"}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
-                                    Measles: text
+                                    pentavalent: text
                                 })
                             }}
                         />
@@ -150,11 +146,11 @@ function UpdateVaccinationDetails(props) {
                             }}
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
-                            value={Hepatitus_A}
+                            value={pcv != "" ? pcv : "0"}
                             onChangeText={(text) => {
                                 setVaccDetails({
                                     ...vacc_details,
-                                    Hepatitus_A: text
+                                    pcv: text
                                 })
                             }}
                         />
