@@ -17,24 +17,24 @@ function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
     const { childgrowthval, fillChildGrowthValues } = useContext(PolioContext);
-    let [childgrowthvalues, setchildgrowthvalues] = useState({
-        "age": null,
-        "height": null,
-        "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
-        "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
-        "emotionalLevel": 1.1,
-        "planningOrganization": 1.1,
-        "emotionalProblem": 1.1
-    })
     // let [childgrowthvalues, setchildgrowthvalues] = useState({
     //     "age": null,
     //     "height": null,
-    //     "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": null, "inActivity": null, "communicationSkill": null, "problemSolving": null, "memory": null,
-    //     "socialSkill": null, "attentionConcentration": null, "direction": null, "visual": null, "spokenSkill": null, "readingWriting": null,
-    //     "emotionalLevel": null,
-    //     "planningOrganization": null,
-    //     "emotionalProblem": null
+    //     "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
+    //     "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
+    //     "emotionalLevel": 1.1,
+    //     "planningOrganization": 1.1,
+    //     "emotionalProblem": 1.1
     // })
+    let [childgrowthvalues, setchildgrowthvalues] = useState({
+        "age": null,
+        "height": null,
+        "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": 1.0, "inActivity": 1.0, "communicationSkill": 1.0, "problemSolving": 1.0, "memory": 1.0,
+        "socialSkill": 1.0, "attentionConcentration": 1.0, "direction": 1.0, "visual": 1.0, "spokenSkill": 1.0, "readingWriting": 1.0,
+        "emotionalLevel": 1.0,
+        "planningOrganization": 1.0,
+        "emotionalProblem": 1.0
+    })
     function setAge(val) {
         setchildgrowthvalues({
             ...childgrowthvalues,
@@ -56,8 +56,8 @@ function CheckChildGrowth() {
 
 
     let [physicalskills, setPhysicalSkills] = useState({
-        walking: 1,
-        jumping: 1, running: 1
+        walking: 1.0,
+        jumping: 1.0, running: 1.0
     })
     const calculateGrossMotor = () => {
         let gross =
@@ -239,13 +239,37 @@ function CheckChildGrowth() {
         fillChildGrowthValues(childgrowthvalues)
     }
     const calculateChildGrowth = () => {
-        calculateGrossMotor();
-        calculateFineMotor();
+        // calculateGrossMotor();
+        // calculateFineMotor();
         fillChildGrowthValues(childgrowthvalues);
         // console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
         if (childgrowthval) {
-            console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
-            axios.post("http://10.0.2.2:5000/getPredictions", childgrowthval).
+            const postValues = {
+                "age": childgrowthvalues.age,
+                "height": childgrowthvalues.height,
+                "weight": childgrowthvalues.weight,
+                "grossMotor": 2.5,
+                // "grossMotor": parseFloat(childgrowthvalues.grossMotor).toFixed(2),
+                // "fineMotor": parseFloat(childgrowthvalues.fineMotor).toFixed(2),
+                "fineMotor": 2.5,
+                "overActivity": Number(childgrowthvalues.overActivity.toFixed(1)),
+                "inActivity": Number(childgrowthvalues.inActivity.toFixed(1)),
+                "communicationSkill": Number(childgrowthvalues.communicationSkill.toFixed(1)),
+                "problemSolving": Number(childgrowthvalues.problemSolving.toFixed(1)),
+                "memory": Number(childgrowthvalues.memory.toFixed(1)),
+                "socialSkill": Number(childgrowthvalues.socialSkill.toFixed(1)),
+                "attentionConcentration": Number(childgrowthvalues.attentionConcentration.toFixed(1)),
+                "direction": Number(childgrowthvalues.direction.toFixed(1)),
+                "visual": Number(childgrowthvalues.visual.toFixed(1)),
+                "spokenSkill": Number(childgrowthvalues.spokenSkill.toFixed(1)),
+                "readingWriting": Number(childgrowthvalues.readingWriting.toFixed(1)),
+                "emotionalLevel": Number(childgrowthvalues.emotionalLevel.toFixed(1)),
+                "planningOrganization": Number(childgrowthvalues.planningOrganization.toFixed(1)),
+                "emotionalProblem": Number(childgrowthvalues.emotionalProblem.toFixed(1))
+            }
+            console.log("ChildGrowthVal: " + JSON.stringify(postValues));
+            axios.post("http://10.0.2.2:5000/getPredictions", postValues
+            ).
                 then(function (response) {
                     console.log("Response: " + JSON.stringify(response.data.Message))
                 }).catch(function (error) {
@@ -255,9 +279,9 @@ function CheckChildGrowth() {
             console.log("NNot parsed")
         }
     }
-    useEffect(() => {
-        fillChildGrowthValues(childgrowthvalues)
-    }, [childgrowthvalues])
+    // useEffect(() => {
+    //     fillChildGrowthValues(childgrowthvalues)
+    // }, [childgrowthvalues])
     return (
         <ScrollView>
             <Flex
@@ -383,72 +407,86 @@ function CheckChildGrowth() {
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Communication"
-                        calculateMethod={calculateCommunication}
+                        rating={childgrowthvalues.communicationSkill}
+                        setRating={calculateCommunication}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Emotional Development"
-                        calculateMethod={calculateEmotionalDevelopment}
+                        rating={childgrowthvalues.emotionalLevel}
+                        setRating={calculateEmotionalDevelopment}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Attention and Concentration"
-                        calculateMethod={calculateAttention}
+                        rating={childgrowthvalues.attentionConcentration}
+                        setRating={calculateAttention}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Overactivity and Impulsivity"
-                        calculateMethod={calculateOverActivity}
+                        rating={childgrowthvalues.overActivity}
+                        setRating={calculateOverActivity}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Passivity/ Inactivity"
-                        calculateMethod={calculateInactivity}
+                        rating={childgrowthvalues.inActivity}
+                        setRating={calculateInactivity}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Planning/ Organising"
-                        calculateMethod={calculatePlanning}
+                        rating={childgrowthvalues.planningOrganization}
+                        setRating={calculatePlanning}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Perception of Directions"
-                        calculateMethod={calculateDirection}
+                        rating={childgrowthvalues.direction}
+                        setRating={calculateDirection}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Perception of Visual Forms and Figures"
-                        calculateMethod={calculateVisuals}
+                        rating={childgrowthvalues.visual}
+                        setRating={calculateVisuals}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Memory"
-                        calculateMethod={calculateMemory}
+                        rating={childgrowthvalues.memory}
+                        setRating={calculateMemory}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Spoken Language"
-                        calculateMethod={calculateLanguager}
+                        rating={childgrowthvalues.spokenSkill}
+                        setRating={calculateLanguager}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Reading/Writing"
-                        calculateMethod={calculateReadingWriting}
+                        rating={childgrowthvalues.readingWriting}
+                        setRating={calculateReadingWriting}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Social Skills"
-                        calculateMethod={calculateSocialSkills}
+                        rating={childgrowthvalues.socialSkill}
+                        setRating={calculateSocialSkills}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Emotional Problems"
-                        calculateMethod={calculateEmotionalProblems}
+                        rating={childgrowthvalues.emotionalProblem}
+                        setRating={calculateEmotionalProblems}
                     />
                 </Center>
                 <Center >
                     <ChildGrowthOp symptom="Problem Solving"
-                        calculateMethod={calculateProblemSolving}
+                        rating={childgrowthvalues.problemSolving}
+                        setRating={calculateProblemSolving}
                     />
                 </Center>
                 <Center style={{ marginTop: 40, marginBottom: 40 }}>
