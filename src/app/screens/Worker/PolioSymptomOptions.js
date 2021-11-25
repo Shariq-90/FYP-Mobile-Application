@@ -15,7 +15,7 @@ function PolioSymptomOptions(props) {
     let [dosevalue, setValue] = useState(null)
     let [polioSymptoms, setPolioSymptoms] = useState({
         age: "", noOfDoses: "", fatigue: "", fever: "", headache: "", stiffness: "",
-        vomiting: "", daysofsymptom: "", limping: "", pain: ""
+        vomiting: "", daysofsymptom: "", limping: "", pain: "", symptominparents: ""
     })
     const setNoofDoses = (dose) => {
         if (parseFloat(dose) <= 0.5) {
@@ -26,7 +26,7 @@ function PolioSymptomOptions(props) {
         } else {
             setValue("6");
         }
-        console.log("Value: "+ dosevalue)
+        console.log("Value: " + dosevalue)
     }
     const { getAge,
         getDoses,
@@ -36,7 +36,7 @@ function PolioSymptomOptions(props) {
         getStiffness,
         getVomiting,
         getDaysofSymptoms,
-        getLimping, getPain, fillSymptoms } = useContext(PolioContext);
+        getLimping, getPain, setParentSymptoms } = useContext(PolioContext);
     return (
         <ScrollView>
             <Center mt="4">
@@ -60,7 +60,8 @@ function PolioSymptomOptions(props) {
                                             props.symptom === "Fatigue" ? polioSymptoms.fatigue :
                                                 props.symptom === "Neck Stiffness" ? polioSymptoms.stiffness :
                                                     props.symptom === "Pain in Arms or Legs?" ? polioSymptoms.pain :
-                                                        polioSymptoms.limping
+                                                        props.symptom === "Do Parents have symptoms?" ? polioSymptoms.symptominparents :
+                                                            polioSymptoms.limping
                                 }
                                 onChange={(nextValue) => {
                                     props.symptom === "Fever" ? setPolioSymptoms({
@@ -93,11 +94,16 @@ function PolioSymptomOptions(props) {
                                                             pain: nextValue,
 
                                                         }, getPain(nextValue)) :
-                                                            setPolioSymptoms({
+                                                            props.symptom === "Do Parents have symptoms?" ? setPolioSymptoms({
                                                                 ...polioSymptoms,
-                                                                limping: nextValue,
+                                                                symptominparents: nextValue,
 
-                                                            }, getLimping(nextValue))
+                                                            }, setParentSymptoms(nextValue)) :
+                                                                setPolioSymptoms({
+                                                                    ...polioSymptoms,
+                                                                    limping: nextValue,
+
+                                                                }, getLimping(nextValue))
                                 }}
                                 style={{
                                     flexDirection: "row",
@@ -118,7 +124,7 @@ function PolioSymptomOptions(props) {
                                 value={props.symptom === "Age (in years)" ? polioSymptoms.age :
                                     props.symptom === "No of Doses" ? (dosevalue ?
                                         dosevalue : polioSymptoms.noOfDoses
-                                        ) :
+                                    ) :
                                         polioSymptoms.daysofsymptom
                                 }
                                 onChangeText={(val) => {
@@ -137,10 +143,6 @@ function PolioSymptomOptions(props) {
                                                 noOfDoses: dosevalue
                                             }, getDoses(dosevalue))
                                 }}
-                                editable={props.symptom === "No of Doses" ? false :
-                                    true
-                                } selectTextOnFocus={props.symptom === "No of Doses" ? false :
-                                    true}
                                 style={{
                                     color: '#001027',
                                     textAlign: "center",

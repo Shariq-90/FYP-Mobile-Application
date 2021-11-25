@@ -288,10 +288,9 @@ function CheckChildGrowth() {
         fillChildGrowthValues(childgrowthvalues)
     }
     const calculateChildGrowth = () => {
-        // calculateGrossMotor();
-        // calculateFineMotor();
+        calculateGrossMotor();
+        calculateFineMotor();
         fillChildGrowthValues(childgrowthvalues);
-        // console.log("ChildGrowthVal: " + JSON.stringify(childgrowthval));
         setLoading(true);
         if (childgrowthval.age
             && childgrowthval.weight && childgrowthval.height) {
@@ -340,11 +339,11 @@ function CheckChildGrowth() {
             setLoading(false);
         }
     }
-    useEffect(() => {
-        calculateGrossMotor();
-        calculateFineMotor();
-        fillChildGrowthValues(childgrowthvalues)
-    }, [physicalskills, extraSkills])
+    // useEffect(() => {
+    //     calculateGrossMotor();
+    //     calculateFineMotor();
+    //     fillChildGrowthValues(childgrowthvalues)
+    // }, [physicalskills, extraSkills])
     return (
         <ScrollView>
             <Flex

@@ -20,14 +20,7 @@ function CheckPolioSymptoms() {
         vomiting,
         daysofsymptom,
         limping,
-        pain, getDoses,
-        getFatigue,
-        getFever,
-        getHeadache,
-        getStiffness,
-        getVomiting,
-        getDaysofSymptoms,
-        getLimping, getPain,
+        pain, symptominparents
     } = useContext(PolioContext)
     const closeMenu = () => {
         setModalVisible(false);
@@ -38,40 +31,64 @@ function CheckPolioSymptoms() {
             noOfDoses
             && daysofsymptom
             && fatigue
-            && fever 
+            && fever
             && headache
-             && stiffness 
-            && vomiting  
+            && stiffness
+            && vomiting
             && limping
             && pain
+            && symptominparents
         ) {
-            if (parseInt(noOfDoses) == 0 && parseInt(daysofsymptom) > 0 && limping === "yes") {
-                setPolio(true);
-            }if (
-                parseInt(noOfDoses) > 0 && parseInt(daysofsymptom) == 0 && limping === "yes"
-                && ((fever === "yes" && headache === "yes" && vomiting === "yes"
-                && fatigue === "yes" &&
-               stiffness === "yes") || 
-               (headache === "yes" && vomiting === "yes"
-                && fatigue === "yes" &&
-               stiffness === "yes" && pain === "yes") ||
-                (fever === "yes" && vomiting === "yes"
-               && fatigue === "yes" &&
-              stiffness === "yes" && pain === "yes") || 
-              (headache === "yes" && fever === "yes"
-                && fatigue === "yes" &&
-               stiffness === "yes" && pain === "yes") || 
-               (headache === "yes" && vomiting === "yes"
-                && fever === "yes" &&
-               stiffness === "yes" && pain === "yes") || 
-               (headache === "yes" && vomiting === "yes"
-                && fatigue === "yes" &&
-               fever === "yes" && pain === "yes"))
-            ){
-                setPolio(true);
-            }
-            if (parseInt(daysofsymptom) > 20){
-                setPolio(true);
+
+            if (parseInt(daysofsymptom) > 20) {
+                if (parseInt(noOfDoses) == 0 && limping === "yes") {
+                    setPolio(true);
+                }
+                else if (parseInt(noOfDoses) >= 0 && limping === "yes"
+                    && symptominparents === "yes"
+                ) {
+                    setPolio(true);
+                }
+                else if (
+                    parseInt(noOfDoses) > 0 && limping === "yes"
+                    && ((fever === "yes" && headache === "yes" && vomiting === "yes"
+                        && fatigue === "yes" &&
+                        stiffness === "yes"
+                    ) ||
+                        (headache === "yes" && vomiting === "yes"
+                            && fatigue === "yes" &&
+                            stiffness === "yes" && pain === "yes") ||
+                        (vomiting === "yes"
+                            && fatigue === "yes" &&
+                            stiffness === "yes" && pain === "yes"
+                            && symptominparents === "yes"
+                        ) ||
+                        (fever === "yes" && vomiting === "yes"
+                            && fatigue === "yes" &&
+                            stiffness === "yes" && pain === "yes") ||
+                        (fever === "yes" && headache === "yes"
+                            && fatigue === "yes" &&
+                            stiffness === "yes" && pain === "yes") ||
+                        (fever === "yes" && headache === "yes"
+                            && vomiting === "yes" &&
+                            stiffness === "yes" && pain === "yes")
+                        ||
+                        (fever === "yes" && headache === "yes"
+                            && vomiting === "yes" &&
+                            fatigue === "yes" && pain === "yes")
+                        ||
+                        (fever === "yes" && headache === "yes"
+                            && vomiting === "yes" &&
+                            fatigue === "yes" && symptominparents === "yes")
+                        || (headache === "yes" && vomiting === "yes"
+                            && fatigue === "yes" &&
+                            pain === "yes" && symptominparents === "yes")
+                        || (headache === "yes" && fatigue === "yes" && stiffness === "yes"
+                            && pain === "yes" && symptominparents === "yes")
+                    )
+                ) {
+                    setPolio(true);
+                }
             }
             setModalVisible(true)
         }
@@ -105,6 +122,9 @@ function CheckPolioSymptoms() {
                     <PolioSymptomOptions symptom="No of Doses" textField="true"
                     />
                 </Center>
+                <Center >
+                    <PolioSymptomOptions symptom="Limping" />
+                </Center>
                 <Center style={{ marginTop: -20 }}>
                     <PolioSymptomOptions symptom="Fever" />
                 </Center>
@@ -127,7 +147,7 @@ function CheckPolioSymptoms() {
                     <PolioSymptomOptions symptom="Pain in Arms or Legs?" />
                 </Center>
                 <Center >
-                    <PolioSymptomOptions symptom="Limping" />
+                    <PolioSymptomOptions symptom="Do Parents have symptoms?" />
                 </Center>
                 {/* <Center style={{ marginTop: -30 }}>
                     <PolioSymptomOptions 
@@ -135,7 +155,7 @@ function CheckPolioSymptoms() {
                     symptom="Since how many days are you experiencing these symptoms?" textField="true"
                     />
                 </Center> */}
-                <Center style={{ marginTop: 40, marginBottom : 20 }}>
+                <Center style={{ marginTop: 40, marginBottom: 20 }}>
                     <Button key="lg" size="lg"
                         onPress={() => {
                             checkPolio();

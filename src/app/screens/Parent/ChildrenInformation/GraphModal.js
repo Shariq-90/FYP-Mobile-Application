@@ -30,7 +30,7 @@ const data = [{
 }]
 function GraphModal(props) {
   const [modalVisible, setModalVisible] = useState(false);
- 
+
   const hideDietPlans = () => {
     setModalVisible(false);
   }
@@ -59,19 +59,19 @@ function GraphModal(props) {
           Result
         </Heading>
       </HStack>
-      <HStack space={2} top={10}>
+      <HStack space={2} top={10} width={300}>
         <Text color="emerald.500" fontSize="20" fontWeight="bold">
           {props.displayText}
         </Text>
 
       </HStack>
       {props.displayTextPhysical ?
-        <HStack marginTop={20}>
+        <HStack marginTop={20} width={300}>
           <Text color="emerald.500" fontSize="20" fontWeight="bold">
             {props.displayTextPhysical}
           </Text>
         </HStack> : <Text></Text>}
-      {!props.polio ? <HStack justifyContent="center" marginTop={20}>
+      {!props.polio ? <HStack justifyContent="center" marginTop={10}>
         <TouchableOpacity onPress={() => {
           setModalVisible(true);
         }}>
