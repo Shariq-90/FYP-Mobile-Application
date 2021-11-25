@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, Modal, Alert } from 'react-native'
 import { Radio, Heading, HStack, Center, Button, Stack, Flex, ScrollView } from 'native-base';
 import GraphModal from './ChildrenInformation/GraphModal';
-import { Rating } from 'react-native-ratings';
 import ChildGrowthQuestions from '../../../ChildGrowthQuestions';
 import { PolioContext } from '../../../../Provider';
 import axios from 'axios';
@@ -292,8 +291,8 @@ function CheckChildGrowth() {
         calculateFineMotor();
         fillChildGrowthValues(childgrowthvalues);
         setLoading(true);
-        if (childgrowthval.age
-            && childgrowthval.weight && childgrowthval.height) {
+        if (childgrowthvalues.age
+            && childgrowthvalues.weight && childgrowthvalues.height) {
             const postValues = {
                 "age": Number(childgrowthvalues.age),
                 "height": Number(childgrowthvalues.height),
@@ -337,6 +336,7 @@ function CheckChildGrowth() {
                 })
         } else {
             setLoading(false);
+            alert("Please fill age, weight and height")
         }
     }
     // useEffect(() => {

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { View, Modal, StyleSheet, Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient';
-import ChildDetails from '../Parent/ChildrenInformation/ChildDetails';
-import ChildrenInfoModal from '../Parent/ChildrenInformation/ChildrenInfoModal';
 import { Avatar, Button, Card, Title, Text } from 'react-native-paper';
 import UpdateVaccinationDetails from './UpdateVaccinationDetails.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
+import { ActivityIndicator, Colors } from 'react-native-paper';
 function WorkerDashboard() {
   const child_details = (name, dob) => {
     return (
@@ -19,6 +17,7 @@ function WorkerDashboard() {
     )
   }
   const [childrens, setchildrens] = useState(null);
+  const [loading, setloading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setid] = useState(0);
   const [childID, setchildID] = useState(0);
@@ -31,11 +30,13 @@ function WorkerDashboard() {
   }
   const [index, setindex] = useState(0);
   const getChildList = () => {
+    setloading(true);
     axios.put(baseUrl + "/polioworker/children").
       then(function (response) {
         let temp_arr = [];
         temp_arr.push(response.data.data);
         setchildrens(temp_arr)
+        setloading(false);
       }).catch(function (error) {
         console.log("Error: " + JSON.stringify(error))
       })
@@ -77,7 +78,7 @@ function WorkerDashboard() {
         <View style={{
           padding: 20
         }}>
-          {childrens ?
+          {childrens && !loading ?
             childrens[0].map((u, i) => {
               return (
                 <Card key={i} id={i} onPress={() => {
@@ -99,7 +100,9 @@ function WorkerDashboard() {
 
               );
             })
-            : <Text>Loading</Text>}
+            : <ActivityIndicator animating={loading}
+              size={40}
+              color={Colors.red800} />}
         </View>
         <Modal
           animationType="slide"

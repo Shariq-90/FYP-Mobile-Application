@@ -125,7 +125,7 @@ function UpdateVaccinationDetails(props) {
                     <Text style={styles.text, {
                         fontWeight: 'bold',
                         fontSize: 20,
-                        marginTop: 20
+                        marginTop: 5
                     }}>{props.childID}</Text>
                     <Text style={styles.text, {
                         fontWeight: 'bold',
