@@ -11,6 +11,7 @@ import PhysicalTraits from './ChildrenInformation/PhysicalTraits';
 import GrossAndFineMotor from './GrossAndFineMotor';
 import ChildGrowthOp from './ChildGrowthOp';
 import RatingComponent from '../../RatingComponent';
+import { height } from 'styled-system';
 
 
 function CheckChildGrowth() {
@@ -18,14 +19,15 @@ function CheckChildGrowth() {
     const closeMenu = () => setModalVisible(false);
     const { childgrowthval, fillChildGrowthValues } = useContext(PolioContext);
     // let [childgrowthvalues, setchildgrowthvalues] = useState({
-    //     "age": null,
-    //     "height": null,
-    //     "weight": null, "grossMotor": null, "fineMotor": null, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
+    //     "age": 3.0,
+    //     "height": 5.0,
+    //     "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
     //     "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
     //     "emotionalLevel": 1.1,
     //     "planningOrganization": 1.1,
     //     "emotionalProblem": 1.1
     // })
+
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": null,
         "height": null,
@@ -36,22 +38,28 @@ function CheckChildGrowth() {
         "emotionalProblem": 1.0
     })
     function setAge(val) {
+        console.log("Age: " + Number(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
-            age: parseFloat(val)
+            age: val
         })
+        // console.log("Age: " + childgrowthvalues.age)
     }
     function setWeight(val) {
+        console.log("Weighr: " + Number(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
-            weight: parseFloat(val)
+            weight: val
         })
+        // console.log("we: " + childgrowthvalues.weight)
     }
     function setHeight(val) {
+        console.log("H: " + Number(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
-            height: parseFloat(val)
+            height: val
         })
+        // console.log("he: " + childgrowthvalues.height)
     }
 
 
@@ -248,11 +256,11 @@ function CheckChildGrowth() {
                 "age": childgrowthvalues.age,
                 "height": childgrowthvalues.height,
                 "weight": childgrowthvalues.weight,
-                "grossMotor": 2.5,
+                "grossMotor": Number(2.5),
                 // "grossMotor": parseFloat(childgrowthvalues.grossMotor).toFixed(2),
                 // "fineMotor": parseFloat(childgrowthvalues.fineMotor).toFixed(2),
-                "fineMotor": 2.5,
-                "overActivity": Number(childgrowthvalues.overActivity.toFixed(1)),
+                "fineMotor": Number(2.5),
+                "overActivity": parseFloat(Number(childgrowthvalues.overActivity.toFixed(1))),
                 "inActivity": Number(childgrowthvalues.inActivity.toFixed(1)),
                 "communicationSkill": Number(childgrowthvalues.communicationSkill.toFixed(1)),
                 "problemSolving": Number(childgrowthvalues.problemSolving.toFixed(1)),
@@ -272,6 +280,7 @@ function CheckChildGrowth() {
             ).
                 then(function (response) {
                     console.log("Response: " + JSON.stringify(response.data.Message))
+                    // console.log("Except: " + JSON.stringify(response.data.Except))
                 }).catch(function (error) {
                     console.log("Error: " + JSON.stringify(error))
                 })
@@ -301,7 +310,7 @@ function CheckChildGrowth() {
                 }}>
                     <PhysicalTraits symptom="Weight"
                         trait={childgrowthvalues.weight ?
-                            JSON.stringify(childgrowthvalues.weight) : ""}
+                            childgrowthvalues.weight : ""}
                         setTrait={setWeight}
                     />
                 </Center>
@@ -310,7 +319,7 @@ function CheckChildGrowth() {
                 }}>
                     <PhysicalTraits symptom="Height"
                         trait={childgrowthvalues.height ?
-                            JSON.stringify(childgrowthvalues.height) : ""}
+                            childgrowthvalues.height : ""}
                         setTrait={setHeight}
                     />
                 </Center>
@@ -319,7 +328,7 @@ function CheckChildGrowth() {
                 }}>
                     <PhysicalTraits symptom="Age"
                         trait={childgrowthvalues.age ?
-                            JSON.stringify(childgrowthvalues.age) : ""}
+                            childgrowthvalues.age : ""}
                         setTrait={setAge}
                     />
                 </Center>
