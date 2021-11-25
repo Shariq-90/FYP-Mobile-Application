@@ -10,36 +10,29 @@ import PhysicalTraits from './ChildrenInformation/PhysicalTraits';
 import GrossAndFineMotor from './GrossAndFineMotor';
 import ChildGrowthOp from './ChildGrowthOp';
 import RatingComponent from '../../RatingComponent';
+import { parse } from 'react-native-svg';
 
 
 function CheckChildGrowth() {
     const [modalVisible, setModalVisible] = useState(false);
     const closeMenu = () => setModalVisible(false);
     const { childgrowthval, fillChildGrowthValues } = useContext(PolioContext);
-    // let [childgrowthvalues, setchildgrowthvalues] = useState({
-    //     "age": 3.0,
-    //     "height": 5.0,
-    //     "weight": 5.0, "grossMotor": 5.53, "fineMotor": 2.76, "overActivity": 2.76, "inActivity": 2.76, "communicationSkill": 2.5, "problemSolving": 5, "memory": 2.5,
-    //     "socialSkill": 2.5, "attentionConcentration": 2.0, "direction": 1.0, "visual": 2.0, "spokenSkill": 2.0, "readingWriting": 2.0,
-    //     "emotionalLevel": 1.1,
-    //     "planningOrganization": 1.1,
-    //     "emotionalProblem": 1.1
-    // })
-
+    const [mental, setmental] = useState("");
+    const [physical, setphysical] = useState("");
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": null,
         "height": null,
-        "weight": null, "grossMotor": null, "fineMotor": null,
-        "overActivity": null, "inActivity": null, "communicationSkill": null,
-        "problemSolving": null, "memory": null,
-        "socialSkill": null, "attentionConcentration": null, "direction": null,
-        "visual": null, "spokenSkill": null, "readingWriting": null,
-        "emotionalLevel": null,
-        "planningOrganization": null,
-        "emotionalProblem": null
+        "weight": null, "grossMotor": 1.1, "fineMotor": 1.1,
+        "overActivity": 1.1, "inActivity": 1.1, "communicationSkill": 1.1,
+        "problemSolving": 1.1, "memory": 1.1,
+        "socialSkill": 1.1, "attentionConcentration": 1.1, "direction": 1.1,
+        "visual": 1.1, "spokenSkill": 1.1, "readingWriting": 1.1,
+        "emotionalLevel": 1.1,
+        "planningOrganization": 1.1,
+        "emotionalProblem": 1.1
     })
     function setAge(val) {
-        console.log("Age: " + Number(val))
+        // console.log("Age: " + Number(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
             age: val
@@ -47,7 +40,7 @@ function CheckChildGrowth() {
         // console.log("Age: " + childgrowthvalues.age)
     }
     function setWeight(val) {
-        console.log("Weighr: " + parseFloat(val))
+        //console.log("Weighr: " + parseFloat(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
             weight: val
@@ -66,18 +59,18 @@ function CheckChildGrowth() {
 
 
     let [physicalskills, setPhysicalSkills] = useState({
-        walking: 0.1,
-        jumping: 0.1, running: 0.1
+        walking: 1.1,
+        jumping: 1.1, running: 1.1
     })
     const calculateGrossMotor = () => {
-        console.log("W: " + physicalskills.walking);
-        console.log("R: " + physicalskills.running);
-        console.log("J: " + physicalskills.jumping);
+        //console.log("W: " + physicalskills.walking);
+        //console.log("R: " + physicalskills.running);
+        //console.log("J: " + physicalskills.jumping);
         let gross =
             (physicalskills.walking +
                 physicalskills.running + physicalskills.jumping)
             / 3;
-        console.log("Gross: " + gross);
+        // console.log("Gross: " + gross);
         setchildgrowthvalues({
             ...childgrowthvalues,
             grossMotor: gross.toFixed(2)
@@ -106,8 +99,8 @@ function CheckChildGrowth() {
     }
 
     let [extraSkills, setExtraSkills] = useState({
-        expressions: 0.1, gesture: 0.1,
-        body_language: 0.1
+        expressions: 1.1, gesture: 1.1,
+        body_language: 1.1
     })
     function calculateFineMotor() {
         let fine =
@@ -262,10 +255,8 @@ function CheckChildGrowth() {
                 "age": Number(childgrowthvalues.age),
                 "height": Number(childgrowthvalues.height),
                 "weight": Number(childgrowthvalues.weight),
-                // "grossMotor": Number(2.5),
                 "grossMotor": Number(childgrowthvalues.grossMotor),
                 "fineMotor": Number(childgrowthvalues.fineMotor),
-                "fineMotor": Number(2.5),
                 "overActivity": Number(childgrowthvalues.overActivity),
                 "inActivity": Number(childgrowthvalues.inActivity),
                 "communicationSkill": Number(childgrowthvalues.communicationSkill),
@@ -281,17 +272,49 @@ function CheckChildGrowth() {
                 "planningOrganization": Number(childgrowthvalues.planningOrganization),
                 "emotionalProblem": Number(childgrowthvalues.emotionalProblem)
             }
-            console.log("ChildGrowthVal: " + JSON.stringify(postValues));
+            //console.log("ChildGrowthVal: " + JSON.stringify(postValues));
             axios.post("http://10.0.2.2:5000/getPredictions", postValues
             ).
                 then(function (response) {
-                    console.log("Response: " + JSON.stringify(response.data.Message))
-                    // console.log("Except: " + JSON.stringify(response.data.Except))
+                    let score = JSON.stringify(response.data.Message)
+                    let mental_score = parseFloat(score.substring(18,
+                        score.search("]")
+                    ))
+                    let parse_physical_score = score.substring(score.search("Physical"))
+                        ;
+                    let physical_score = parseFloat(parse_physical_score
+                        .substring(
+                            parse_physical_score.indexOf("[") + 1, parse_physical_score.indexOf("]")))
+                    console.log("Mental and Physical: " +
+                        mental_score + ", " + physical_score
+                    )
+                    // if ((mental_score >= 0 && mental_score < 15)
+                    //     && (physical_score >= 0 && physical_score < 15)
+                    // ) {
+                    //     setphysical("Your Child Growth is under Normal")
+                    //     setmental("Your Child Growth is under Under Normal")
+                    // }
+                    // else if ((mental_score >= 15 && mental_score < 40)
+                    //     && (physical_score >= 15 && physical_score < 40)
+                    // ) {
+                    //     setphysical("Your Child Growth is  Normal")
+                    //     setmental("Your Child Growth is Normal")
+                    // }
+                    // else if ((mental_score >= 40 && mental_score < 50)
+                    //     && (physical_score >= 40 && physical_score < 50)
+                    // ) {
+                    //     setphysical("Your Child Growth is Over Normal")
+                    //     setmental("Your Child Growth is Over Normal")
+                    // }
+                    // else{
+                    //     console.log("Dasdadasa")
+                    // }
+                    // setModalVisible(true);
                 }).catch(function (error) {
                     console.log("Error: " + JSON.stringify(error))
                 })
         } else {
-            console.log("NNot parsed")
+            console.log("Not parsed")
         }
     }
     useEffect(() => {
@@ -524,7 +547,8 @@ function CheckChildGrowth() {
                     }}
                 >
                     <GraphModal closeMenu={closeMenu}
-                        displayText="Your Child Growth is Normal!"
+                        displayText={mental}
+                        displayTextPhysical={physical}
                     />
                 </Modal>
             </Flex>

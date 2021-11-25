@@ -11,7 +11,7 @@ function RatingComponent(props) {
                 <TouchableOpacity
                     activeOpacity={0.7}
                     key={item}
-                    onPress={() => props.setRating(item + 0.1)}
+                    onPress={() => props.setRating(item + 0.00001)}
                 >
                     <Image style={styles.starImgStyle}
                         source={
