@@ -28,7 +28,7 @@ function EditProfileScreen() {
                 addr: response.data.data.user.address.addr,
                 area: response.data.data.user.address.area,
                 city: response.data.data.user.address.city,
-                password: "12345",
+                password: "Qwerty015",
                 id: response.data.data.user._id,
             })
         })
@@ -147,7 +147,7 @@ function EditProfileScreen() {
                                 }}
                             />
                         </View>
-                        <View style={styles.action}>
+                        {/* <View style={styles.action}>
                             <FontAwesome name="user-secret" size={20} style={{
                                 marginTop: 2
                             }} />
@@ -168,7 +168,7 @@ function EditProfileScreen() {
                                     })
                                 }}
                             />
-                        </View>
+                        </View> */}
                         <View style={styles.action}>
                             <FontAwesome name="id-card" size={20} style={{
                                 marginTop: 2

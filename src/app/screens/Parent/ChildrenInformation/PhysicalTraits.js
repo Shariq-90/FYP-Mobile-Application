@@ -22,8 +22,7 @@ function PhysicalTraits(props) {
             placeholderTextColor="#00000087"
             value={props.trait}
             onChangeText={(val) => {
-                props.setTrait(val ? val.toString().concat(".0")
-                    : "");
+                props.setTrait(val)
             }}
         />
     )
