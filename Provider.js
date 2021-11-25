@@ -12,10 +12,12 @@ const initialState = {
     pain: null,
     symptomoptions: null,
     childgrowthval: null,
-    symptominparents: null
+    symptominparents: null,
+    updateChildList: false
 }
 
 const actions = {
+    UPDATECHILDS: 'UPDATECHILDS',
     SETAGE: 'SETAGE',
     SETPARENTSYMPTOMS: 'SETPARENTSYMPTOMS',
     SETCHILDGROWTHVALUES: 'SETCHILDGROWTHVALUES',
@@ -37,6 +39,11 @@ function reducer(state, action) {
             return {
                 ...state,
                 childgrowthval: action.value
+            }
+        case actions.UPDATECHILDS:
+            return {
+                ...state,
+                updateChildList: action.value
             }
         case actions.SETPARENTSYMPTOMS:
             return {
@@ -113,6 +120,7 @@ function Provider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState)
     const value = {
         age: state.age,
+        updateChildList: state.updateChildList,
         symptominparents: state.symptominparents,
         childgrowthval: state.childgrowthval,
         symptomoptions: state.symptomoptions,
@@ -139,6 +147,8 @@ function Provider({ children }) {
         fillChildGrowthValues:
             (value) => { dispatch({ type: actions.SETCHILDGROWTHVALUES, value }) },
         setParentSymptoms: (value) => { dispatch({ type: actions.SETPARENTSYMPTOMS, value }) },
+        UpdateChildlist:
+            (value) => { dispatch({ type: actions.UPDATECHILDS, value }) },
     }
     return (
         <PolioContext.Provider value={value}>

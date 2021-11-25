@@ -49,7 +49,7 @@ function WorkerDashboard() {
 
   useEffect(() => {
     getChildList();
-  }, [childrens])
+  }, [])
   return (
     <ScrollView>
       <View style={styles.container}>

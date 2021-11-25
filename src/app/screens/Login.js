@@ -14,26 +14,31 @@ export default function Login({ navigation, route }) {
   }
   const parentLogin = () => {
     if (email && password) {
-      axios.post(baseUrl + "/users/login", {
-        username: email,
-        password: password,
-      }).then(function (response) {
-        Alert.alert("Sign In", "Login Successful!", [
-          {
-            text: "OK", onPress: () => {
-              setLoginDetails({
-                ...parentLogin,
-                email: null,
-                password: null
-              });
-              navigation.navigate("ParentDrawer");
+      try {
+        axios.post(baseUrl + "/users/login", {
+          username: email,
+          password: password,
+        }).then(function (response) {
+          Alert.alert("Sign In", "Login Successful!", [
+            {
+              text: "OK", onPress: () => {
+                setLoginDetails({
+                  ...parentLogin,
+                  email: null,
+                  password: null
+                });
+                navigation.navigate("ParentDrawer");
+              }
             }
-          }
-        ]);
-      }).catch(function (error) {
-        // handle error
-        Alert.alert("Sign In", "Please enter the correct credentials!");
-      })
+          ]);
+        }).catch(function (error) {
+          // handle error
+          Alert.alert("Sign In", "Please enter the correct credentials!");
+        })
+      }
+      catch (Err) {
+        alert("Please enter valid credentials!")
+      }
     }
     else {
       Alert.alert("SignIn", "Please enter a valid email address!")
@@ -50,14 +55,14 @@ export default function Login({ navigation, route }) {
         <View style={styles.parentLoginLogoView}>
           <Image style={styles.parentLogoImage} source={require("../assets/logo.png")} />
         </View>
-        <View style={[styles.formsFieldsSection,{
+        <View style={[styles.formsFieldsSection, {
           position: 'absolute',
           top: "20%"
         }]}>
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              value = {email}
+              value={email}
               placeholder="Email Address"
               placeholderTextColor="#00000087"
               keyboardType='email-address'
@@ -73,7 +78,7 @@ export default function Login({ navigation, route }) {
             <TextInput
               style={styles.TextInput}
               placeholder="Password"
-              value = {password}
+              value={password}
               placeholderTextColor="#00000087"
               secureTextEntry={true}
               onChangeText={(e) => {
@@ -86,8 +91,10 @@ export default function Login({ navigation, route }) {
           </View>
         </View>
         <View style={[styles.button_section,
-        {position:'absolute',
-        top: "45%"}]}>
+        {
+          position: 'absolute',
+          top: "45%"
+        }]}>
           <View style={{ marginBottom: 13 }}>
             <TouchableOpacity
               onPress={parentLogin} style={styles.buttonSubmit}>

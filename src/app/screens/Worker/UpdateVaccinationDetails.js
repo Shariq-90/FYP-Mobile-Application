@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     Title,
     Caption,
@@ -12,11 +12,13 @@ import {
 import baseUrl from '../../baseUrl';
 import { Input } from 'react-native-elements';
 import { Button } from 'native-base';
+import { PolioContext } from '../../../../Provider';
 function UpdateVaccinationDetails(props) {
     const [modalVisible, setModalVisible] = useState(false);
     const closeModal = () => {
         setModalVisible(false);
     }
+    const { UpdateChildlist } = useContext(PolioContext);
     const [otp, setOTP] = useState("");
     const [confirmOTP, setconfirmOTP] = useState("")
     const [vacc_details, setVaccDetails] = useState({
@@ -260,7 +262,7 @@ function UpdateVaccinationDetails(props) {
                         <View style={{ marginTop: 20 }}>
                             <TextInput
                                 value={confirmOTP}
-                                keyboardType = 'numeric'
+                                keyboardType='numeric'
                                 onChangeText={(val) => {
                                     setconfirmOTP(val);
                                 }}

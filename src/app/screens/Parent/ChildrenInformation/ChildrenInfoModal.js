@@ -107,16 +107,16 @@ function ChildrenInfoModal(props) {
                     <View style={styles.row, { marginTop: 20, alignSelf: 'center' }}>
                         <TouchableOpacity onPress={props.closeModal}
                         >
-                            <View>
+                            <View style = {styles.bottomOptions}>
                                 <Button
-                                    width={200}
+                                    width={300}
                                     size="lg" onPress={props.closeModal}>
                                     Hide
                                 </Button>
                             </View>
                             <View style={styles.schedule}>
                                 <Button
-                                    width={220}
+                                    // width={200}
                                     size="lg" onPress={() => {
                                         setModalVisible(true)
                                     }}
@@ -150,8 +150,11 @@ function ChildrenInfoModal(props) {
 }
 
 const styles = StyleSheet.create({
+    bottomOptions: {
+        flex: 0.5,
+        justifyContent: 'center'
+    },
     schedule: {
-        marginTop: 20
     },
     profileImage: {
         overflow: 'hidden',
@@ -165,6 +168,7 @@ const styles = StyleSheet.create({
         width: "100%",
         alignSelf: 'center',
         borderWidth: 2,
+        height: 800
     },
     infoContainer: {
         alignItems: 'center',

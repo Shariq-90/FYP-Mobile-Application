@@ -10,35 +10,40 @@ export default function WorkerSignIn({ navigation, route }) {
 
   const WorkerLogin = () => {
     if (email && password) {
-      axios.post(baseUrl + "/users/login", {
-        username: email,
-        password: password,
-      }).then(function (response) {
-        Alert.alert("Sign In", "Login Successful!", [
-          {
-            text: "OK", onPress: () => {
-              navigation.navigate("WorkerDrawer");
+      try {
+        axios.post(baseUrl + "/users/login", {
+          username: email,
+          password: password,
+        }).then(function (response) {
+          Alert.alert("Sign In", "Login Successful!", [
+            {
+              text: "OK", onPress: () => {
+                navigation.navigate("WorkerDrawer");
+              }
             }
-          }
-        ]);
-      }).catch(function (error) {
-        // handle error
-        Alert.alert("Sign In", "Please enter the correct credentials! ");
-      })
+          ]);
+        }).catch(function (error) {
+          // handle error
+          Alert.alert("Sign In", "Please enter the correct credentials! ");
+        })
+      }
+      catch(error){
+        alert("Please enter the correct credentials!")
+      }
     } else {
       Alert.alert("SignIn", "Please fill all the details!")
     }
   }
   return (
     <ScrollView>
-      <View style={[styles.container,{
-        backgroundColor:'white',
+      <View style={[styles.container, {
+        backgroundColor: 'white',
         height: 700
       }]}>
         <View style={styles.parentLoginLogoView}>
           <Image style={styles.parentLogoImage} source={require("../../assets/logo.png")} />
         </View>
-        <View style={[styles.formsFieldsSection,{
+        <View style={[styles.formsFieldsSection, {
           position: 'absolute',
           top: "25%"
         }]}>
@@ -71,7 +76,7 @@ export default function WorkerSignIn({ navigation, route }) {
             />
           </View>
         </View>
-        <View style={[styles.button_section,{
+        <View style={[styles.button_section, {
           position: 'absolute',
           top: '55%'
         }]}>

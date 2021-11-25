@@ -82,7 +82,7 @@ function EditProfileScreen() {
                                 alignItems: 'center',
                             }}>
                                 <ImageBackground
-                                    source={require('../../assets/Avatar.jpg')}
+                                    source={require('../../assets/parentavatar.png')}
                                     style={{ height: 100, width: 100 }}
                                     imageStyle={{ borderRadius: 15 }}
                                 >

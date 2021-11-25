@@ -122,17 +122,14 @@ function PolioSymptomOptions(props) {
                             <TextInput
                                 keyboardType='numeric'
                                 value={props.symptom === "Age (in years)" ? polioSymptoms.age :
-                                    props.symptom === "No of Doses" ? (dosevalue ?
-                                        dosevalue : polioSymptoms.noOfDoses
-                                    ) :
+                                    props.symptom === "No of Doses" ? polioSymptoms.noOfDoses :
                                         polioSymptoms.daysofsymptom
                                 }
                                 onChangeText={(val) => {
                                     props.symptom === "Age (in years)" ? setPolioSymptoms({
                                         ...polioSymptoms,
                                         age: val
-                                    }, getAge(val),
-                                        setNoofDoses(val)
+                                    }, getAge(val)
                                     ) :
                                         props.symptom === "Days of Symptom" ? setPolioSymptoms({
                                             ...polioSymptoms,
@@ -140,8 +137,8 @@ function PolioSymptomOptions(props) {
                                         }, getDaysofSymptoms(val)) :
                                             setPolioSymptoms({
                                                 ...polioSymptoms,
-                                                noOfDoses: dosevalue
-                                            }, getDoses(dosevalue))
+                                                noOfDoses: val
+                                            }, getDoses(val))
                                 }}
                                 style={{
                                     color: '#001027',
