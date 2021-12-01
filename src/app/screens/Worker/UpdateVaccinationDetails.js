@@ -23,22 +23,22 @@ function UpdateVaccinationDetails(props) {
     const [confirmOTP, setconfirmOTP] = useState("")
     const [vacc_details, setVaccDetails] = useState({
         measles:
-            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+            JSON.stringify(props.childrens.find(o => o.childID === props.childID).vaccination[0].
                 measles.noOfDoses),
         opv:
-            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+            JSON.stringify(props.childrens.find(o => o.childID === props.childID).vaccination[0].
                 opv.noOfDoses),
         bcg:
             // ChildDetails[props.childid].vaccination.Homophiles,
-            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+            JSON.stringify(props.childrens.find(o => o.childID === props.childID).vaccination[0].
                 bcg.noOfDoses),
         pentavalent:
             // ChildDetails[props.childid].vaccination.Rota_Virus,
-            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+            JSON.stringify(props.childrens.find(o => o.childID === props.childID).vaccination[0].
                 pentavalent.noOfDoses),
         pcv:
             // ChildDetails[props.childid].vaccination.Measles,
-            JSON.stringify(props.childrens[0].find(o => o.childID === props.childID).vaccination[0].
+            JSON.stringify(props.childrens.find(o => o.childID === props.childID).vaccination[0].
                 pcv.noOfDoses)
 
     })

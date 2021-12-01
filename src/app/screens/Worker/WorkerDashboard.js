@@ -7,6 +7,7 @@ import { Input } from 'react-native-elements';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import { ActivityIndicator, Colors } from 'react-native-paper';
+import filter from 'lodash.filter';
 function WorkerDashboard() {
   const child_details = (name, dob) => {
     return (
@@ -16,11 +17,14 @@ function WorkerDashboard() {
       </View>
     )
   }
+  const [query, setQuery] = useState('');
+  const [filterData, setFilterData] = useState(null);
   const [childrens, setchildrens] = useState(null);
   const [loading, setloading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setid] = useState(0);
   const [childID, setchildID] = useState(0);
+  const [count, setcount] = useState(0);
   const [vaccination, setvaccination] = useState({
     measles: null, opv: null, bcg: null,
     pentavalent: null, pcv: null
@@ -28,14 +32,15 @@ function WorkerDashboard() {
   const closeModal = () => {
     setModalVisible(false);
   }
-  const [index, setindex] = useState(0);
   const getChildList = () => {
+    setcount(1);
     setloading(true);
     axios.put(baseUrl + "/polioworker/children").
       then(function (response) {
-        let temp_arr = [];
-        temp_arr.push(response.data.data);
-        setchildrens(temp_arr)
+        setFilterData(response.data.data)
+        setchildrens(response.data.data)
+
+        // setcount(1);
         setloading(false);
       }).catch(function (error) {
         console.log("Error: " + JSON.stringify(error))
@@ -48,9 +53,29 @@ function WorkerDashboard() {
     />
   )} size={40} />
 
+  const handleSearch = (text) => {
+    setloading(true);
+    setloading(true);
+
+    const filteredData = filter(filterData, function (o) {
+      return contains(o.childID, o.parentName, text)
+    });
+    setchildrens(filteredData);
+    setloading(false);
+    setQuery(text);
+  };
+  const contains = (childID, parentName, query) => {
+    if (childID.includes(query) || parentName.includes(query)) {
+      return true;
+    }
+    return false;
+  };
   useEffect(() => {
-    getChildList();
-  }, [])
+    if (count == 0) {
+      getChildList();
+    }
+    // handleSearch();
+  }, [filterData])
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -64,6 +89,10 @@ function WorkerDashboard() {
                 color='black'
               />
             }
+            value={query}
+            onChangeText={(val) => {
+              handleSearch(val);
+            }}
           />
         </View>
         <View style={{
@@ -78,31 +107,32 @@ function WorkerDashboard() {
         <View style={{
           padding: 20
         }}>
-          {childrens && !loading ?
-            childrens[0].map((u, i) => {
-              return (
-                <Card key={i} id={i} onPress={() => {
-                  setid(u._id);
-                  setchildID(u.childID)
-                  setModalVisible(true);
-                }} style={{
-                  marginBottom: 16,
-                  borderRadius: 30,
-                  borderWidth: 1,
-                  borderColor: 'black',
-                }}>
-                  <Card.Title title={u.childID}
-                    // subtitleStyle={{ marginBottom: 2 }}
-                    subtitle={child_details(u.parentName,
-                      u.dateOfBirth)}
-                    left={LeftContent} />
-                </Card>
+          {
+            childrens ?
+              childrens.map((u, i) => {
+                return (
+                  <Card key={i} id={i} onPress={() => {
+                    setid(u._id);
+                    setchildID(u.childID)
+                    setModalVisible(true);
+                  }} style={{
+                    marginBottom: 16,
+                    borderRadius: 30,
+                    borderWidth: 1,
+                    borderColor: 'black',
+                  }}>
+                    <Card.Title title={u.childID}
+                      // subtitleStyle={{ marginBottom: 2 }}
+                      subtitle={child_details(u.parentName,
+                        u.dateOfBirth)}
+                      left={LeftContent} />
+                  </Card>
 
-              );
-            })
-            : <ActivityIndicator animating={loading}
-              size={40}
-              color={Colors.red800} />}
+                );
+              })
+              : <ActivityIndicator animating={loading}
+                size={40}
+                color={Colors.red800} />}
         </View>
         <Modal
           animationType="slide"
