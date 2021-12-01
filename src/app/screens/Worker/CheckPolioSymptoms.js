@@ -20,7 +20,16 @@ function CheckPolioSymptoms() {
         vomiting,
         daysofsymptom,
         limping,
-        pain, symptominparents
+        pain, symptominparents,
+        getAge,
+        getDoses,
+        getFatigue,
+        getFever,
+        getHeadache,
+        getStiffness,
+        getVomiting,
+        getDaysofSymptoms,
+        getLimping, getPain, setParentSymptoms
     } = useContext(PolioContext)
     const closeMenu = () => {
         setModalVisible(false);
@@ -89,14 +98,40 @@ function CheckPolioSymptoms() {
                 ) {
                     setPolio(true);
                 }
+            } else {
+                setPolio(false);
             }
+
             setModalVisible(true)
+            // getAge(null);
+            // getDoses(null);
+            // getFatigue(null);
+            // getFever(null);
+            // getHeadache(null);
+            // getStiffness(null);
+            // getVomiting(null);
+            // getDaysofSymptoms(null);
+            // getLimping(null);
+            // getPain(null);
+            // setParentSymptoms(null);
         }
         else {
             Alert.alert("Polio Symptoms", "Please fill all the values!");
         }
     }
 
+    // useEffect(()=>{
+    //     checkPolio();
+    // },[ age,
+    //     noOfDoses,
+    //     fatigue,
+    //     fever,
+    //     headache,
+    //     stiffness,
+    //     vomiting,
+    //     daysofsymptom,
+    //     limping,
+    //     pain, symptominparents, ])
     return (
         <ScrollView>
             <Flex flex={1}
