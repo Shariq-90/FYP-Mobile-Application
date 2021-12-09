@@ -86,13 +86,13 @@ export default function WorkerSignIn({ navigation, route }) {
               <Text style={styles.buttonTextSubmit}>Login</Text>
             </TouchableOpacity>
           </View>
-          <View>
+          {/* <View>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('SignUp')} style={styles.buttonSubmit}>
               <Text style={styles.buttonTextSubmit}>Sign Up</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </View>
     </ScrollView>

@@ -19,18 +19,19 @@ export default function Login({ navigation, route }) {
           username: email,
           password: password,
         }).then(function (response) {
-          Alert.alert("Sign In", "Login Successful!", [
-            {
-              text: "OK", onPress: () => {
-                setLoginDetails({
-                  ...parentLogin,
-                  email: null,
-                  password: null
-                });
-                navigation.navigate("ParentDrawer");
-              }
-            }
-          ]);
+          // Alert.alert("Sign In", "Login Successful!", [
+          //   {
+          //     text: "OK", onPress: () => {
+          //       setLoginDetails({
+          //         ...parentLogin,
+          //         email: null,
+          //         password: null
+          //       });
+          //       navigation.navigate("ParentDrawer");
+          //     }
+          //   }
+          // ]);
+          navigation.navigate("ParentDrawer");
         }).catch(function (error) {
           // handle error
           Alert.alert("Sign In", "Please enter the correct credentials!");

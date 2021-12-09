@@ -5,6 +5,7 @@ import EditProfileScreen from '../screens/Parent/EditProfileScreen';
 import Splash from '../screens/Splash';
 import VaccinationDashboard from '../screens/Parent/VaccinationDashboard';
 import CheckChildGrowth from '../screens/Parent/CheckChildGrowth';
+import CheckPolioSymptoms from '../screens/Worker/CheckPolioSymptoms';
 const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
     return (
@@ -28,7 +29,7 @@ function DrawerNavigator() {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 }
-            }}/>
+            }} />
             <Drawer.Screen name="Vaccination Details" component={VaccinationDashboard} options={{
                 title: 'Vaccination Details',
                 headerStyle: {
@@ -38,9 +39,10 @@ function DrawerNavigator() {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 }
-            }}/>
-            <Drawer.Screen name="Child Growth" component={CheckChildGrowth} options={{
-                title: 'Child Growth',
+            }} />
+            <Drawer.Screen name="Check Child Growth" component={CheckChildGrowth} options={{
+                // headerShown: false,
+                title: 'Check Child Growth',
                 headerStyle: {
                     backgroundColor: '#001027',
                 },
@@ -48,7 +50,18 @@ function DrawerNavigator() {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 }
-            }}/>
+            }} />
+            <Drawer.Screen name="Polio Symptoms" component={CheckPolioSymptoms} options={{
+                // headerShown: false,
+                title: 'Polio Symptoms',
+                headerStyle: {
+                    backgroundColor: '#001027',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                }
+            }} />
             <Drawer.Screen name="Logout" component={Splash} />
         </Drawer.Navigator>
     )

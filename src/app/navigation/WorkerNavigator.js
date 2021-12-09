@@ -53,7 +53,7 @@ function WorkerNavigator() {
                     fontWeight: 'bold',
                 }
             }} />
-            <Drawer.Screen name="Check Child Growth" component={CheckChildGrowth} options={{
+            {/* <Drawer.Screen name="Check Child Growth" component={CheckChildGrowth} options={{
                 // headerShown: false,
                 title: 'Check Child Growth',
                 headerStyle: {
@@ -63,7 +63,7 @@ function WorkerNavigator() {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 }
-            }} />
+            }} /> */}
             <Drawer.Screen name="Un Vaccinated Children" component={UnvaccinatedChildrens} options={{
                 // headerShown: false,
                 title: 'UnVaccinated Children',
