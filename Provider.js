@@ -1,18 +1,18 @@
 import React, { useReducer } from 'react'
 const initialState = {
-    age: null,
-    noOfDoses: null,
-    fatigue: null,
-    fever: null,
-    headache: null,
-    stiffness: null,
-    vomiting: null,
-    daysofsymptom: null,
-    limping: null,
-    pain: null,
+    age: "",
+    noOfDoses: "",
+    fatigue: "",
+    fever: "",
+    headache: "",
+    stiffness: "",
+    vomiting: "",
+    daysofsymptom: "",
+    limping: "",
+    pain: "",
     symptomoptions: null,
     childgrowthval: null,
-    symptominparents: null,
+    symptominparents: "",
     updateChildList: false
 }
 

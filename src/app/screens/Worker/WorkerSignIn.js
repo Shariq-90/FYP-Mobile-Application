@@ -15,19 +15,25 @@ export default function WorkerSignIn({ navigation, route }) {
           username: email,
           password: password,
         }).then(function (response) {
-          Alert.alert("Sign In", "Login Successful!", [
-            {
-              text: "OK", onPress: () => {
-                navigation.navigate("WorkerDrawer");
-              }
-            }
-          ]);
+          // Alert.alert("Sign In", "Login Successful!", [
+          //   {
+          //     text: "OK", onPress: () => {
+          //       navigation.navigate("WorkerDrawer");
+          //     }
+          //   }
+          // ]);
+          setLoginDetails({
+            ...LoginDetails,
+            email: null,
+            password: null
+          })
+          navigation.navigate("WorkerDrawer");
         }).catch(function (error) {
           // handle error
           Alert.alert("Sign In", "Please enter the correct credentials! ");
         })
       }
-      catch(error){
+      catch (error) {
         alert("Please enter the correct credentials!")
       }
     } else {

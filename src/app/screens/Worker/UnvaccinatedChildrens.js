@@ -30,7 +30,7 @@ function UnvaccinatedChildrens(props, { navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headingArea}>
-                <Text style={styles.heading}>UnVaccinated Childrens</Text>
+                <Text style={styles.heading}>Unvaccinated Childrens</Text>
             </View>
             <View style={{ padding: 20 }}>
                 {ChildDetails.map((u, i) => {

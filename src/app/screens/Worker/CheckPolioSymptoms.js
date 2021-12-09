@@ -36,17 +36,17 @@ function CheckPolioSymptoms() {
     };
     const checkPolio = () => {
         if (
-            // age && 
-            noOfDoses
-            && daysofsymptom
-            && fatigue
-            && fever
-            && headache
-            && stiffness
-            && vomiting
-            && limping
-            && pain
-            && symptominparents
+            age !== "" &&
+            noOfDoses !== ""
+            && daysofsymptom !== ""
+            && fatigue !== ""
+            && fever !== ""
+            && headache !== ""
+            && stiffness !== ""
+            && vomiting !== ""
+            && limping !== ""
+            && pain !== ""
+            && symptominparents !== ""
         ) {
 
             if (parseInt(daysofsymptom) > 20) {
@@ -103,17 +103,17 @@ function CheckPolioSymptoms() {
             }
 
             setModalVisible(true)
-            // getAge(null);
-            // getDoses(null);
-            // getFatigue(null);
-            // getFever(null);
-            // getHeadache(null);
-            // getStiffness(null);
-            // getVomiting(null);
-            // getDaysofSymptoms(null);
-            // getLimping(null);
-            // getPain(null);
-            // setParentSymptoms(null);
+            getAge("");
+            getDoses("");
+            getFatigue("");
+            getFever("");
+            getHeadache("");
+            getStiffness("");
+            getVomiting("");
+            getDaysofSymptoms("");
+            getLimping("");
+            getPain("");
+            setParentSymptoms("");
         }
         else {
             Alert.alert("Polio Symptoms", "Please fill all the values!");
