@@ -10,6 +10,7 @@ import GrossAndFineMotor from './GrossAndFineMotor';
 import ChildGrowthOp from './ChildGrowthOp';
 import RatingComponent from '../../RatingComponent';
 import { ActivityIndicator, Colors } from 'react-native-paper';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 function CheckChildGrowth() {
     const [loading, setLoading] = useState(false)
@@ -368,11 +369,6 @@ function CheckChildGrowth() {
             alert("Please fill all the values")
         }
     }
-    // useEffect(() => {
-    //     calculateGrossMotor();
-    //     calculateFineMotor();
-    //     fillChildGrowthValues(childgrowthvalues)
-    // }, [physicalskills, extraSkills])
     return (
         <ScrollView>
             <Flex
@@ -421,175 +417,202 @@ function CheckChildGrowth() {
                                 setTrait={setAge}
                             />
                         </Center>
-                        <Center >
-                            <GrossAndFineMotor i={0} j={1} k={2}
-                                symptom="Gross Motor"
+                        {/* <Center > */}
+                        <GrossAndFineMotor i={0} j={1} k={2}
+                            symptom="Gross Motor"
+                        />
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            marginLeft: 15
+                        }}>
+                            <FontAwesome name="chevron-right" size={20}
+                                style={{
+                                    marginRight: 5
+                                }} />
+                            <Heading textAlign="left"
+                                size="sm">{ChildGrowthQuestions.
+                                    find(o => o.key === "Gross Motor").
+                                    subquestions[0].data}</Heading>
+                            <RatingComponent rating={physicalskills.walking}
+                                setRating={calculateWalking}
                             />
-                            <View style={{
-                                marginTop: 10,
-                                flexDirection: 'row',
-                            }}>
-                                <Heading textAlign="left"
-                                    size="sm">{ChildGrowthQuestions.
-                                        find(o => o.key === "Gross Motor").
-                                        subquestions[0].data}</Heading>
-                                <RatingComponent rating={physicalskills.walking}
-                                    setRating={calculateWalking}
-                                />
-                            </View>
-                            <View style={{
-                                marginTop: 10,
-                                flexDirection: 'row',
-                            }}>
-                                <Heading textAlign="left"
-                                    size="sm">{ChildGrowthQuestions.
-                                        find(o => o.key === "Gross Motor").
-                                        subquestions[1].data}</Heading>
-                                <RatingComponent rating={physicalskills.jumping}
-                                    setRating={calculateJumping}
-                                />
-                            </View>
-                            <View style={{
-                                marginTop: 10,
-                                flexDirection: 'row',
-                            }}>
-                                <Heading textAlign="left"
-                                    size="sm">{ChildGrowthQuestions.
-                                        find(o => o.key === "Gross Motor").
-                                        subquestions[2].data}</Heading>
-                                <RatingComponent rating={physicalskills.running}
-                                    setRating={calculateRunning}
-                                />
-                            </View>
-                        </Center>
-                        <Center >
-                            <GrossAndFineMotor i={0} j={1} k={2}
-                                symptom="Fine Motor"
+                        </View>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            marginLeft: 15
+                        }}>
+                            <FontAwesome name="chevron-right" size={20}
+                                style={{
+                                    marginRight: 5
+                                }} />
+                            <Heading textAlign="left"
+                                size="sm">{ChildGrowthQuestions.
+                                    find(o => o.key === "Gross Motor").
+                                    subquestions[1].data}</Heading>
+                            <RatingComponent rating={physicalskills.jumping}
+                                setRating={calculateJumping}
                             />
-                            <View style={{
-                                marginTop: 10,
-                                flexDirection: 'row',
-                                // width: 370
-                            }}>
-                                <Heading textAlign="left"
-                                    size="sm">{ChildGrowthQuestions.
-                                        find(o => o.key === "Fine Motor").
-                                        subquestions[0].data}</Heading>
-                                <RatingComponent rating={extraSkills.expressions}
-                                    setRating={calculateSocialExpressions}
-                                />
-                            </View>
-                            <View style={{
-                                marginTop: 10,
-                                flexDirection: 'row',
-                                // width: 370
-                            }}>
-                                <Heading textAlign="left"
-                                    size="sm">{ChildGrowthQuestions.
-                                        find(o => o.key === "Fine Motor").
-                                        subquestions[1].data}</Heading>
-                                <RatingComponent rating={extraSkills.gesture}
-                                    setRating={calculateGestures}
-                                />
-                            </View>
-                            <View style={{
-                                marginTop: 10,
-                                flexDirection: 'row',
-                                // width: 370
-                            }}>
-                                <Heading textAlign="left"
-                                    size="sm">{ChildGrowthQuestions.
-                                        find(o => o.key === "Fine Motor").
-                                        subquestions[2].data}</Heading>
-                                <RatingComponent rating={extraSkills.body_language}
-                                    setRating={calculateBodyLanguage}
-                                />
-                            </View>
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Communication"
-                                rating={childgrowthvalues.communicationSkill}
-                                setRating={calculateCommunication}
+                        </View>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            marginLeft: 15
+                        }}>
+                            <FontAwesome name="chevron-right" size={20}
+                                style={{
+                                    marginRight: 5
+                                }} />
+                            <Heading textAlign="left"
+                                size="sm">{ChildGrowthQuestions.
+                                    find(o => o.key === "Gross Motor").
+                                    subquestions[2].data}</Heading>
+                            <RatingComponent rating={physicalskills.running}
+                                setRating={calculateRunning}
                             />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Emotional Development"
-                                rating={childgrowthvalues.emotionalLevel}
-                                setRating={calculateEmotionalDevelopment}
+                        </View>
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <GrossAndFineMotor i={0} j={1} k={2}
+                            symptom="Fine Motor"
+                        />
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            marginLeft: 15
+                        }}>
+                            <FontAwesome name="chevron-right" size={20}
+                                style={{
+                                    marginRight: 5
+                                }} />
+                            <Heading textAlign="left"
+                                size="sm">{ChildGrowthQuestions.
+                                    find(o => o.key === "Fine Motor").
+                                    subquestions[0].data}</Heading>
+                            <RatingComponent rating={extraSkills.expressions}
+                                setRating={calculateSocialExpressions}
                             />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Attention and Concentration"
-                                rating={childgrowthvalues.attentionConcentration}
-                                setRating={calculateAttention}
+                        </View>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            marginLeft: 15
+                        }}>
+                            <FontAwesome name="chevron-right" size={20}
+                                style={{
+                                    marginRight: 5
+                                }} />
+                            <Heading textAlign="left"
+                                size="sm">{ChildGrowthQuestions.
+                                    find(o => o.key === "Fine Motor").
+                                    subquestions[1].data}</Heading>
+                            <RatingComponent rating={extraSkills.gesture}
+                                setRating={calculateGestures}
                             />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Overactivity and Impulsivity"
-                                rating={childgrowthvalues.overActivity}
-                                setRating={calculateOverActivity}
+                        </View>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            marginLeft: 15
+                        }}>
+                            <FontAwesome name="chevron-right" size={20}
+                                style={{
+                                    marginRight: 5
+                                }} />
+                            <Heading textAlign="left"
+                                size="sm">{ChildGrowthQuestions.
+                                    find(o => o.key === "Fine Motor").
+                                    subquestions[2].data}</Heading>
+                            <RatingComponent rating={extraSkills.body_language}
+                                setRating={calculateBodyLanguage}
                             />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Passivity/ Inactivity"
-                                rating={childgrowthvalues.inActivity}
-                                setRating={calculateInactivity}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Planning/ Organising"
-                                rating={childgrowthvalues.planningOrganization}
-                                setRating={calculatePlanning}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Perception of Directions"
-                                rating={childgrowthvalues.direction}
-                                setRating={calculateDirection}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Perception of Visual Forms and Figures"
-                                rating={childgrowthvalues.visual}
-                                setRating={calculateVisuals}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Memory"
-                                rating={childgrowthvalues.memory}
-                                setRating={calculateMemory}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Spoken Language"
-                                rating={childgrowthvalues.spokenSkill}
-                                setRating={calculateLanguager}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Reading/Writing"
-                                rating={childgrowthvalues.readingWriting}
-                                setRating={calculateReadingWriting}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Social Skills"
-                                rating={childgrowthvalues.socialSkill}
-                                setRating={calculateSocialSkills}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Emotional Problems"
-                                rating={childgrowthvalues.emotionalProblem}
-                                setRating={calculateEmotionalProblems}
-                            />
-                        </Center>
-                        <Center >
-                            <ChildGrowthOp symptom="Problem Solving"
-                                rating={childgrowthvalues.problemSolving}
-                                setRating={calculateProblemSolving}
-                            />
-                        </Center>
+                        </View>
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Communication"
+                            rating={childgrowthvalues.communicationSkill}
+                            setRating={calculateCommunication}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Emotional Development"
+                            rating={childgrowthvalues.emotionalLevel}
+                            setRating={calculateEmotionalDevelopment}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Attention and Concentration"
+                            rating={childgrowthvalues.attentionConcentration}
+                            setRating={calculateAttention}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Overactivity and Impulsivity"
+                            rating={childgrowthvalues.overActivity}
+                            setRating={calculateOverActivity}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Passivity/ Inactivity"
+                            rating={childgrowthvalues.inActivity}
+                            setRating={calculateInactivity}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Planning/ Organising"
+                            rating={childgrowthvalues.planningOrganization}
+                            setRating={calculatePlanning}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Perception of Directions"
+                            rating={childgrowthvalues.direction}
+                            setRating={calculateDirection}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Perception of Visual Forms and Figures"
+                            rating={childgrowthvalues.visual}
+                            setRating={calculateVisuals}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Memory"
+                            rating={childgrowthvalues.memory}
+                            setRating={calculateMemory}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Spoken Language"
+                            rating={childgrowthvalues.spokenSkill}
+                            setRating={calculateLanguager}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Reading/Writing"
+                            rating={childgrowthvalues.readingWriting}
+                            setRating={calculateReadingWriting}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Social Skills"
+                            rating={childgrowthvalues.socialSkill}
+                            setRating={calculateSocialSkills}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Emotional Problems"
+                            rating={childgrowthvalues.emotionalProblem}
+                            setRating={calculateEmotionalProblems}
+                        />
+                        {/* </Center> */}
+                        {/* <Center > */}
+                        <ChildGrowthOp symptom="Problem Solving"
+                            rating={childgrowthvalues.problemSolving}
+                            setRating={calculateProblemSolving}
+                        />
+                        {/* </Center> */}
                         <Center style={{ marginTop: 40, marginBottom: 40 }}>
                             <Button key="lg" size="lg" onPress={() => {
                                 // setModalVisible(true);

@@ -3,6 +3,7 @@ import React from 'react'
 import ChildGrowthQuestions from '../../../ChildGrowthQuestions'
 import { Rating } from 'react-native-elements';
 import RatingComponent from '../../RatingComponent';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 function ChildGrowthOp(props) {
     return (
         <View style={{
@@ -12,7 +13,14 @@ function ChildGrowthOp(props) {
             >
                 {ChildGrowthQuestions.find(o => o.key === props.symptom).key}
             </Heading>
-            <View >
+            <View style={{ flexDirection: 'row',
+        paddingHorizontal: 3
+        }}>
+                <FontAwesome name="chevron-right" size={20} 
+                style = {{
+                    marginTop: 24,
+                    marginRight: 5
+                }}/>
                 <Heading textAlign="left" mt="5" size="md">
                     {ChildGrowthQuestions.find(o => o.key ===
                         props.symptom).question}</Heading>
@@ -22,11 +30,12 @@ function ChildGrowthOp(props) {
                     imageSize={20}
                     onFinishRating={props.calculateMethod}
                 /> */}
-                <View style = {{marginTop: 10}}>
-                    <RatingComponent rating={props.rating}
-                        setRating={props.setRating}
-                    />
-                </View>
+
+            </View>
+            <View style={{ marginTop: 10 }}>
+                <RatingComponent rating={props.rating}
+                    setRating={props.setRating}
+                />
             </View>
         </View>
     )
