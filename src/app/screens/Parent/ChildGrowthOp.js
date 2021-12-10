@@ -5,12 +5,14 @@ import { Rating } from 'react-native-elements';
 import RatingComponent from '../../RatingComponent';
 function ChildGrowthOp(props) {
     return (
-        <View style={{ padding: 15 }}>
+        <View style={{
+            padding: 15,
+        }}>
             <Heading textAlign="center" size="lg"
             >
                 {ChildGrowthQuestions.find(o => o.key === props.symptom).key}
             </Heading>
-            <View>
+            <View >
                 <Heading textAlign="left" mt="5" size="md">
                     {ChildGrowthQuestions.find(o => o.key ===
                         props.symptom).question}</Heading>
@@ -20,9 +22,11 @@ function ChildGrowthOp(props) {
                     imageSize={20}
                     onFinishRating={props.calculateMethod}
                 /> */}
-                <RatingComponent rating = {props.rating}
-                setRating = {props.setRating}
-                />
+                <View style = {{marginTop: 10}}>
+                    <RatingComponent rating={props.rating}
+                        setRating={props.setRating}
+                    />
+                </View>
             </View>
         </View>
     )

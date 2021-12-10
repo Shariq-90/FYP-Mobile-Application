@@ -32,6 +32,11 @@ export default function Login({ navigation, route }) {
           //   }
           // ]);
           navigation.navigate("ParentDrawer");
+          setLoginDetails({
+            ...LoginDetails,
+            email: null,
+            password: null
+          })
         }).catch(function (error) {
           // handle error
           Alert.alert("Sign In", "Please enter the correct credentials!");

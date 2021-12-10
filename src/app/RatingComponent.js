@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     starImgStyle: {
-        width: 20,
-        height: 20,
+        width: 25,
+        height: 25,
         resizeMode: 'cover'
     }
 })

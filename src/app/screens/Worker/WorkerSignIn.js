@@ -22,12 +22,13 @@ export default function WorkerSignIn({ navigation, route }) {
           //     }
           //   }
           // ]);
+          
+          navigation.navigate("WorkerDrawer");
           setLoginDetails({
             ...LoginDetails,
             email: null,
             password: null
           })
-          navigation.navigate("WorkerDrawer");
         }).catch(function (error) {
           // handle error
           Alert.alert("Sign In", "Please enter the correct credentials! ");
@@ -56,6 +57,7 @@ export default function WorkerSignIn({ navigation, route }) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
+              value = {email}
               placeholder="Email Address"
               placeholderTextColor="#00000087"
               keyboardType='email-address'
@@ -70,6 +72,7 @@ export default function WorkerSignIn({ navigation, route }) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
+              value = {password}
               placeholder="Password"
               placeholderTextColor="#00000087"
               secureTextEntry={true}

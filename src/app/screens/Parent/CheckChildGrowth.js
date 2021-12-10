@@ -21,14 +21,14 @@ function CheckChildGrowth() {
     let [childgrowthvalues, setchildgrowthvalues] = useState({
         "age": null,
         "height": null,
-        "weight": null, "grossMotor": 1.1, "fineMotor": 1.1,
-        "overActivity": 1.1, "inActivity": 1.1, "communicationSkill": 1.1,
-        "problemSolving": 1.1, "memory": 1.1,
-        "socialSkill": 1.1, "attentionConcentration": 1.1, "direction": 1.1,
-        "visual": 1.1, "spokenSkill": 1.1, "readingWriting": 1.1,
-        "emotionalLevel": 1.1,
-        "planningOrganization": 1.1,
-        "emotionalProblem": 1.1
+        "weight": null, "grossMotor": null, "fineMotor": null,
+        "overActivity": null, "inActivity": null, "communicationSkill": null,
+        "problemSolving": null, "memory": null,
+        "socialSkill": null, "attentionConcentration": null, "direction": null,
+        "visual": null, "spokenSkill": null, "readingWriting": null,
+        "emotionalLevel": null,
+        "planningOrganization": null,
+        "emotionalProblem": null
     })
     function predictGrowth(mental_score, physical_score) {
         if (mental_score >= 0 && mental_score < 15) {
@@ -85,24 +85,10 @@ function CheckChildGrowth() {
 
 
     let [physicalskills, setPhysicalSkills] = useState({
-        walking: 1.1,
-        jumping: 1.1, running: 1.1
+        walking: null,
+        jumping: null, running: null
     })
-    const clearFormValues = () => {
-        setchildgrowthvalues({
-            ...childgrowthvalues,
-            "age": null,
-            "height": null,
-            "weight": null, "grossMotor": 1.1, "fineMotor": 1.1,
-            "overActivity": 1.1, "inActivity": 1.1, "communicationSkill": 1.1,
-            "problemSolving": 1.1, "memory": 1.1,
-            "socialSkill": 1.1, "attentionConcentration": 1.1, "direction": 1.1,
-            "visual": 1.1, "spokenSkill": 1.1, "readingWriting": 1.1,
-            "emotionalLevel": 1.1,
-            "planningOrganization": 1.1,
-            "emotionalProblem": 1.1
-        })
-    }
+
     const calculateGrossMotor = () => {
         //console.log("W: " + physicalskills.walking);
         //console.log("R: " + physicalskills.running);
@@ -140,8 +126,8 @@ function CheckChildGrowth() {
     }
 
     let [extraSkills, setExtraSkills] = useState({
-        expressions: 1.1, gesture: 1.1,
-        body_language: 1.1
+        expressions: null, gesture: null,
+        body_language: null
     })
     function calculateFineMotor() {
         let fine =
@@ -286,13 +272,56 @@ function CheckChildGrowth() {
         })
         fillChildGrowthValues(childgrowthvalues)
     }
+    const clearFormValues = () => {
+        setchildgrowthvalues({
+            ...childgrowthvalues,
+            "age": null,
+            "height": null,
+            "weight": null, "grossMotor": null, "fineMotor": null,
+            "overActivity": null, "inActivity": null, "communicationSkill": null,
+            "problemSolving": null, "memory": null,
+            "socialSkill": null, "attentionConcentration": null, "direction": null,
+            "visual": null, "spokenSkill": null, "readingWriting": null,
+            "emotionalLevel": null,
+            "planningOrganization": null,
+            "emotionalProblem": null
+        })
+        setExtraSkills({
+            ...extraSkills,
+            expressions: null,
+            body_language: null,
+            gesture: null
+        })
+        setPhysicalSkills({
+            ...physicalskills,
+            walking: null,
+            jumping: null,
+            running: null
+        })
+    }
     const calculateChildGrowth = () => {
         calculateGrossMotor();
         calculateFineMotor();
         fillChildGrowthValues(childgrowthvalues);
         setLoading(true);
         if (childgrowthvalues.age
-            && childgrowthvalues.weight && childgrowthvalues.height) {
+            && childgrowthvalues.weight && childgrowthvalues.height
+            && childgrowthvalues.grossMotor
+            && childgrowthvalues.fineMotor
+            && childgrowthvalues.overActivity
+            && childgrowthvalues.inActivity
+            && childgrowthvalues.communicationSkill
+            && childgrowthvalues.problemSolving
+            && childgrowthvalues.memory
+            && childgrowthvalues.socialSkill
+            && childgrowthvalues.attentionConcentration
+            && childgrowthvalues.direction
+            && childgrowthvalues.visual
+            && childgrowthvalues.spokenSkill
+            && childgrowthvalues.readingWriting
+            && childgrowthvalues.emotionalLevel
+            && childgrowthvalues.planningOrganization
+            && childgrowthvalues.emotionalProblem) {
             const postValues = {
                 "age": Number(childgrowthvalues.age),
                 "height": Number(childgrowthvalues.height),
@@ -336,7 +365,7 @@ function CheckChildGrowth() {
                 })
         } else {
             setLoading(false);
-            alert("Please fill age, weight and height")
+            alert("Please fill all the values")
         }
     }
     // useEffect(() => {
@@ -440,6 +469,7 @@ function CheckChildGrowth() {
                             <View style={{
                                 marginTop: 10,
                                 flexDirection: 'row',
+                                // width: 370
                             }}>
                                 <Heading textAlign="left"
                                     size="sm">{ChildGrowthQuestions.
@@ -452,6 +482,7 @@ function CheckChildGrowth() {
                             <View style={{
                                 marginTop: 10,
                                 flexDirection: 'row',
+                                // width: 370
                             }}>
                                 <Heading textAlign="left"
                                     size="sm">{ChildGrowthQuestions.
@@ -464,6 +495,7 @@ function CheckChildGrowth() {
                             <View style={{
                                 marginTop: 10,
                                 flexDirection: 'row',
+                                // width: 370
                             }}>
                                 <Heading textAlign="left"
                                     size="sm">{ChildGrowthQuestions.

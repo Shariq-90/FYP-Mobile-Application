@@ -15,7 +15,8 @@ function PhysicalTraits(props) {
                 padding: 10,
                 fontWeight: "bold",
                 borderColor: 'black',
-                borderWidth: 0.5
+                borderWidth: 0.5,
+                borderRadius: 5
             }
             }
             placeholder={props.symptom}
