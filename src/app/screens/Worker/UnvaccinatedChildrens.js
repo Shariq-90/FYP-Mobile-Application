@@ -30,9 +30,9 @@ function UnvaccinatedChildrens(props, { navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headingArea}>
-                <Text style={styles.heading}>Unvaccinated Childrens</Text>
+                <Text style={styles.heading}>Unvaccinated Children</Text>
             </View>
-            <View style={{ padding: 20 }}>
+            <View style={{ padding: 20, marginTop: -20 }}>
                 {ChildDetails.map((u, i) => {
                     return (
                         <Card key={u.id} id={u.id} onPress={() => {
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     container: {
-        marginTop: 30
+        marginTop: 30,
+        
     },
     subtitle: {
         fontSize: 14,

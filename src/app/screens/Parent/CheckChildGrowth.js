@@ -11,7 +11,8 @@ import ChildGrowthOp from './ChildGrowthOp';
 import RatingComponent from '../../RatingComponent';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+// import { GestureHandler } from 'expo';
+// const { Swipeable } = GestureHandler;
 function CheckChildGrowth() {
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
@@ -622,6 +623,7 @@ function CheckChildGrowth() {
                             </Button>
                         </Center>
                     </View>}
+                {/* <Swipeable> */}
                 <Modal
                     animationType="slide"
                     visible={modalVisible}
@@ -636,6 +638,7 @@ function CheckChildGrowth() {
                         displayTextPhysical={physical}
                     />
                 </Modal>
+                {/* </Swipeable> */}
             </Flex>
         </ScrollView>
     )

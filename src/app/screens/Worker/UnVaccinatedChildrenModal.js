@@ -89,7 +89,7 @@ function UnVaccinatedChildrenModal(props) {
                             fontWeight: '200',
                             fontSize: 18
                         }}>{returnBoldText("Pentavalent: ")} */}
-                        <Text style={styles.text, {
+                        {/* <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18,
                             textAlign: 'left',
@@ -107,13 +107,37 @@ function UnVaccinatedChildrenModal(props) {
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("Pentavalent: ")} {ChildDetails[props.childid].vaccination.Rota_Virus}</Text>
-
+                        }}>{returnBoldText("Pentavalent: ")} {ChildDetails[props.childid].vaccination.Rota_Virus}</Text> */}
+                        <Text style={styles.text, {
+                            fontWeight: '200',
+                            fontSize: 18,
+                            textAlign: 'left',
+                            width: 270
+                        }}>{returnBoldText("Vaccine Allocated: ")} 100</Text>
+                        <Text style={styles.text, {
+                            fontWeight: '200',
+                            fontSize: 18,
+                            textAlign: 'left',
+                            width: 270
+                        }}>{returnBoldText("Vaccine Used: ")} 60</Text>
+                        <Text style={styles.text, {
+                            fontWeight: '200',
+                            fontSize: 18,
+                            textAlign: 'left',
+                            width: 270
+                        }}>{returnBoldText("Vaccine Remainning: ")} 40</Text>
                     </View>
                     <View style={styles.row, { marginTop: 20, alignSelf: 'center' }}>
                         <TouchableOpacity onPress={props.closeModal}
                         >
-                            <View>
+                            <View style = {styles.hideButton}>
+                                <Button
+                                    width={200}
+                                    size="lg" onPress={props.closeModal}>
+                                    Send Report
+                                </Button>
+                            </View>
+                            <View style = {styles.hideButton}>
                                 <Button
                                     width={200}
                                     size="lg" onPress={props.closeModal}>
@@ -132,6 +156,9 @@ const styles = StyleSheet.create({
     profileImage: {
         overflow: 'hidden',
     },
+    hideButton:{
+        marginTop: 20
+    },
     text: {
         textAlign: 'left'
     },
@@ -141,7 +168,7 @@ const styles = StyleSheet.create({
         width: "100%",
         alignSelf: 'center',
         borderWidth: 2,
-        marginTop:50
+        marginTop: 50
     },
     infoContainer: {
         alignItems: 'center',
