@@ -1,15 +1,34 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem }
+    from '@react-navigation/drawer';
 import ParentDashboard from '../screens/Parent/ParentDashboard';
 import EditProfileScreen from '../screens/Parent/EditProfileScreen';
 import Splash from '../screens/Splash';
 import VaccinationDashboard from '../screens/Parent/VaccinationDashboard';
 import CheckChildGrowth from '../screens/Parent/CheckChildGrowth';
 import CheckPolioSymptoms from '../screens/Worker/CheckPolioSymptoms';
+import { StackActions } from '@react-navigation/native';
+import { Text } from 'react-native';
+
+
 const Drawer = createDrawerNavigator();
+function CustomDrawerContent(props) {
+    return (
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label={() => <Text style={{ color: 'black' }}>Logout</Text>}
+                style={{ backgroundColor: 'white' }}
+                onPress={() => {
+                    props.navigation.navigate('Splash', { name: 'Omer' })
+                }}
+            />
+        </DrawerContentScrollView>
+    );
+}
 function DrawerNavigator() {
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+            drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Children Information" component={ParentDashboard} options={{
                 title: 'Children Information',
                 headerStyle: {
@@ -62,7 +81,29 @@ function DrawerNavigator() {
                     fontWeight: 'bold',
                 }
             }} />
-            <Drawer.Screen name="Logout" component={Splash} />
+            {/* <Drawer.Screen name="Logout" component={Splash}
+                // listeners={({ navigation, route }) => ({
+                //     tabPress: (e) => {
+                //         // Prevent default action
+                //         e.preventDefault();
+                //         navigation.dispatch(StackActions.popToTop());
+                //         // Do something with the `navigation` object
+                //         navigation.navigate('Splash');
+                //     },
+                // })}
+                options={{
+                    // headerShown: false,
+                    title: 'Logout',
+                    headerStyle: {
+                        backgroundColor: '#001027',
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    }
+                }}
+
+            /> */}
         </Drawer.Navigator>
     )
 }

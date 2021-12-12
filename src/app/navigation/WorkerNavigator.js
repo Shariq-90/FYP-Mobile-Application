@@ -1,5 +1,6 @@
 import React from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem }
+    from '@react-navigation/drawer';
 import WorkerDashboard from '../screens/Worker/WorkerDashboard';
 import Splash from '../screens/Splash';
 import CheckPolioSymptoms from '../screens/Worker/CheckPolioSymptoms';
@@ -8,18 +9,27 @@ import EditProfileScreen from '../screens/Parent/EditProfileScreen';
 import UnvaccinatedChildrens from '../screens/Worker/UnvaccinatedChildrens';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
+import { Text } from 'react-native';
+
 
 const Drawer = createDrawerNavigator();
-const LogoutPrompt = () => {
-    axios.delete(baseUrl + '/users/logout').then(function (response) {
-        alert("You have been logged out")
-    }).catch(function (error) {
-        alert("Error: " + JSON.stringify(error))
-    })
+function CustomDrawerContent(props) {
+    return (
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label={() => <Text style={{ color: 'black' }}>Logout</Text>}
+                style={{ backgroundColor: 'white' }}
+                onPress={() => {
+                    props.navigation.navigate('Splash', { name: 'Omer' })
+                }}
+            />
+        </DrawerContentScrollView>
+    );
 }
 function WorkerNavigator() {
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+            drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="Children Information" component={WorkerDashboard} options={{
                 // headerShown: false,
                 title: 'Children Information',
@@ -64,19 +74,6 @@ function WorkerNavigator() {
                     fontWeight: 'bold',
                 }
             }} />
-            <Drawer.Screen name="Logout" component={Splash}
-                listeners={({ navigation, route }) => ({
-                    tabPress: (e) => {
-                        // Prevent default action
-                        e.preventDefault();
-                        LogoutPrompt();
-                        // Do something with the `navigation` object
-                        navigation.navigate('Splash');
-                    },
-                })}
-
-
-            />
         </Drawer.Navigator>
     )
 }

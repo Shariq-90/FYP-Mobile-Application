@@ -32,9 +32,9 @@ function ChildrenInformation(props, { navigation }) {
     }, [])
     const child_details = (name, dob) => {
         return (
-            <View>
+            <View style = {{marginTop: -10}}>
                 <Text style={styles.subtitle}>Parent Name: {name}</Text>
-                <Text style={styles.subtitle}>DOB: {dob}</Text>
+                {/* <Text style={styles.subtitle}>DOB: {dob}</Text> */}
             </View>
         )
     }
