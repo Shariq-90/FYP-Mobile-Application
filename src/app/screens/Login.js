@@ -15,32 +15,24 @@ export default function Login({ navigation, route }) {
   const parentLogin = () => {
     if (email && password) {
       try {
-        axios.post(baseUrl + "/users/login", {
-          username: email,
-          password: password,
-        }).then(function (response) {
-          // Alert.alert("Sign In", "Login Successful!", [
-          //   {
-          //     text: "OK", onPress: () => {
-          //       setLoginDetails({
-          //         ...parentLogin,
-          //         email: null,
-          //         password: null
-          //       });
-          //       navigation.navigate("ParentDrawer");
-          //     }
-          //   }
-          // ]);
-          navigation.navigate("ParentDrawer");
-          setLoginDetails({
-            ...LoginDetails,
-            email: null,
-            password: null
+        if (validateEmail(email)) {
+          axios.post(baseUrl + "/users/login", {
+            username: email,
+            password: password,
+          }).then(function (response) {
+            navigation.navigate("ParentDrawer");
+            setLoginDetails({
+              ...LoginDetails,
+              email: null,
+              password: null
+            })
+          }).catch(function (error) {
+            Alert.alert("Sign In", "Please enter the correct credentials!");
           })
-        }).catch(function (error) {
-          // handle error
-          Alert.alert("Sign In", "Please enter the correct credentials!");
-        })
+        }
+        else{
+          alert("Please enter a valid email!")
+        }
       }
       catch (Err) {
         alert("Please enter valid credentials!")

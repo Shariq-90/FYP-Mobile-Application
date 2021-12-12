@@ -20,7 +20,12 @@ function CustomDrawerContent(props) {
             <DrawerItem label={() => <Text style={{ color: 'black' }}>Logout</Text>}
                 style={{ backgroundColor: 'white' }}
                 onPress={() => {
-                    props.navigation.navigate('Splash', { name: 'Omer' })
+                    axios.delete(baseUrl + '/users/logout').
+                        then(function (response) {
+                            Alert.alert("Logout", "Logged out Successfully!")
+                            props.navigation.navigate('Splash', { name: 'Omer' })
+                        })
+
                 }}
             />
         </DrawerContentScrollView>

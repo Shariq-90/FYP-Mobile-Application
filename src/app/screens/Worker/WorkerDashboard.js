@@ -55,11 +55,6 @@ function WorkerDashboard() {
     setloading(true);
     axios.put(baseUrl + "/polioworker/children").
       then(function (response) {
-        const AreaWiseChildren = filter(response.data.data, function (o) {
-          return checkArea(o.address.area, workeraddress)
-        });
-        // setFilterData(AreaWiseChildren)
-        // setchildrens(AreaWiseChildren)
         setFilterData(response.data.data)
         setchildrens(response.data.data)
 

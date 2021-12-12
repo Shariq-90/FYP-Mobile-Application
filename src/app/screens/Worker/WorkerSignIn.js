@@ -8,42 +8,41 @@ import { PolioContext } from '../../../../Provider';
 export default function WorkerSignIn({ navigation, route }) {
   const [LoginDetails, setLoginDetails] = useState({ email: null, password: null })
   let { email, password } = LoginDetails;
-  const {setWorkerAddress} = useContext(PolioContext);
+  const { setWorkerAddress } = useContext(PolioContext);
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
   const WorkerLogin = () => {
     if (email && password) {
       try {
-        console.log(JSON.stringify(LoginDetails))
-        axios.post(baseUrl + "/users/login", {
-          username: email,
-          password: password,
-        }).then(function (response) {
-          // Alert.alert("Sign In", "Login Successful!", [
-          //   {
-          //     text: "OK", onPress: () => {
-          //       navigation.navigate("WorkerDrawer");
-          //     }
-          //   }
-          // ]);
-          // const {setWorkerAddress} = useContext(PolioContext);
-          // // setWorkerAddress(response)
-          // console.log("Response: "+ response.data)
-          navigation.navigate("WorkerDrawer");
-          setLoginDetails({
-            ...LoginDetails,
-            email: null,
-            password: null
+        if (validateEmail(email)) {
+          axios.post(baseUrl + "/users/login", {
+            username: email,
+            password: password,
+          }).then(function (response) {
+            navigation.navigate("ParentDrawer");
+            setLoginDetails({
+              ...LoginDetails,
+              email: null,
+              password: null
+            })
+          }).catch(function (error) {
+            Alert.alert("Sign In", "Please enter the correct credentials!");
           })
-        }).catch(function (error) {
-          // handle error
-          Alert.alert("Sign In", "Please enter the correct credentials! ");
-        })
+        }
+        else {
+          alert("Please enter a valid email!")
+        }
       }
-      catch (error) {
-        alert("Please enter the correct credentials!")
+      catch (Err) {
+        alert("Please enter valid credentials!")
       }
-    } else {
-      Alert.alert("SignIn", "Please fill all the details!")
     }
+    else {
+      Alert.alert("SignIn", "Please enter a valid email address!")
+    }
+
   }
   return (
     <ScrollView>
@@ -61,7 +60,7 @@ export default function WorkerSignIn({ navigation, route }) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              value = {email}
+              value={email}
               placeholder="Email Address"
               placeholderTextColor="#00000087"
               keyboardType='email-address'
@@ -76,7 +75,7 @@ export default function WorkerSignIn({ navigation, route }) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              value = {password}
+              value={password}
               placeholder="Password"
               placeholderTextColor="#00000087"
               secureTextEntry={true}

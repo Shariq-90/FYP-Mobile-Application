@@ -4,7 +4,10 @@ import { styles } from '../../styles/style';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
-
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 export default function SignUp({ navigation, route }) {
     const [parentDetails, setParentDetails] = useState({
         email: null, name: null, cnic: null, password: null, addr: null, area: null,
@@ -16,30 +19,35 @@ export default function SignUp({ navigation, route }) {
         if (email && name && cnic && password && addr && area && city
             && phoneNo
         ) {
-            axios.post(baseUrl + "/users/create", {
-                email: email,
-                name: name,
-                cnic: cnic,
-                userType: "parent",
-                password: password,
-                address: {
-                    addr: addr,
-                    area: area,
-                    city: city
-                },
-                phoneNo: phoneNo
-            }).then(function (response) {
-                Alert.alert("Sign Up", "User created successfully!");
-            }).catch(function (error) {
-                // handle error
-                Alert.alert("Error", JSON.stringify(error));
-            }).then(
-                setParentDetails({
-                    ...parentDetails,
-                    email: null, name: null, cnic: null, password: null, addr: null, area: null,
-                    city: null, phoneNo: null
-                })
-            )
+            if (validateEmail(email)) {
+                axios.post(baseUrl + "/users/create", {
+                    email: email,
+                    name: name,
+                    cnic: cnic,
+                    userType: "parent",
+                    password: password,
+                    address: {
+                        addr: addr,
+                        area: area,
+                        city: city
+                    },
+                    phoneNo: phoneNo
+                }).then(function (response) {
+                    Alert.alert("Sign Up", "User created successfully!");
+                }).catch(function (error) {
+                    // handle error
+                    Alert.alert("Error", JSON.stringify(error));
+                }).then(
+                    setParentDetails({
+                        ...parentDetails,
+                        email: null, name: null, cnic: null, password: null, addr: null, area: null,
+                        city: null, phoneNo: null
+                    })
+                )
+            }
+            else{
+                alert("Please enter a valid email!")
+            }
         } else {
             Alert.alert("SignUp", "Please fill all the details!")
         }
@@ -98,7 +106,7 @@ export default function SignUp({ navigation, route }) {
                                 })
                             }}
                         />
-                        
+
                     </View>
                     <View style={styles.inputView}>
                         <TextInput
@@ -115,7 +123,7 @@ export default function SignUp({ navigation, route }) {
                                 })
                             }}
                         />
-                        
+
                     </View>
                     <View style={styles.inputView}>
                         <TextInput

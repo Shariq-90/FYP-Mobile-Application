@@ -83,8 +83,10 @@ function ChildrenInfoModal(props) {
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18,
-                            textAlign: 'left',
-                            width: 270
+                            textAlign: 'left'
+                            // alignSelf: 'left'
+                            // width: 200,
+                        
                         }}>{returnBoldText("OPV: ")} {props.childrens.childrens.vaccination[0].opv.noOfDoses}</Text>
                         <Text style={[styles.text, {
                             fontWeight: '200',
@@ -107,7 +109,7 @@ function ChildrenInfoModal(props) {
                     <View style={styles.row, { marginTop: 20, alignSelf: 'center' }}>
                         <TouchableOpacity onPress={props.closeModal}
                         >
-                            <View style = {styles.bottomOptions}>
+                            <View style={styles.bottomOptions}>
                                 <Button
                                     width={300}
                                     size="lg" onPress={props.closeModal}>
@@ -139,9 +141,9 @@ function ChildrenInfoModal(props) {
                         setModalVisible(!modalVisible);
                     }}
                 >
-                    <ShowVaccinationSchedule 
+                    <ShowVaccinationSchedule
                         closeMenu={closeMenu}
-                        child_id = {props.childrens.childrens._id}
+                        child_id={props.childrens.childrens._id}
                     />
                 </Modal>
             </SafeAreaView>
@@ -154,16 +156,15 @@ const styles = StyleSheet.create({
         flex: 0.5,
         justifyContent: 'center'
     },
-    schedule: {
-    },
     profileImage: {
         overflow: 'hidden',
     },
-    text: {
-        textAlign: 'left'
-    },
+    // text: {
+    //     textAlign: 'left',
+    //     justifyCn: 'left'
+    // },
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: "white",
         width: "100%",
         alignSelf: 'center',

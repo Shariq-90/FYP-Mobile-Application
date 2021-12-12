@@ -8,7 +8,9 @@ import VaccinationDashboard from '../screens/Parent/VaccinationDashboard';
 import CheckChildGrowth from '../screens/Parent/CheckChildGrowth';
 import CheckPolioSymptoms from '../screens/Worker/CheckPolioSymptoms';
 import { StackActions } from '@react-navigation/native';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
+import axios from 'axios';
+import baseUrl from '../baseUrl';
 
 
 const Drawer = createDrawerNavigator();
@@ -19,7 +21,12 @@ function CustomDrawerContent(props) {
             <DrawerItem label={() => <Text style={{ color: 'black' }}>Logout</Text>}
                 style={{ backgroundColor: 'white' }}
                 onPress={() => {
-                    props.navigation.navigate('Splash', { name: 'Omer' })
+                    axios.delete(baseUrl + '/users/logout').
+                    then(function(response){
+                        Alert.alert("Logout","Logged out Successfully!")
+                        props.navigation.navigate('Splash', { name: 'Omer' })
+                    })
+                    
                 }}
             />
         </DrawerContentScrollView>
