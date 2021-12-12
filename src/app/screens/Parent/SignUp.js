@@ -8,12 +8,14 @@ import baseUrl from '../../baseUrl';
 export default function SignUp({ navigation, route }) {
     const [parentDetails, setParentDetails] = useState({
         email: null, name: null, cnic: null, password: null, addr: null, area: null,
-        city: null
+        city: null, phoneNo: null
     })
-    let { email, name, cnic, password, addr, area, city } = parentDetails;
+    let { phoneNo, email, name, cnic, password, addr, area, city } = parentDetails;
 
     const ParentSignup = () => {
-        if (email && name && cnic && password && addr && area && city) {
+        if (email && name && cnic && password && addr && area && city
+            && phoneNo
+        ) {
             axios.post(baseUrl + "/users/create", {
                 email: email,
                 name: name,
@@ -24,7 +26,8 @@ export default function SignUp({ navigation, route }) {
                     addr: addr,
                     area: area,
                     city: city
-                }
+                },
+                phoneNo: phoneNo
             }).then(function (response) {
                 Alert.alert("Sign Up", "User created successfully!");
             }).catch(function (error) {
@@ -34,7 +37,7 @@ export default function SignUp({ navigation, route }) {
                 setParentDetails({
                     ...parentDetails,
                     email: null, name: null, cnic: null, password: null, addr: null, area: null,
-                    city: null
+                    city: null, phoneNo: null
                 })
             )
         } else {
@@ -43,14 +46,14 @@ export default function SignUp({ navigation, route }) {
     }
     return (
         <ScrollView>
-            <View style={styles.container,{
+            <View style={styles.container, {
                 backgroundColor: 'white'
             }}>
                 <View style={styles.formsFieldsSection}>
                     <View style={styles.inputView}>
                         <TextInput
                             style={[styles.TextInput,
-                            {textAlign: 'left'}]
+                            { textAlign: 'left' }]
                             }
                             placeholder="Name"
                             placeholderTextColor="#00000087"
@@ -95,6 +98,24 @@ export default function SignUp({ navigation, route }) {
                                 })
                             }}
                         />
+                        
+                    </View>
+                    <View style={styles.inputView}>
+                        <TextInput
+                            style={styles.TextInput}
+                            placeholder="Phone Number"
+                            placeholderTextColor="#00000087"
+                            keyboardType='number-pad'
+                            value={phoneNo}
+                            name="phonenumber"
+                            onChangeText={(e) => {
+                                setParentDetails({
+                                    ...parentDetails,
+                                    phoneNo: e
+                                })
+                            }}
+                        />
+                        
                     </View>
                     <View style={styles.inputView}>
                         <TextInput

@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Text, TextInput, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { styles } from '../../styles/style';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import baseUrl from "../../baseUrl";
+import { PolioContext } from '../../../../Provider';
 export default function WorkerSignIn({ navigation, route }) {
   const [LoginDetails, setLoginDetails] = useState({ email: null, password: null })
   let { email, password } = LoginDetails;
-
+  const {setWorkerAddress} = useContext(PolioContext);
   const WorkerLogin = () => {
     if (email && password) {
       try {
+        console.log(JSON.stringify(LoginDetails))
         axios.post(baseUrl + "/users/login", {
           username: email,
           password: password,
@@ -22,7 +24,9 @@ export default function WorkerSignIn({ navigation, route }) {
           //     }
           //   }
           // ]);
-          
+          // const {setWorkerAddress} = useContext(PolioContext);
+          // // setWorkerAddress(response)
+          // console.log("Response: "+ response.data)
           navigation.navigate("WorkerDrawer");
           setLoginDetails({
             ...LoginDetails,

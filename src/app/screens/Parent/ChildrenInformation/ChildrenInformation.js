@@ -47,31 +47,31 @@ function ChildrenInformation(props, { navigation }) {
     return (
         <View>
             {childrens ?
-                // <Card key={childrens ? childrens.childrens.childID : ""}
-                //     id={childrens ? childrens.childrens.childID : ""}
-                //     onPress={() => {
-                //         setchildid(childrens ? childrens.childrens.childID : "");
-                //         setModalVisible(true);
-                //     }} style={{
-                //         marginBottom: 16,
-                //         borderRadius: 30,
-                //         borderWidth: 1,
-                //         borderColor: 'black'
-                //     }}>
-                //     <Card.Title title={childrens ? childrens.childrens.childID : ""}
-                //         // subtitleStyle={{ marginBottom: 2 }}
-                //         subtitle={child_details(childrens ? childrens.
-                //             childrens.parentName : "",
-                //             childrens ? childrens.
-                //                 childrens.dateOfBirth : "")}
-                //         subtitleStyle={{
-                //             position: 'relative',
-                //             top: 4
-                //         }}
-                //         left={LeftContent}
-                //     />
-                // </Card>
-                <Text>No data available</Text>
+                <Card key={childrens ? childrens.childrens.childID : ""}
+                    id={childrens ? childrens.childrens.childID : ""}
+                    onPress={() => {
+                        setchildid(childrens ? childrens.childrens.childID : "");
+                        setModalVisible(true);
+                    }} style={{
+                        marginBottom: 16,
+                        borderRadius: 30,
+                        borderWidth: 1,
+                        borderColor: 'black'
+                    }}>
+                    <Card.Title title={childrens ? childrens.childrens.childID : ""}
+                        // subtitleStyle={{ marginBottom: 2 }}
+                        subtitle={child_details(childrens ? childrens.
+                            childrens.parentName : "",
+                            childrens ? childrens.
+                                childrens.dateOfBirth : "")}
+                        subtitleStyle={{
+                            position: 'relative',
+                            top: 4
+                        }}
+                        left={LeftContent}
+                    />
+                </Card>
+                // <Text>No data available</Text>
                 // Alert.alert("sa",JSON.stringify(childrens))
                 : <Text>Loading ...</Text>}
             <Modal

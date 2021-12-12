@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Modal, StyleSheet, Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { Avatar, Button, Card, Title, Text } from 'react-native-paper';
 import UpdateVaccinationDetails from './UpdateVaccinationDetails.js';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import filter from 'lodash.filter';
+import { PolioContext } from '../../../../Provider.js';
 function WorkerDashboard() {
   const child_details = (name, dob) => {
     return (
@@ -17,6 +18,7 @@ function WorkerDashboard() {
       </View>
     )
   }
+  const { setWorkerAddress, workeraddress } = useContext(PolioContext)
   const [query, setQuery] = useState('');
   const [filterData, setFilterData] = useState(null);
   const [childrens, setchildrens] = useState(null);
@@ -32,11 +34,32 @@ function WorkerDashboard() {
   const closeModal = () => {
     setModalVisible(false);
   }
+  const getWorkerArea = () => {
+    axios.get(baseUrl + '/users/current').then(function (response) {
+      setWorkerAddress(response.data.data.user.address.area)
+    })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+  const checkArea = (area, query) => {
+    if (area.includes(query)) {
+      return true
+    };
+  }
   const getChildList = () => {
+
     setcount(1);
+    getWorkerArea();
     setloading(true);
     axios.put(baseUrl + "/polioworker/children").
       then(function (response) {
+        const AreaWiseChildren = filter(response.data.data, function (o) {
+          return checkArea(o.address.area, workeraddress)
+        });
+        // setFilterData(AreaWiseChildren)
+        // setchildrens(AreaWiseChildren)
         setFilterData(response.data.data)
         setchildrens(response.data.data)
 
@@ -64,6 +87,7 @@ function WorkerDashboard() {
     setloading(false);
     setQuery(text);
   };
+
   const contains = (childID, parentName, query) => {
     if (childID.includes(query) || parentName.includes(query)) {
       return true;
@@ -71,6 +95,7 @@ function WorkerDashboard() {
     return false;
   };
   useEffect(() => {
+
     if (count == 0) {
       getChildList();
     }
