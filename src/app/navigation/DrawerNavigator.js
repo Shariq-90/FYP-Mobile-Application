@@ -22,11 +22,11 @@ function CustomDrawerContent(props) {
                 style={{ backgroundColor: 'white' }}
                 onPress={() => {
                     axios.delete(baseUrl + '/users/logout').
-                    then(function(response){
-                        // Alert.alert("Logout","Logged out Successfully!")
-                        props.navigation.navigate('Splash', { name: 'Omer' })
-                    })
-                    
+                        then(function (response) {
+                            // Alert.alert("Logout","Logged out Successfully!")
+                            props.navigation.navigate('Splash', { name: 'Omer' })
+                        })
+
                 }}
             />
         </DrawerContentScrollView>
@@ -88,29 +88,6 @@ function DrawerNavigator() {
                     fontWeight: 'bold',
                 }
             }} />
-            {/* <Drawer.Screen name="Logout" component={Splash}
-                // listeners={({ navigation, route }) => ({
-                //     tabPress: (e) => {
-                //         // Prevent default action
-                //         e.preventDefault();
-                //         navigation.dispatch(StackActions.popToTop());
-                //         // Do something with the `navigation` object
-                //         navigation.navigate('Splash');
-                //     },
-                // })}
-                options={{
-                    // headerShown: false,
-                    title: 'Logout',
-                    headerStyle: {
-                        backgroundColor: '#001027',
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    }
-                }}
-
-            /> */}
         </Drawer.Navigator>
     )
 }

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, Button, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import { styles } from '../styles/style';
-import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
 
-export default function Login({ navigation, route }) {
+export default function Login({ navigation}) {
   const [LoginDetails, setLoginDetails] = useState({ email: null, password: null })
   let { email, password } = LoginDetails;
   function validateEmail(email) {

@@ -21,8 +21,11 @@ export default function App() {
   };
   return (
     <Provider>
-      <NativeBaseProvider>
+      {/* for storing global values */}
+      <NativeBaseProvider>    
+      {/* //for importing native-base library (styling) */}
         <NavigationContainer>
+          {/* for navigation */}
           <Stack.Navigator>
             <Stack.Screen name="Splash" component={Splash} options={{
               title: 'Child Immunization.', headerStyle: {

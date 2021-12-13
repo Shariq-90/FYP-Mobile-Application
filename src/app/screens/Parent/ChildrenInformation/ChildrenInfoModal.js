@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import {
-    Title,
-    Caption,
     Text
 } from "react-native-paper";
 
-// import Share from 'react-native-share';
 import { View, ScrollView, Modal, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { Button } from 'native-base';
 import ShowVaccinationSchedule from '../ShowVaccinationSchedule';
@@ -21,7 +18,6 @@ function ChildrenInfoModal(props) {
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
-
                 <View style={{ alignSelf: 'center', top: -55 }}>
                     <View style={styles.profileImage}>
                         <Image source={require('../../../assets/children.png')}
@@ -86,9 +82,6 @@ function ChildrenInfoModal(props) {
                             fontWeight: '200',
                             fontSize: 18,
                             textAlign: 'left'
-                            // alignSelf: 'left'
-                            // width: 200,
-
                         }}>{returnBoldText("OPV: ")} {props.childrens.childrens.vaccination[0].opv.noOfDoses}</Text>
                         <Text style={[styles.text, {
                             fontWeight: '200',
@@ -137,7 +130,6 @@ function ChildrenInfoModal(props) {
                 <Modal
                     animationType="slide"
                     visible={modalVisible}
-                    // transparent={true}
                     onRequestClose={() => {
                         Alert.alert("Modal has been closed.");
                         setModalVisible(!modalVisible);

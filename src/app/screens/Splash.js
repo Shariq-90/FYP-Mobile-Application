@@ -38,7 +38,7 @@ export default function Splash({ navigation }) {
           <LinearGradient style={styles.home_triangleButtongradient} colors={['#0Cb8B6', '#0df2c9']}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('WorkerSignIn', { name: 'Omer' })
+                navigation.navigate('WorkerSignIn', { name: 'Umar' })
               } style={styles.home_touchabletriangle}>
               <Icon
                 raised

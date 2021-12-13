@@ -232,7 +232,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             emotionalProblem: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateProblemSolving(rating) {
 
@@ -240,12 +239,7 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             problemSolving: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
-    // useEffect(() => {
-    //     console.log("Yellow bro!")
-    //     fillChildGrowthValues(childgrowthvalues);
-    // }, [childgrowthvalues])
     return (
         <ScrollView>
             <Center mt="4">

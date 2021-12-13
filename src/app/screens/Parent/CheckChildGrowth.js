@@ -11,8 +11,6 @@ import ChildGrowthOp from './ChildGrowthOp';
 import RatingComponent from '../../RatingComponent';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import { GestureHandler } from 'expo';
-// const { Swipeable } = GestureHandler;
 function CheckChildGrowth() {
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
@@ -60,30 +58,26 @@ function CheckChildGrowth() {
         }
     }
     function setAge(val) {
-        // console.log("Age: " + Number(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
             age: val
         })
-        // console.log("Age: " + childgrowthvalues.age)
     }
     function setWeight(val) {
-        //console.log("Weighr: " + parseFloat(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
             weight: val
         })
-        // console.log("we: " + childgrowthvalues.weight)
     }
     function setHeight(val) {
-        console.log("H: " + Number(val))
         setchildgrowthvalues({
             ...childgrowthvalues,
             height: val
         })
-        // console.log("he: " + childgrowthvalues.height)
     }
-
+    function calculateBMI(height, weight) {
+        return parseFloat(weight) / parseFloat(height);
+    }
 
 
     let [physicalskills, setPhysicalSkills] = useState({
@@ -324,10 +318,15 @@ function CheckChildGrowth() {
             && childgrowthvalues.emotionalLevel
             && childgrowthvalues.planningOrganization
             && childgrowthvalues.emotionalProblem) {
+            let bmi = calculateBMI(childgrowthvalues.height, childgrowthvalues.weight)
             const postValues = {
                 "age": Number(childgrowthvalues.age),
-                "height": Number(childgrowthvalues.height),
-                "weight": Number(childgrowthvalues.weight),
+                "height": Number(Number(bmi) < 12 ? 0.01 :
+                    Number(bmi) >= 12 && Number(bmi) < 25 ? 5.01 : 8.3
+                ),
+                "weight": Number(Number(bmi) < 12 ? 0.01 :
+                    Number(bmi) >= 12 && Number(bmi) < 25 ? 5.01 : 8.3
+                ),
                 "grossMotor": Number(childgrowthvalues.grossMotor),
                 "fineMotor": Number(childgrowthvalues.fineMotor),
                 "overActivity": Number(childgrowthvalues.overActivity),
@@ -345,11 +344,12 @@ function CheckChildGrowth() {
                 "planningOrganization": Number(childgrowthvalues.planningOrganization),
                 "emotionalProblem": Number(childgrowthvalues.emotionalProblem)
             }
-            //console.log("ChildGrowthVal: " + JSON.stringify(postValues));
+            console.log("ChildGrowthVal: " + JSON.stringify(postValues));
             axios.post("http://10.0.2.2:5000/getPredictions", postValues
             ).
                 then(function (response) {
                     setLoading(false);
+                    console.log("Response Message: " + JSON.stringify(response.data.Message))
                     let score = JSON.stringify(response.data.Message)
                     let mental_score = parseFloat(score.substring(18,
                         score.search("]")
@@ -365,10 +365,12 @@ function CheckChildGrowth() {
                 }).catch(function (error) {
                     console.log("Error: " + JSON.stringify(error))
                 })
-        } else {
+        }
+        else {
             setLoading(false);
             alert("Please fill all the values")
         }
+
     }
     return (
         <ScrollView>

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Modal, StyleSheet, Image, Alert } from 'react-native'
 import { Avatar, Card } from 'react-native-paper';
-// import { ListItem, Icon } from 'react-native-elements'
-import ChildDetails from './ChildDetails';
 import ChildrenInfoModal from './ChildrenInfoModal';
 import axios from 'axios';
 import baseUrl from '../../../baseUrl';
 
-function ChildrenInformation(props, { navigation }) {
+function ChildrenInformation() {
 
     const [childrens, setChildrens] = useState(null);
     const getChildrensList = () => {
         axios.get(baseUrl + "/parent/children").then(function (response) {
-            // console.log("Childrens: "+ JSON.stringify(children.childrens.address.addr))
             setChildrens({
                 ...childrens,
                 childrens: response.data.data
@@ -27,14 +24,15 @@ function ChildrenInformation(props, { navigation }) {
     const closeModal = () => {
         setModalVisible(false);
     }
-    useEffect(() => {
+    useEffect(() => {   // For getting children information
         getChildrensList();
-    }, [])
-    const child_details = (name, dob) => {
+    }, []) 
+    
+
+    const child_details = (name) => {
         return (
             <View style = {{marginTop: -10}}>
                 <Text style={styles.subtitle}>Parent Name: {name}</Text>
-                {/* <Text style={styles.subtitle}>DOB: {dob}</Text> */}
             </View>
         )
     }
@@ -61,19 +59,17 @@ function ChildrenInformation(props, { navigation }) {
                     <Card.Title title={childrens ? childrens.childrens.childID : ""}
                         // subtitleStyle={{ marginBottom: 2 }}
                         subtitle={child_details(childrens ? childrens.
-                            childrens.parentName : "",
-                            childrens ? childrens.
-                                childrens.dateOfBirth : "")}
+                            childrens.parentName : "")}
                         subtitleStyle={{
                             position: 'relative',
                             top: 4
                         }}
-                        left={LeftContent}
+                        left={LeftContent}    //For showing child image
                     />
                 </Card>
-                // <Text>No data available</Text>
-                // Alert.alert("sa",JSON.stringify(childrens))
                 : <Text>Loading ...</Text>}
+                 
+                 {/* //The modal used for showing information */}
             <Modal
                 animationType="slide"
                 visible={modalVisible}
