@@ -23,7 +23,7 @@ function CustomDrawerContent(props) {
                 onPress={() => {
                     axios.delete(baseUrl + '/users/logout').
                     then(function(response){
-                        Alert.alert("Logout","Logged out Successfully!")
+                        // Alert.alert("Logout","Logged out Successfully!")
                         props.navigation.navigate('Splash', { name: 'Omer' })
                     })
                     

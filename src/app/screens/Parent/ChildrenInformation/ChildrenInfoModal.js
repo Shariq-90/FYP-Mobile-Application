@@ -61,7 +61,9 @@ function ChildrenInfoModal(props) {
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("DOB: ")} {props.childrens.childrens.dateOfBirth}</Text>
+                        }}>{returnBoldText("DOB: ")} {props.childrens.childrens.dateOfBirth
+                            .toString().substring(0, 10)
+                            }</Text>
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
@@ -86,7 +88,7 @@ function ChildrenInfoModal(props) {
                             textAlign: 'left'
                             // alignSelf: 'left'
                             // width: 200,
-                        
+
                         }}>{returnBoldText("OPV: ")} {props.childrens.childrens.vaccination[0].opv.noOfDoses}</Text>
                         <Text style={[styles.text, {
                             fontWeight: '200',

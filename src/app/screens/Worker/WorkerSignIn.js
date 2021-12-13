@@ -21,7 +21,7 @@ export default function WorkerSignIn({ navigation, route }) {
             username: email,
             password: password,
           }).then(function (response) {
-            navigation.navigate("ParentDrawer");
+            navigation.navigate("WorkerDrawer");
             setLoginDetails({
               ...LoginDetails,
               email: null,

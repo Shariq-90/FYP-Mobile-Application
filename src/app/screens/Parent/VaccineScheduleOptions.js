@@ -13,7 +13,8 @@ function VaccineScheduleOptions(props) {
                     />}
             </DataTable.Cell>
             <DataTable.Cell >
-                {props.date}
+
+                {props.date.toString().substring(1,11)}
             </DataTable.Cell>
         </DataTable.Row>
     )

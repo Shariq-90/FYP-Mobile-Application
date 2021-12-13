@@ -164,6 +164,7 @@ function UpdateVaccinationDetails(props) {
                             keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
+                            editable={false} selectTextOnFocus={false}
                             value={measles}
                             onChangeText={(text) => {
                                 setVaccDetails({
@@ -183,6 +184,7 @@ function UpdateVaccinationDetails(props) {
                             keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
+                            editable={false} selectTextOnFocus={false}
                             value={bcg}
                             onChangeText={(text) => {
                                 setVaccDetails({
@@ -202,6 +204,7 @@ function UpdateVaccinationDetails(props) {
                             keyboardType='numeric'
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
+                            editable={false} selectTextOnFocus={false}
                             value={pentavalent}
                             onChangeText={(text) => {
                                 setVaccDetails({
@@ -219,6 +222,7 @@ function UpdateVaccinationDetails(props) {
                                 fontSize: 18
                             }}
                             keyboardType='numeric'
+                            editable={false} selectTextOnFocus={false}
                             style={{ textAlign: 'center' }}
                             placeholderTextColor="black"
                             value={pcv}
