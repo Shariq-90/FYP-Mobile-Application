@@ -44,7 +44,7 @@ function PolioSymptomOptions(props) {
                         direction="row"
                     >
                         <Center width="120">
-                            <Text style={{ fontSize: 17 }}>
+                            <Text style={{ fontSize: 16 }}>
                                 {props.textField && !props.experience ? "" : props.symptom}
                             </Text>
                         </Center>
@@ -53,68 +53,30 @@ function PolioSymptomOptions(props) {
                             <Radio.Group
                                 name="myRadioGroup"
                                 accessibilityLabel="favorite number"
-                                value={props.symptom === "Fever" ? fever :
-                                    props.symptom === "HeadAche" ? headache :
-                                        props.symptom === "Vomiting" ? vomiting :
-                                            props.symptom === "Fatigue" ? fatigue :
-                                                props.symptom === "Neck Stiffness" ? stiffness :
+                                value={props.symptom === "Fever?" ? fever :
+                                    props.symptom === "Headache?" ? headache :
+                                        props.symptom === "Vomiting?" ? vomiting :
+                                            props.symptom === "Fatigue?" ? fatigue :
+                                                props.symptom === "Neck Stiffness?" ? stiffness :
                                                     props.symptom === "Pain in Arms or Legs?" ? pain :
-                                                        props.symptom === "Do Parents have symptoms?" ? symptominparents :
+                                                        props.symptom === "Does anyone around child have polio?" ? symptominparents :
                                                             limping
                                 }
                                 onChange={(nextValue) => {
-                                    props.symptom === "Fever" ?
-                                        // setPolioSymptoms({
-                                        //     ...polioSymptoms,
-                                        //     fever: nextValue,
-                                        // },
+                                    props.symptom === "Fever?" ?
                                         getFever(nextValue) :
-                                        props.symptom === "HeadAche" ?
-                                            // setPolioSymptoms({
-                                            //     ...polioSymptoms,
-                                            //     headache: nextValue,
-                                            // }, 
+                                        props.symptom === "Headache?" ?
                                             getHeadache(nextValue) :
-                                            props.symptom === "Vomiting" ?
-                                                // setPolioSymptoms({
-                                                //     ...polioSymptoms,
-                                                //     vomiting: nextValue,
-
-                                                // }, 
+                                            props.symptom === "Vomiting?" ?
                                                 getVomiting(nextValue) :
-                                                props.symptom === "Fatigue" ?
-                                                    // setPolioSymptoms({
-                                                    //     ...polioSymptoms,
-                                                    //     fatigue: nextValue,
-
-                                                    // }, 
+                                                props.symptom === "Fatigue?" ?
                                                     getFatigue(nextValue) :
-                                                    props.symptom === "Neck Stiffness" ?
-                                                        //  setPolioSymptoms({
-                                                        //     ...polioSymptoms,
-                                                        //     stiffness: nextValue,
-
-                                                        // },
+                                                    props.symptom === "Neck Stiffness?" ?
                                                         getStiffness(nextValue) :
                                                         props.symptom === "Pain in Arms or Legs?" ?
-                                                            // setPolioSymptoms({
-                                                            //     ...polioSymptoms,
-                                                            //     pain: nextValue,
-
-                                                            // }, 
                                                             getPain(nextValue) :
-                                                            props.symptom === "Do Parents have symptoms?" ?
-                                                                // setPolioSymptoms({
-                                                                //     ...polioSymptoms,
-                                                                //     symptominparents: nextValue,
-
-                                                                // }, 
+                                                            props.symptom === "Does anyone around child have polio?" ?
                                                                 setParentSymptoms(nextValue) :
-                                                                // setPolioSymptoms({
-                                                                //     ...polioSymptoms,
-                                                                //     limping: nextValue,
-
-                                                                // }, 
                                                                 getLimping(nextValue)
                                 }}
                                 style={{
@@ -139,22 +101,10 @@ function PolioSymptomOptions(props) {
                                 }
                                 onChangeText={(val) => {
                                     props.symptom === "Age (in years)" ?
-                                        // setPolioSymptoms({
-                                        //     ...polioSymptoms,
-                                        //     age: val
-                                        // }, 
                                         getAge(val)
                                         :
                                         props.symptom === "Days of Symptom" ?
-                                            // setPolioSymptoms({
-                                            //     ...polioSymptoms,
-                                            //     daysofsymptom: val
-                                            // },
                                             getDaysofSymptoms(val) :
-                                            // setPolioSymptoms({
-                                //     ...polioSymptoms,
-                                //     noOfDoses: val
-                                // },
                                 getDoses(val)
                             }}
                             style={{

@@ -52,9 +52,10 @@ function ChildrenInformation() {
                         setModalVisible(true);
                     }} style={{
                         marginBottom: 16,
-                        borderRadius: 30,
+                        borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: 'black'
+                        borderColor: '#c7c7c7',
+
                     }}>
                     <Card.Title title={childrens ? childrens.childrens.childID : ""}
                         // subtitleStyle={{ marginBottom: 2 }}

@@ -27,7 +27,7 @@ function ParentProfile() {
                         <Title style={[styles.title, {
                             marginTop: 15,
                             marginBottom: 5
-                        }]}>Osama Habib</Title>
+                        }]}>Shariq Ahmed</Title>
                         <Caption style={styles.caption}>Bj_doe</Caption>
                     </View>
                 </View>
@@ -35,7 +35,7 @@ function ParentProfile() {
             <View style={styles.userInfoSection}>
                 <View style={styles.row}>
                     <Icon name="map-marker-radius" color="#777777" />
-                    <Text>Karachi, Pakistan</Text>
+                    <Text>Islamabad, Pakistan</Text>
                 </View>
             </View>
         </SafeAreaView>

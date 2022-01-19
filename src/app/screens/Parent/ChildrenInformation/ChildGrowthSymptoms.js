@@ -58,9 +58,6 @@ function ChildGrowthSymptoms(props) {
             ...extraSkills,
             walking: parseFloat(rating)
         })
-        // if (extraSkills.walking){
-        //     console.log("Walking: "+ extraSkills.walking)
-        // }
         calculateGrossMotor(extraSkills)
     }
     function calculateJumping(rating) {
@@ -111,7 +108,6 @@ function ChildGrowthSymptoms(props) {
                 ...childgrowthvalues,
                 grossMotor: parseFloat(gross)
             })
-            //fillChildGrowthValues(childgrowthvalues)
         }
     }
     function calculateFineMotor(physicalskills) {
@@ -127,7 +123,6 @@ function ChildGrowthSymptoms(props) {
                 ...childgrowthvalues,
                 fineMotor: parseFloat(fine)
             })
-            //fillChildGrowthValues(childgrowthvalues)
         }
     }
     function calculateCommunication(rating) {
@@ -136,7 +131,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             communicationSkill: parseFloat(rating)
         });
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalDevelopment(rating) {
 
@@ -144,7 +138,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             emotionalLevel: parseFloat(parseFloat(rating))
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateAttention(rating) {
 
@@ -152,7 +145,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             attentionConcentration: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateOverActivity(rating) {
 
@@ -160,7 +152,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             overActivity: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateInactivity(rating) {
 
@@ -168,7 +159,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             inActivity: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculatePlanning(rating) {
 
@@ -176,7 +166,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             planningOrganization: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateDirection(rating) {
 
@@ -184,7 +173,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             direction: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateVisuals(rating) {
 
@@ -192,7 +180,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             visual: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateMemory(rating) {
 
@@ -200,7 +187,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             memory: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateLanguager(rating) {
 
@@ -208,7 +194,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             spokenSkill: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateReadingWriting(rating) {
 
@@ -216,7 +201,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             readingWriting: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateSocialSkills(rating) {
 
@@ -224,7 +208,6 @@ function ChildGrowthSymptoms(props) {
             ...childgrowthvalues,
             socialSkill: parseFloat(rating)
         })
-        //fillChildGrowthValues(childgrowthvalues)
     }
     function calculateEmotionalProblems(rating) {
 

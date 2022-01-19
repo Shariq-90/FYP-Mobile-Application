@@ -107,14 +107,14 @@ export const styles = StyleSheet.create({
         top: 1,
         height: 50,
         flex: 1,
-        color: '#001027',
+        color: 'black',
         textAlign: "left",
         width: 320,
         padding: 10,
         fontWeight: "bold",
-        borderColor: 'black',
+        borderColor: '#c7c7c7',
         borderWidth: 0.5,
-        borderRadius: 3
+        borderRadius: 5
     },
     buttonSubmit: {
         backgroundColor: '#0Cb8B6',
@@ -122,7 +122,7 @@ export const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20
+        borderRadius: 10
     },
     buttonTextSubmit: {
         color: '#FFFFFF',
@@ -137,10 +137,10 @@ export const styles = StyleSheet.create({
         marginTop: '5%'
     },
     parentLogoImage: {
-        marginTop: 5,
+        marginTop: 40,
         justifyContent: 'center',
-        height: 130,
-        width: 150,
+        height: 100,
+        width: 120,
         resizeMode: 'stretch',
         margin: 10
     }

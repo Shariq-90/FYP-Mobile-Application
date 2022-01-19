@@ -137,9 +137,9 @@ function WorkerDashboard() {
                     setModalVisible(true);
                   }} style={{
                     marginBottom: 16,
-                    borderRadius: 30,
+                    borderRadius: 10,
                     borderWidth: 1,
-                    borderColor: 'black',
+                    borderColor: '#c7c7c7',
                   }}>
                     <Card.Title title={u.childID}
                       // subtitleStyle={{ marginBottom: 2 }}

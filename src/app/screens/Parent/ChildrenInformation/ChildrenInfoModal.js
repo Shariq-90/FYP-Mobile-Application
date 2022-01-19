@@ -29,7 +29,7 @@ function ChildrenInfoModal(props) {
                 <View style={styles.infoContainer}>
                     <Text style={styles.text, {
                         fontWeight: 'bold',
-                        fontSize: 20
+                        fontSize: 24
                     }}>{props.childrens.childrens.childID}</Text>
                     <View style={{
                         alignItems: 'flex-start',
@@ -67,13 +67,14 @@ function ChildrenInfoModal(props) {
                         <Text style={styles.text, {
                             fontWeight: '200',
                             fontSize: 18
-                        }}>{returnBoldText("BirthPlace: ")} {props.childrens.childrens.birthPlace}</Text>
+                        }}>{returnBoldText("Birth Place: ")} {props.childrens.childrens.birthPlace}</Text>
                     </View>
                     <Text style={styles.text, {
                         fontWeight: 'bold',
                         fontSize: 25,
                         marginTop: 20
-                    }}>Vaccination Information</Text>
+                    }}>Name and Vaccines Doses</Text>
+
                     <View style={{
                         marginTop: 20,
                         alignItems: 'flex-start'
@@ -153,10 +154,6 @@ const styles = StyleSheet.create({
     profileImage: {
         overflow: 'hidden',
     },
-    // text: {
-    //     textAlign: 'left',
-    //     justifyCn: 'left'
-    // },
     container: {
         // flex: 1,
         backgroundColor: "white",

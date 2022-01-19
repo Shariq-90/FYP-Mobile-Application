@@ -41,10 +41,6 @@ function ShowVaccinationSchedule(props) {
         setPage(0);
     }, [itemsPerPage]);
     return (
-        // <Center flex={1} px="3" flexDir="column"
-        //     alignSelf="center"
-        //     position="absolute"
-        //     top={20}>
         <ScrollView>
             <HStack flexDir="column">
                 <View style={{
@@ -66,10 +62,6 @@ function ShowVaccinationSchedule(props) {
             </HStack>
 
             {vaccinationdetails ?
-                // <Text>{JSON.stringify(vaccinationdetails.vaccinationdetails.data
-                // [0].vaccines.opv0.done)}
-                // </Text>
-
                 <HStack>
                     <DataTable>
                         <DataTable.Header>
@@ -78,91 +70,91 @@ function ShowVaccinationSchedule(props) {
                             <DataTable.Title >Scheduled Date</DataTable.Title>
                         </DataTable.Header>
 
-                        <VaccineScheduleOptions title="OPV0" done={
+                        <VaccineScheduleOptions title="Polio First Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv0.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv0.date)
                         } />
-                        <VaccineScheduleOptions title="OPV1" done={
+                        <VaccineScheduleOptions title="Polio Second Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv1.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv1.date)
                         } />
-                        <VaccineScheduleOptions title="OPV2" done={
+                        <VaccineScheduleOptions title="Polio Third Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv2.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv2.date)
                         } />
-                        <VaccineScheduleOptions title="OPV3" done={
+                        <VaccineScheduleOptions title="Polio Fourth Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv3.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.opv3.date)
                         } />
-                        <VaccineScheduleOptions title="measles0" done={
+                        <VaccineScheduleOptions title="Measles First Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.measles0.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.measles0.date)
                         } />
-                        <VaccineScheduleOptions title="measles1" done={
+                        <VaccineScheduleOptions title="Measles Second Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.measles1.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.measles1.date)
                         } />
-                        <VaccineScheduleOptions title="bcg" done={
+                        <VaccineScheduleOptions title="BCG First Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.bcg.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.bcg.date)
                         } />
-                        <VaccineScheduleOptions title="pentavalent0" done={
+                        <VaccineScheduleOptions title="Pentavalent First Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pentavalent0.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pentavalent0.date)
                         } />
-                        <VaccineScheduleOptions title="pentavalent1" done={
+                        <VaccineScheduleOptions title="Pentavalent Second Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pentavalent1.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pentavalent1.date)
                         } />
-                        <VaccineScheduleOptions title="pentavalent2" done={
+                        <VaccineScheduleOptions title="Pentavalent Third Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pentavalent2.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pentavalent2.date)
                         } />
-                        <VaccineScheduleOptions title="pcv0" done={
+                        <VaccineScheduleOptions title="PCV First Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pcv0.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pcv0.date)
                         } />
-                        <VaccineScheduleOptions title="pcv1" done={
+                        <VaccineScheduleOptions title="PCV Second Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pcv1.done)
                         } date={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pcv1.date)
                         } />
-                        <VaccineScheduleOptions title="pcv2" done={
+                        <VaccineScheduleOptions title="PCV Third Dose" done={
                             JSON.stringify(vaccinationdetails.vaccinationdetails.data
                             [0].vaccines.pcv2.done)
                         } date={
@@ -185,13 +177,18 @@ function ShowVaccinationSchedule(props) {
                 </Button>
             </HStack>
         </ScrollView>
-        // </Center>
     )
 }
 const styles = StyleSheet.create({
     modal: {
         width: '80%',
         backgroundColor: 'red'
+    },
+    tick: {
+        color: "green"
+    },
+    cross: {
+        color: "red"
     }
 })
 

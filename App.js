@@ -28,7 +28,7 @@ export default function App() {
           {/* for navigation */}
           <Stack.Navigator>
             <Stack.Screen name="Splash" component={Splash} options={{
-              title: 'Child Immunization.', headerStyle: {
+              title: 'Child Immunization', headerStyle: {
                 backgroundColor: '#001027',
               },
               headerTintColor: '#fff',

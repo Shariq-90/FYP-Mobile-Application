@@ -119,19 +119,6 @@ function CheckPolioSymptoms() {
             Alert.alert("Polio Symptoms", "Please fill all the values!");
         }
     }
-
-    // useEffect(()=>{
-    //     checkPolio();
-    // },[ age,
-    //     noOfDoses,
-    //     fatigue,
-    //     fever,
-    //     headache,
-    //     stiffness,
-    //     vomiting,
-    //     daysofsymptom,
-    //     limping,
-    //     pain, symptominparents, ])
     return (
         <ScrollView>
             <Flex flex={1}
@@ -145,51 +132,52 @@ function CheckPolioSymptoms() {
                         Check Polio Symptoms
                     </Heading>
                 </Center>
-                <Center style={{ marginTop: -30 }}>
+                <Center style={{
+                    borderRadius: 10,
+                    borderColor: '#c7c7c7',}}>
                     <PolioSymptomOptions symptom="Age (in years)" textField="true"
                     />
                 </Center>
-                <Center style={{ marginTop: -30 }}>
-                    <PolioSymptomOptions symptom="Days of Symptom" textField="true"
-                    />
-                </Center>
-                <Center style={{ marginTop: -30 }}>
+                <Center style={{margin: -30,
+                    borderRadius: 10,
+                    borderColor: '#c7c7c7',}}>
                     <PolioSymptomOptions symptom="No of Doses" textField="true"
                     />
                 </Center>
-                <Center >
-                    <PolioSymptomOptions symptom="Limping" />
+                <Center>
+                    <PolioSymptomOptions symptom="Does your child have muscle limping?" />
                 </Center>
+                {/*<Center style={{marginTop:10,marginBottom:10}}>*/}
+                {/*    Does your child have following symptoms?*/}
+                {/*</Center>*/}
                 <Center style={{ marginTop: -20 }}>
-                    <PolioSymptomOptions symptom="Fever" />
+                    <PolioSymptomOptions symptom="Fever?" />
+                </Center>
+                <Center>
+                    <PolioSymptomOptions symptom="Headache?" />
                 </Center>
                 <Center >
-                    <PolioSymptomOptions symptom="HeadAche" />
-                </Center>
-                {/* <Center >
-                    <PolioSymptomOptions symptom="Parent Have Symptoms?" />
-                </Center> */}
-                <Center >
-                    <PolioSymptomOptions symptom="Vomiting" />
+                    <PolioSymptomOptions symptom="Vomiting?" />
                 </Center>
                 <Center >
-                    <PolioSymptomOptions symptom="Fatigue" />
+                    <PolioSymptomOptions symptom="Fatigue?" />
                 </Center>
                 <Center >
-                    <PolioSymptomOptions symptom="Neck Stiffness" />
+                    <PolioSymptomOptions symptom="Neck Stiffness?" />
                 </Center>
                 <Center >
                     <PolioSymptomOptions symptom="Pain in Arms or Legs?" />
                 </Center>
                 <Center >
-                    <PolioSymptomOptions symptom="Do Parents have symptoms?" />
+                    <PolioSymptomOptions symptom="Does anyone around child have polio?" />
                 </Center>
-                {/* <Center style={{ marginTop: -30 }}>
-                    <PolioSymptomOptions 
-                    experience = "true"
-                    symptom="Since how many days are you experiencing these symptoms?" textField="true"
+                <Center style={{marginTop:10,marginBottom:10}}>
+                    From how many days your children is having above symptoms?
+                </Center>
+                <Center style={{ marginTop: -20 }}>
+                    <PolioSymptomOptions symptom="Days of Symptom" textField="true"
                     />
-                </Center> */}
+                </Center>
                 <Center style={{ marginTop: 40, marginBottom: 20 }}>
                     <Button key="lg" size="lg"
                         onPress={() => {
@@ -209,8 +197,8 @@ function CheckPolioSymptoms() {
                     }}
                 >
                     <GraphModal closeMenu={closeMenu}
-                        displayText={confirmPolio ? "You may have polio symptoms!" :
-                            "You don't have polio symptoms!"}
+                        displayText={confirmPolio ? "Child may have polio symptoms! Please consult doctor for proper examination" :
+                            "Child don't have polio symptoms!"}
                         polio="polio"
                     />
                 </Modal>
@@ -237,31 +225,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row'
     }
-    // top: {
-    //     position: 'relative',
-    //     backgroundColor: '#5257f2',
-    //     paddingRight: 12.7,
-    //     paddingLeft: 12.7,
-    //     height: 250
-    // },
-    // middle: {
-    //     width: "100%",
-    //     height: "100%",
-    //     flex: 1,
-    //     position: 'absolute',
-    //     zIndex: 2,
-    //     backgroundColor: "transparent",
-    //     paddingLeft: 26.3,
-    //     paddingRight: 26.3
-    // },
-    // TextContainer: {
-    //     color: "#fcfdff",
-    //     fontFamily: "GoogleSans-Bold",
-    //     fontSize: 24,
-    //     marginBottom: 30,
-    //     position: "relative",
-    //     top: "20%",
-    //     alignSelf: 'center'
-    // }
+
 })
 export default CheckPolioSymptoms

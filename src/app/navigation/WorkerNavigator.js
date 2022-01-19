@@ -10,6 +10,7 @@ import UnvaccinatedChildrens from '../screens/Worker/UnvaccinatedChildrens';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
 import { Text } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 const Drawer = createDrawerNavigator();
@@ -44,7 +45,7 @@ function WorkerNavigator() {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold',
-                }
+                },
             }} />
             <Drawer.Screen name="Polio Symptoms" component={CheckPolioSymptoms} options={{
                 // headerShown: false,

@@ -7,7 +7,7 @@ export default function Home({ navigation }) {
     <View style={styles.homeScreen}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('Details', { name: 'Omer' })
+          navigation.navigate('Details', { name: 'Umar' })
         }
         style={styles.roundButton}>
         <Text>I'm a button for Logging Into the portal.</Text>

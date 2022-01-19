@@ -8,13 +8,13 @@ import {
 } from "native-base"
 function DietPlans(props) {
     return (
-        <Center flex={1} px="3" flexDir="column"
-            alignSelf="center"
-            position="absolute"
-            top={10}
-        >
+        <ScrollView>
             <HStack >
-                <View >
+                <View style={{
+                    marginTop: 60,
+                    flex: 1,
+                    alignItems: 'center'
+                }}>
                     <Avatar.Icon {...props} icon={() => (
                         <Image
                             alt="Hello"
@@ -24,27 +24,66 @@ function DietPlans(props) {
                     )} size={100} />
                 </View>
             </HStack>
-            <HStack style={{ marginTop: 10 }}>
+            <HStack style={{
+                marginTop: 10,
+                alignSelf: 'center'
+            }}>
                 <Heading >
-                    Diet Plan for Your Child
+                    Diet Plans for Your Child
                 </Heading>
             </HStack>
-            <HStack style={{ marginTop: 10,
-            padding: 13
+            <HStack style={{
+                marginTop: 40,
+                alignSelf: 'center'
             }}>
-                <Text style={{ fontSize: 16,
-                textAlign: 'justify' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor condimentum lacinia quis vel eros donec ac odio tempor. Diam vel quam elementum pulvinar etiam. Convallis a cras semper auctor neque vitae tempus. Quam viverra orci sagittis eu volutpat. Nisi lacus sed viverra tellus in. Sagittis purus sit amet volutpat. Condimentum id venenatis a condimentum. Sapien eget mi proin sed libero enim sed faucibus. Euismod in pellentesque massa placerat duis. Vitae congue mauris rhoncus aenean vel elit scelerisque. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Quis enim lobortis scelerisque fermentum dui. Congue eu consequat ac felis donec et. Purus faucibus ornare suspendisse sed nisi lacus sed.
+                <Heading >
+                    For Mental Growth
+                </Heading>
+            </HStack>
+            <HStack style={{
+                marginTop: 10,
+                alignSelf: 'center',
+                padding: 13,
+            }}>
+                <Text style={{
+                    fontSize: 16,
+                    textAlign: 'justify'
+                }}>
+                    {props.mental}
                 </Text>
             </HStack>
-            <HStack style={{ marginTop: 10 }}>
-                <Button size="lg" backgroundColor = "#0Cb8B6"
-                onPress = {props.hideDietPlans}
+            <HStack style={{
+                marginTop: 10,
+                alignSelf: 'center'
+            }}>
+                <Heading >
+                    For Physical Growth
+                </Heading>
+            </HStack>
+            <HStack style={{
+                marginTop: 10,
+                padding: 13,
+                alignSelf: 'center'
+            }}>
+                <Text style={{
+                    fontSize: 16,
+                    textAlign: 'justify'
+                }}>
+                    {props.physical}
+                </Text>
+            </HStack>
+            <HStack style={{
+                marginTop: 10,
+                alignSelf: 'center',
+                marginBottom:30
+            }}>
+                <Button size="lg" backgroundColor="#0Cb8B6"
+                        onPress={props.hideDietPlans}
                 >
                     Hide
                 </Button>
             </HStack>
-        </Center>
+        </ScrollView>
     )
 }
 

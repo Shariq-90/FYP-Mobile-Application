@@ -14,7 +14,7 @@ export default function Splash({ navigation }) {
       }]}>
         <View style={styles.top_container}>
           <View style={styles.roundButton}>
-            <Text style={styles.welcomeSplashScreen}>Welcome Abroad!</Text>
+            <Text style={styles.welcomeSplashScreen}>Welcome!</Text>
             <Text style={styles.welcomeSubTitleSplashScreen}>In order to start kindly select one of the below.</Text>
           </View>
         </View>
@@ -22,10 +22,10 @@ export default function Splash({ navigation }) {
           position: 'absolute',
           top: "30%"
         }]}>
-          <LinearGradient style={styles.home_triangleButtongradient} colors={['#0Cb8B6', '#0df2c9']}>
+          <LinearGradient style={styles.home_triangleButtongradient} colors={['#0Cb8B6', 'transparent']}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('Login', { name: 'Omer' })
+                navigation.navigate('Login', { name: 'Umar' })
               } style={styles.home_touchabletriangle}>
               <Icon
                 raised
@@ -35,7 +35,7 @@ export default function Splash({ navigation }) {
                 Are you a Parent?</Text>
             </TouchableOpacity>
           </LinearGradient>
-          <LinearGradient style={styles.home_triangleButtongradient} colors={['#0Cb8B6', '#0df2c9']}>
+          <LinearGradient style={styles.home_triangleButtongradient} colors={['#0Cb8B6', 'transparent']}>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('WorkerSignIn', { name: 'Umar' })

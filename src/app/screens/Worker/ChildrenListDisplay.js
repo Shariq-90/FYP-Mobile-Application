@@ -33,24 +33,17 @@ function ChildrenListDisplay() {
         return (
             <View>
                 <Text style={styles.subtitle}>Parent Name: {name}</Text>
-                {/* <Text style={styles.subtitle}>DOB: {dob}</Text> */}
             </View>
         )
     }
     const handleSearch = text => {
         const formattedQuery = text.toLowerCase();
-        // setQuery(text);
         console.log("Formatted Query: " + formattedQuery)
-        // const filteredData = filter(fullData[0], user => {
-        //     return contains(user, formattedQuery);
-        // });
-        // setchildrens(filteredData);
+
 
     };
     const contains = (val, query) => {
-        // const { first, last } = name;
 
-        // if (first.includes(query) || last.includes(query) || email.includes(query)) {
         if (val.childID.includes(query) || val.parentName.includes(query)) {
             return true;
         }

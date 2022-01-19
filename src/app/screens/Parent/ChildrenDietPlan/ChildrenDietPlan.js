@@ -36,13 +36,7 @@ const styles = StyleSheet.create({
     panel: {
         padding: 20,
         backgroundColor: '#FFFFFF',
-        paddingTop: 20,
-        // borderTopLeftRadius: 20,
-        // borderTopRightRadius: 20,
-        // shadowColor: '#000000',
-        // shadowOffset: {width: 0, height: 0},
-        // shadowRadius: 5,
-        // shadowOpacity: 0.4,
+        paddingTop: 20
     },
     header: {
         backgroundColor: '#FFFFFF',

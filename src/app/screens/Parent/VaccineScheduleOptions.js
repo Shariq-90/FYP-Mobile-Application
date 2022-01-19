@@ -8,8 +8,8 @@ function VaccineScheduleOptions(props) {
             <DataTable.Cell>{props.title}</DataTable.Cell>
             <DataTable.Cell >
                 {props.done === "true" ?
-                    <FontAwesome name="check" size={20} /> :
-                    <FontAwesome name="times" size={20}
+                    <FontAwesome name="check" size={20} color={"green"} /> :
+                    <FontAwesome name="times" size={20} color={"red"}
                     />}
             </DataTable.Cell>
             <DataTable.Cell >

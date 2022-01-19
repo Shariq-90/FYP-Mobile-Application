@@ -24,13 +24,6 @@ function ChildGrowthOp(props) {
                 <Heading textAlign="left" mt="5" size="md">
                     {ChildGrowthQuestions.find(o => o.key ===
                         props.symptom).question}</Heading>
-                {/* <Rating
-                    count={5}
-                    startingValue={1}
-                    imageSize={20}
-                    onFinishRating={props.calculateMethod}
-                /> */}
-
             </View>
             <View style={{ marginTop: 10 }}>
                 <RatingComponent rating={props.rating}

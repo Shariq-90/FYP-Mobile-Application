@@ -1,25 +1,63 @@
-import React, { useState } from 'react'
-import { View, Text, Modal, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import ChildDetails from '../Parent/ChildrenInformation/ChildDetails';
-import ChildrenInfoModal from '../Parent/ChildrenInformation/ChildrenInfoModal';
-import UnVaccinatedChildrenModal from './UnVaccinatedChildrenModal';
-// import { ListItem, Icon } from 'react-native-elements'
-
-
-function UnvaccinatedChildrens(props, { navigation }) {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [childid, setchildid] = useState(0);
-    const closeModal = () => {
-        setModalVisible(false);
-    }
+import React, { useState, useEffect, useContext } from 'react'
+import { View, Modal, StyleSheet, Alert, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { Avatar, Button, Card, Title, Text } from 'react-native-paper';
+import UpdateVaccinationDetails from './UpdateVaccinationDetails.js';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input } from 'react-native-elements';
+import axios from 'axios';
+import baseUrl from '../../baseUrl';
+import { ActivityIndicator, Colors } from 'react-native-paper';
+import filter from 'lodash.filter';
+import { PolioContext } from '../../../../Provider.js';
+function UnVaccinatedChildrens() {
     const child_details = (name, dob) => {
         return (
-            <View style = {{position: 'absolute', bottom: 10}}>
+            <View>
                 <Text style={styles.subtitle}>Parent Name: {name}</Text>
                 {/* <Text style={styles.subtitle}>DOB: {dob}</Text> */}
             </View>
         )
+    }
+    const { setWorkerAddress, workeraddress } = useContext(PolioContext)
+    const [query, setQuery] = useState('');
+    const [filterData, setFilterData] = useState(null);
+    const [childrens, setchildrens] = useState(null);
+    const [loading, setloading] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [id, setid] = useState(0);
+    const [childID, setchildID] = useState(0);
+    const [count, setcount] = useState(0);
+    const [vaccination, setvaccination] = useState({
+        measles: null, opv: null, bcg: null,
+        pentavalent: null, pcv: null
+    });
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+    const getWorkerArea = () => {
+        axios.get(baseUrl + '/users/current').then(function (response) {
+            setWorkerAddress(response.data.data.user.address.area)
+        })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+    }
+    const getChildList = () => {
+
+        setcount(1);
+        getWorkerArea();
+        setloading(true);
+        axios.get(baseUrl + "/polioworker/nonvaccinatedchildren").
+        then(function (response) {
+            setFilterData(response.data.data.nonVaccinatedChildren)
+            setchildrens(response.data.data.nonVaccinatedChildren)
+
+            // setcount(1);
+            setloading(false);
+        }).catch(function (error) {
+            console.log("Error: " + JSON.stringify(error))
+        })
     }
     const LeftContent = props => <Avatar.Icon {...props} icon={() => (
         <Image
@@ -27,94 +65,157 @@ function UnvaccinatedChildrens(props, { navigation }) {
             style={{ width: 55, height: 55, borderRadius: 20 }}
         />
     )} size={40} />
-    return (
-        <View style={styles.container}>
-            <View style={styles.headingArea}>
-                <Text style={styles.heading}>Unvaccinated Children</Text>
-            </View>
-            <View style={{ padding: 20, marginTop: -20 }}>
-                {ChildDetails.map((u, i) => {
-                    return (
-                        <Card key={u.id} id={u.id} onPress={() => {
-                            setchildid(u.id);
-                            setModalVisible(true);
-                        }} style={{
-                            marginBottom: 16,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            borderColor: 'black',
-                        }}>
-                            <Card.Title title={u.name}
-                                // subtitleStyle={{ marginBottom: 2 }}
-                                subtitle={child_details(u.parentName,
-                                    u.dateOfBirth)}
-                                subtitleStyle={{
-                                    position: 'relative',
-                                    top: 4
-                                }}
-                                left={LeftContent}
-                            />
-                        </Card>
 
-                    );
-                })}
+    const handleSearch = (text) => {
+        setloading(true);
+        setloading(true);
+
+        const filteredData = filter(filterData, function (o) {
+            return contains(o.childID, o.parentName, text)
+        });
+        setchildrens(filteredData);
+        setloading(false);
+        setQuery(text);
+    };
+
+    const contains = (childID, parentName, query) => {
+        if (childID.includes(query) || parentName.includes(query)) {
+            return true;
+        }
+        return false;
+    };
+    useEffect(() => {
+
+        if (count == 0) {
+            getChildList();
+        }
+        // handleSearch();
+    }, [filterData])
+    return (
+        <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.searchIcon}>
+                    <Input
+                        placeholder='Search Child Id'
+                        rightIcon={
+                            <Icon
+                                name='search'
+                                size={20}
+                                color='black'
+                            />
+                        }
+                        value={query}
+                        onChangeText={(val) => {
+                            handleSearch(val);
+                        }}
+                    />
+                </View>
+                <View style={{
+                    flex: 1,
+                    alignItems: 'center',
+                }}>
+                    <Text style={{
+                        fontSize: 30,
+                        fontWeight: 'bold'
+                    }}>Unvaccinated Childrens</Text>
+                </View>
+                <View style={{
+                    padding: 20
+                }}>
+                    {
+                        childrens ?
+                            childrens.map((u, i) => {
+                                return (
+                                    <Card key={i} id={i} onPress={() => {
+                                        setid(u._id);
+                                        setchildID(u.childID)
+                                        setModalVisible(true);
+                                    }} style={{
+                                        marginBottom: 16,
+                                        borderRadius: 30,
+                                        borderWidth: 1,
+                                        borderColor: 'black',
+                                    }}>
+                                        <Card.Title title={u.childID}
+                                            // subtitleStyle={{ marginBottom: 2 }}
+                                                    subtitle={child_details(u.parentName,
+                                                        u.dateOfBirth)}
+                                                    left={LeftContent} />
+                                    </Card>
+
+                                );
+                            })
+                            : <ActivityIndicator animating={loading}
+                                                 size={40}
+                                                 color={Colors.red800} />}
+                </View>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    // transparent={true}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <UpdateVaccinationDetails id={id}
+                                              closeModal={closeModal}
+                                              childrens={childrens}
+                                              childID={childID}
+                    />
+                </Modal>
             </View>
-            <Modal
-                animationType="slide"
-                visible={modalVisible}
-                // transparent={true}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <UnVaccinatedChildrenModal childid={childid}
-                    closeModal={closeModal}
-                />
-            </Modal>
-        </View>
+        </ScrollView >
     )
 }
 
 const styles = StyleSheet.create({
-    ChildName: {
-        flexDirection: 'column',
-        textAlign: 'center',
-        marginTop: 20,
-        width: 100,
-        fontSize: 1,
-        fontWeight: 'bold'
+    container: {
+        backgroundColor: 'white',
+    },
+    searchIcon: {
+        flex: 1,
+        flexDirection: 'row',
+        alignSelf: 'flex-end'
+    },
+    ChildrensList: {
+        marginTop: 30,
+    },
+    subtitle: {
+        fontSize: 15,
     },
     heading: {
         fontSize: 30,
         fontWeight: 'bold'
     },
-    headingArea: {
+    cardstyles: {
+        flex: 1,
+        flexDirection: 'row',
+        padding: 30,
+        borderColor: 'black',
+    },
+    displaypicture: {
+        alignItems: 'flex-start'
+    },
+    childid: {
+        // marginTop: Platform.OS === 'ios' ? 0 : -12,
+        color: 'black',
+        fontSize: 20,
         alignSelf: 'center',
-        marginBottom: 30
     },
-    container: {
-        marginTop: 30,
-        
-    },
-    subtitle: {
+    searchFilterTextField: {
+        backgroundColor: '#eee',
+        fontWeight: 'bold',
         fontSize: 14,
+        width: 300,
+        borderRadius: 10,
+        paddingLeft: 15,
+        marginBottom: 10
     },
-    ViewDetailsButton: {
-        backgroundColor: '#0Cb8B6',
-        width: 80,
-        height: 80,
-        justifyContent: 'center',
-        borderRadius: 40,
-        marginLeft: 20
+    linearGradient: {
+        flex: 1,
+        width: '100%',
+        height: '100%'
     },
-    tinyImage: {
-        width: 100
-    },
-    Card: {
-        borderRadius: 20,
-    }
-
 })
-
-export default UnvaccinatedChildrens
+export default UnVaccinatedChildrens;

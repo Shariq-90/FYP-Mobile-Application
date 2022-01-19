@@ -38,14 +38,14 @@ export default function Login({ navigation}) {
       }
     }
     else {
-      Alert.alert("SignIn", "Please enter a valid email address!")
+      Alert.alert("Sign in", "Please enter valid credentials!")
     }
 
   }
   return (
     <ScrollView>
       <View style={[styles.container, {
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
         flex: 1,
         height: 800
       }]}>
@@ -61,7 +61,7 @@ export default function Login({ navigation}) {
               style={styles.TextInput}
               value={email}
               placeholder="Email Address"
-              placeholderTextColor="#00000087"
+              placeholderTextColor="#a6a6a6"
               keyboardType='email-address'
               onChangeText={(e) => {
                 setLoginDetails({
@@ -76,7 +76,7 @@ export default function Login({ navigation}) {
               style={styles.TextInput}
               placeholder="Password"
               value={password}
-              placeholderTextColor="#00000087"
+              placeholderTextColor="#a6a6a6"
               secureTextEntry={true}
               onChangeText={(e) => {
                 setLoginDetails({
